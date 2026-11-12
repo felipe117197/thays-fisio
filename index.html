@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thays Jesus Fisioterapia</title>
+<meta name="theme-color" content="#1E9A78">
+<meta name="description" content="Agenda, pacientes e financeiro do consultório Thays Jesus Fisioterapia">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Thays Fisio">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Plano: consultório claro e acolhedor. Verde-esmeralda (cor associada à fisioterapia) como principal, menta clara de fundo,
+   âmbar suave só para destaque. Cabeçalho branco com a logomarca Thays Jesus; agenda do dia como linha do tempo. Tema único claro. */
+:root{
+  --header:#FFFFFF; --header-ink:#173B35; --primary:#1E9A78; --primary-2:#16805F; --on-primary:#FFFFFF; --accent:#F2B84B; --accent-bg:#FFF4DC;
+  --bg:#F3FAF8; --surface:#FFFFFF; --surface-2:#F7FCFB; --ink:#1D3B36; --muted:#5F7A75; --line:#DCEDE8; --chip:#E7F5F1; --mint:#D9F2EA;
+  --ok:#1F8A52; --ok-bg:#E3F6EA; --warn:#9C6A0E; --warn-bg:#FFF2D9; --crit:#C24A3F; --crit-bg:#FDE9E6; --info:#2D72B8; --info-bg:#E6F0FB;
+  --lilac:#7B5FC7; --lilac-bg:#EFEAFB;
+  --f-display:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+  --f-body:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r:12px; color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.45 var(--f-body);font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+a{color:var(--info)}
+[hidden]{display:none !important}
+.ic{width:1.15em;height:1.15em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.2em;display:inline-block}
+.ic.lg{width:22px;height:22px}
+.ic.xl{width:40px;height:40px;stroke-width:1.6}
+
+/* Cabeçalho */
+.top{background:var(--header);color:var(--header-ink);border-bottom:1px solid var(--line);box-shadow:0 2px 14px rgba(30,154,120,.07)}
+.top-in{max-width:1240px;margin:0 auto;padding:14px 20px 0;display:grid;grid-template-columns:1fr auto;gap:12px 16px;align-items:center}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.logo{width:48px;height:48px;flex:none;display:block}
+.wordmark{display:grid;line-height:1}
+.wordmark b{font:700 23px/1 var(--f-display);letter-spacing:-.01em;color:var(--header-ink)}
+.wordmark span{font:700 10.5px/1 var(--f-body);letter-spacing:.32em;text-transform:uppercase;color:var(--primary);margin-top:5px}
+.brand h1{font-size:22px;font-weight:700;line-height:1.1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brand p{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
+.tabs{grid-column:1 / -1;display:flex;gap:2px;overflow-x:auto}
+.tabs a{display:inline-flex;align-items:center;gap:7px;color:var(--muted);text-decoration:none;font:600 15px/1 var(--f-body);padding:12px 14px 12px;border-radius:10px 10px 0 0;white-space:nowrap}
+.tabs a:hover{color:var(--primary);background:var(--surface-2)}
+.tabs a[aria-current="page"]{color:var(--primary-2);background:var(--bg);box-shadow:inset 0 3px 0 var(--primary)}
+
+/* Botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:600;white-space:nowrap;text-decoration:none;min-height:40px}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.btn.primary:hover{filter:brightness(1.08)}
+.top .btn.primary{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(30,154,120,.25)}
+.btn.ghost{background:transparent}
+.btn.danger{color:var(--crit);border-color:var(--crit)}
+.btn.ok{color:var(--ok);border-color:var(--ok)}
+.btn.sm{padding:5px 11px;font-size:13.5px;min-height:32px}
+.btn.icon{padding:0;width:40px}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.linkbtn{background:none;border:0;color:var(--info);cursor:pointer;padding:0;font-weight:600;display:inline-flex;align-items:center;gap:5px}
+
+main{max-width:1240px;margin:0 auto;padding:18px 20px 40px;display:grid;gap:16px}
+main > *,#body > *{min-width:0}
+#body{display:grid;gap:16px;min-width:0}
+#banner{max-width:1240px;margin:0 auto;padding:0 20px}
+#banner:empty{display:none}
+.note{margin-top:14px;padding:10px 14px;border-radius:var(--r);display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line)}
+.note > .ic{width:20px;height:20px}
+.note.warn{background:var(--warn-bg);border-color:transparent} .note.warn > .ic{color:var(--warn)}
+.note.info{background:var(--info-bg);border-color:transparent} .note.info > .ic{color:var(--info)}
+.note .grow{flex:1;min-width:200px}
+
+/* Indicadores */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}
+.tile{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.tile .ti{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--chip);color:var(--primary)}
+.tile .k{font-size:13px;font-weight:600;color:var(--muted);padding-right:44px}
+.tile .v{font:700 28px/1.15 var(--f-display);margin-top:6px}
+.tile .s{font-size:13px;color:var(--muted)}
+.tile.warn .ti{background:var(--warn-bg);color:var(--warn)} .tile.warn .v{color:var(--warn)}
+.tile.crit .ti{background:var(--crit-bg);color:var(--crit)} .tile.crit .v{color:var(--crit)}
+.tile.ok .ti{background:var(--ok-bg);color:var(--ok)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;min-width:0}
+.panel-h{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.panel h2{font-size:19px;font-weight:700;display:flex;align-items:center;gap:8px}
+.panel h2 > .ic{color:var(--primary)}
+.panel > h2{margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+@media (max-width:860px){.grid2{grid-template-columns:1fr}}
+.emptybox{display:grid;justify-items:center;gap:8px;text-align:center;color:var(--muted);padding:22px 10px}
+.emptybox .ic{color:var(--line)}
+.mini{display:inline-flex;align-items:center;gap:5px}
+.mini .ic{width:14px;height:14px}
+.muted{color:var(--muted)}
+.pos{color:var(--ok);font-weight:600}
+.neg{color:var(--crit);font-weight:600}
+
+/* Pílulas */
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap;background:var(--chip);color:var(--ink)}
+.pill .ic{width:13px;height:13px;stroke-width:2.4}
+.pill.agendado{background:var(--chip);color:var(--ink)}
+.pill.confirmado{background:var(--info-bg);color:var(--info)}
+.pill.realizado{background:var(--ok-bg);color:var(--ok)}
+.pill.falta{background:var(--crit-bg);color:var(--crit)}
+.pill.cancelado{background:var(--chip);color:var(--muted)}
+.pill.remarcado{background:var(--warn-bg);color:var(--warn)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.crit{background:var(--crit-bg);color:var(--crit)}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+
+/* Agenda */
+.agbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.seg2{display:inline-flex;background:var(--chip);border-radius:999px;padding:3px}
+.seg2 button{border:0;background:none;padding:7px 14px;border-radius:999px;cursor:pointer;font-weight:600;display:inline-flex;gap:6px;align-items:center;color:var(--muted)}
+.seg2 button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.agbar input[type=date]{padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.agbar .chk{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--muted)}
+.agbar .grow{flex:1}
+.navg{display:inline-flex;gap:6px}
+.dayhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.dayhead h2{font-size:24px;font-weight:700}
+.dayhead h2::first-letter{text-transform:uppercase}
+.timeline{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.slot{display:grid;grid-template-columns:74px 1fr;border-bottom:1px solid var(--line);min-height:58px}
+.slot:last-child{border-bottom:0}
+.slot .hr{font:600 20px/1 var(--f-display);color:var(--muted);padding:14px 0 0 16px;letter-spacing:-.02em}
+.slot.now .hr{color:var(--primary)}
+.slot.now{background:linear-gradient(90deg,var(--mint),transparent 40%)}
+.slot .cards{display:flex;flex-wrap:wrap;gap:8px;padding:8px 12px 8px 0;align-items:flex-start}
+.free{border:1px dashed var(--line);background:transparent;color:var(--muted);border-radius:8px;padding:9px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:14px;width:100%}
+.free:hover{border-color:var(--primary);color:var(--primary)}
+.ses{display:grid;gap:3px;text-align:left;border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:8px 12px 9px 14px;cursor:pointer;min-width:220px;flex:1 1 240px;box-shadow:inset 4px 0 0 var(--stripe,var(--line))}
+.ses:hover{border-color:var(--muted)}
+.ses .sh{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted)}
+.ses .sh b{font:700 16px/1 var(--f-display);color:var(--ink)}
+.ses .sn{font-weight:700;font-size:15.5px}
+.ses .sm{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
+.ses.st-confirmado{--stripe:var(--info)}
+.ses.st-realizado{--stripe:var(--ok)}
+.ses.st-falta{--stripe:var(--crit)}
+.ses.st-agendado{--stripe:var(--muted)}
+.ses.st-cancelado,.ses.st-remarcado{opacity:.6;--stripe:var(--line)}
+.ses.st-cancelado .sn{text-decoration:line-through}
+.ses.compact{min-width:0;flex:none;width:100%;padding:6px 8px 7px 11px}
+.ses.compact .sn{font-size:14px}
+.week{display:grid;grid-template-columns:repeat(var(--cols,6),minmax(0,1fr));gap:10px}
+@media (max-width:900px){.week{grid-template-columns:1fr}}
+.wcol{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px;display:grid;gap:7px;align-content:start;min-width:0}
+.wcol.today{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+.wh{display:flex;justify-content:space-between;align-items:center;border:0;background:none;cursor:pointer;padding:2px 2px 6px;font-weight:700;border-bottom:1px solid var(--line);text-align:left}
+.wh span{font-family:var(--f-display);font-size:16px}
+.wh small{color:var(--muted);font-weight:600}
+
+/* Pacientes */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.toolbar .grow{flex:1}
+.toolbar select,.toolbar input[type=month]{padding:9px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.search{position:relative;flex:1 1 260px;display:flex;color:var(--muted)}
+.search .ic{position:absolute;left:13px;top:50%;transform:translateY(-50%)}
+.search input{width:100%;min-width:200px;padding:9px 12px 9px 38px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.count{font-size:13px;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:8px;cursor:pointer;text-align:left}
+.pcard:hover{border-color:var(--muted)}
+.pcard.off{opacity:.6}
+.pcard .ph{display:flex;align-items:center;gap:10px}
+.av{width:40px;height:40px;border-radius:50%;background:var(--chip);color:var(--primary);display:grid;place-items:center;font:700 15px/1 var(--f-display);flex:none}
+.pcard .pn{font-weight:700;font-size:16px;line-height:1.2}
+.pcard .pl{display:grid;gap:4px;font-size:13.5px;color:var(--muted)}
+.pcard .pf{display:flex;flex-wrap:wrap;gap:6px}
+.wa{display:inline-flex;align-items:center;gap:6px;color:var(--ok);font-weight:600;text-decoration:none}
+
+/* Tabelas */
+.table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+table.t{width:100%;border-collapse:collapse;font-size:14px}
+.t th{font-size:12.5px;font-weight:600;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--surface-2);white-space:nowrap}
+.t th .ic{width:13px;height:13px;margin-right:4px;vertical-align:-.15em}
+.t td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.t tr:last-child td{border-bottom:0}
+.t .r{text-align:right}
+.t .acts{white-space:nowrap;text-align:right}
+.t .acts > * + *{margin-left:4px}
+.rows{display:grid;gap:6px}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 12px;border-radius:8px;background:var(--surface-2);box-shadow:inset 3px 0 0 var(--stripe,transparent)}
+.row.crit{--stripe:var(--crit)} .row.warn{--stripe:var(--warn)} .row.ok{--stripe:var(--ok)}
+.row .ri{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--chip);color:var(--primary)}
+.row.crit .ri{background:var(--crit-bg);color:var(--crit)} .row.warn .ri{background:var(--warn-bg);color:var(--warn)}
+.row .rt{min-width:0}
+.row .rt b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.row .rt span{font-size:13px;color:var(--muted)}
+.row .rv{display:flex;align-items:center;gap:8px;font-weight:700;white-space:nowrap}
+.bars{display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;font-size:14px}
+.bar .track{grid-column:1 / -1;height:8px;background:var(--chip);border-radius:4px;overflow:hidden}
+.bar .fill{height:100%;background:var(--primary);border-radius:4px}
+
+/* Modal */
+.backdrop{position:fixed;inset:0;background:rgba(23,59,53,.35);backdrop-filter:blur(2px);display:flex;align-items:flex-start;justify-content:center;padding:32px 12px;overflow-y:auto;z-index:20}
+.modal{background:var(--surface);color:var(--ink);border-radius:16px;width:100%;max-width:640px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.modal.wide{max-width:960px}
+.modal-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:18px 20px 8px}
+.modal-h h2{font-size:22px;display:flex;align-items:center;gap:10px}
+.hb{width:38px;height:38px;border-radius:12px;background:var(--chip);color:var(--primary);display:grid;place-items:center;flex:none}
+.hb .ic{width:20px;height:20px}
+.modal-b{padding:6px 20px 20px;display:grid;gap:14px}
+.modal-f{display:flex;justify-content:flex-end;gap:8px;padding:14px 20px;border-top:1px solid var(--line);background:var(--surface-2);border-radius:0 0 16px 16px;flex-wrap:wrap}
+.x{background:none;border:0;cursor:pointer;color:var(--muted);padding:4px;border-radius:8px}
+.x:hover{background:var(--chip)}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px}
+@media (max-width:560px){.fields{grid-template-columns:1fr}}
+.field{display:grid;gap:5px;min-width:0}
+.field.full{grid-column:1 / -1}
+.field > span{font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:5px}
+.field > span .ic{width:14px;height:14px}
+.field input,.field select,.field textarea{padding:10px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);width:100%}
+.field textarea{min-height:64px;resize:vertical}
+.field small{color:var(--muted);font-size:12.5px}
+.req::after{content:"*";color:var(--crit);margin-left:2px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0}
+.opt span{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border:1px solid var(--line);border-radius:999px;cursor:pointer;font-weight:600;font-size:14px}
+.opt input:checked + span{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.opt input:focus-visible + span{outline:2px solid var(--primary);outline-offset:2px}
+.hint{padding:10px 12px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line);font-size:14px;display:flex;gap:8px;align-items:flex-start}
+.hint .ic{margin-top:2px}
+.hint.warn{background:var(--warn-bg);border-color:transparent}
+.hint.crit{background:var(--crit-bg);border-color:transparent}
+.formerr{color:var(--crit);font-weight:600}
+.formerr:empty{display:none}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--muted)}
+.meta span{display:inline-flex;align-items:center;gap:6px}
+.meta .ic{color:var(--primary)}
+.meta b{color:var(--ink);font-weight:600}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.kpis > div{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.kpis .k{font-size:12.5px;font-weight:600;color:var(--muted);display:flex;gap:5px;align-items:center}
+.kpis .k .ic{width:13px;height:13px}
+.kpis .v{font:700 21px/1.2 var(--f-display);margin-top:3px}
+.sec h3{font-size:16px;display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.sec h3 .ic{color:var(--primary)}
+.chk{display:inline-flex;align-items:center;gap:7px;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--primary)}
+
+#toasts{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:grid;gap:8px;z-index:40;width:min(92vw,460px)}
+.toast{background:#173B35;color:#fff;padding:11px 16px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.3);display:flex;gap:10px;align-items:center}
+.toast .ic{color:#7FD6A3} .toast.err .ic{color:#F08177}
+.skel{color:var(--muted);padding:30px 0;text-align:center}
+@media (max-width:640px){
+  .top-in{padding:12px 14px 0}
+  main{padding:14px 14px 40px}
+  #banner{padding:0 14px}
+  .brand p{display:none}
+  .brand h1{font-size:19px}
+  .top .btn .lbl{display:none}
+  .slot{grid-template-columns:58px 1fr}
+  .slot .hr{font-size:17px;padding-left:12px}
+  .ses{min-width:0}
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .tile{padding:12px}
+  .tile .v{font-size:21px}
+  .tile .ti{width:30px;height:30px;top:10px;right:10px}
+  .tile .ti .ic{width:17px;height:17px}
+  .tile .k{padding-right:34px}
+  .agbar input[type=date]{flex:1;min-width:0}
+  .agbar .grow{display:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .modal{animation:pop .16s ease-out}
+  @keyframes pop{from{transform:translateY(8px);opacity:.6}to{transform:none;opacity:1}}
+}
+
+/* Ações rápidas, legenda, cores suaves */
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.qa{display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700;text-align:left;font-size:15px}
+.qa:hover{border-color:var(--primary);box-shadow:0 4px 14px rgba(30,154,120,.12)}
+.qa small{display:block;font-weight:500;color:var(--muted);font-size:12.5px;margin-top:1px}
+.qi{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;flex:none;background:var(--mint);color:var(--primary-2)}
+.qi .ic{width:21px;height:21px}
+.qi.amber{background:var(--accent-bg);color:#A16A00}.qi.lilac{background:var(--lilac-bg);color:var(--lilac)}.qi.blue{background:var(--info-bg);color:var(--info)}
+.tile .ti.amber{background:var(--accent-bg);color:#A16A00}.tile .ti.lilac{background:var(--lilac-bg);color:var(--lilac)}.tile .ti.blue{background:var(--info-bg);color:var(--info)}
+.legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
+.ses{background:#FFFFFF}
+.ses.st-confirmado{background:#F3F8FE}.ses.st-realizado{background:#F2FAF5}.ses.st-falta{background:#FDF4F2}
+.free .ic.soft{color:var(--accent)}
+.av{background:var(--avbg,var(--chip));color:var(--avfg,var(--primary))}
+.wh .ic{width:14px;height:14px;color:var(--primary);margin-right:4px}
+.logo-prev{background:linear-gradient(135deg,#FFFFFF,var(--mint));border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+.logo-prev svg{max-width:100%;height:auto}
+.oficial-box{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.oficial-box img{height:72px;width:auto;border-radius:8px;background:#fff;border:1px solid var(--line);padding:4px}
+@media (max-width:640px){.wordmark b{font-size:19px}.logo{width:40px;height:40px}#brand-oficial{height:32px !important}.qa{padding:10px}.qa small{display:none}}
+.wa-chip{border:0;cursor:pointer;background:#E3F6EA !important;color:#1F8A52 !important;font:inherit;font-size:12.5px;font-weight:700}
+.wa-chip:hover{background:#CDEFD9 !important}
+.wa-chip.sent{background:var(--chip) !important;color:var(--muted) !important}
+.ses.compact .wa-chip{padding:3px 6px}
+
+/* Tela de login */
+#login{position:fixed;inset:0;z-index:50;background:linear-gradient(160deg,#FFFFFF 0%,var(--mint) 100%);display:grid;place-items:center;padding:20px;overflow-y:auto}
+.login-card{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px 24px;box-shadow:0 20px 50px rgba(30,154,120,.15);display:grid;gap:4px;text-align:center}
+.login-logo{width:84px;height:84px;margin:0 auto 6px}
+.login-card h1{font-size:28px}
+.login-sub{margin:0 0 16px;font:700 11px/1 var(--f-body);letter-spacing:.34em;color:var(--primary)}
+#form-login{display:grid;gap:12px;text-align:left}
+body.locked .top,body.locked main,body.locked #banner{display:none}
+@supports(padding:max(0px)){.top-in{padding-top:max(14px,env(safe-area-inset-top))}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-userx" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 8 5 5"/><path d="m22 8-5 5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v8"/><path d="M8 12h8"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-okcircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-xcircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol>
+  <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></symbol>
+  <symbol id="i-chevl" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-chevr" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-cake" viewBox="0 0 24 24"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/></symbol>
+  <symbol id="i-idcard" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M13 10h5"/><path d="M13 14h4"/></symbol>
+  <symbol id="i-percent" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+  <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v6.5L4.5 19a1.5 1.5 0 0 0 1.3 2.2h12.4a1.5 1.5 0 0 0 1.3-2.2L14 9.5V3"/><path d="M7 15h10"/></symbol>
+  <symbol id="i-wifioff" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 4.17-2.65"/><path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76"/><path d="M16.85 11.25a10 10 0 0 1 2.22 1.68"/><path d="M5 13a10 10 0 0 1 5.24-2.76"/><path d="m2 2 20 20"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol>
+  <symbol id="i-arrowright" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-hash" viewBox="0 0 24 24"><path d="M4 9h16"/><path d="M4 15h16"/><path d="M10 3 8 21"/><path d="M16 3l-2 18"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-steth" viewBox="0 0 24 24"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
+  <symbol id="i-banknote" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24"><path d="M10 18v-7"/><path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></symbol>
+  <symbol id="i-barcode" viewBox="0 0 24 24"><path d="M3 5v14"/><path d="M7 5v14"/><path d="M11 5v14"/><path d="M14 5v14"/><path d="M18 5v14"/><path d="M21 5v14"/></symbol>
+  <symbol id="i-userplus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/></symbol>
+  <symbol id="i-calplus" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><path d="M3 10h18"/><path d="M16 19h6"/><path d="M19 16v6"/></symbol>
+  <symbol id="i-bone" viewBox="0 0 24 24"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></symbol>
+  <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></symbol>
+  <symbol id="i-handheart" viewBox="0 0 24 24"><path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16"/><path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 15 6 6"/><path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M12 8C10 4 7 3 6.5 5S9 8 12 8"/><path d="M12 8c2-4 5-5 5.5-3S15 8 12 8"/></symbol>
+  <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  <linearGradient id="lg-em" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3CCB9F"/><stop offset="1" stop-color="#168465"/></linearGradient>
+  <symbol id="logo-emblem" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="url(#lg-em)"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/><circle cx="32" cy="15.5" r="4.6" fill="#fff"/><path d="M17 25.5 Q32 20 47 25.5" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/><path d="M32 23.5 V39 Q32 49.5 22.5 49.5" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/><path d="M44.5 33.5 A14 14 0 0 1 37.5 47" fill="none" stroke="#FFE3A3" stroke-width="2.6" stroke-linecap="round"/><circle cx="46" cy="29.6" r="1.7" fill="#FFE3A3"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 64 64" role="img" aria-label="Logomarca Thays Jesus"><use href="#logo-emblem"/></svg>
+      <div style="min-width:0">
+        <div class="wordmark"><b id="brand-name">Thays Jesus</b><span>Fisioterapia</span></div>
+        <p id="brand-sub">Agenda · Pacientes · Financeiro</p>
+      </div>
+      <img id="brand-oficial" alt="Símbolo oficial da Fisioterapia" hidden style="height:40px;width:auto;margin-left:6px">
+    </div>
+    <button class="btn primary" data-action="new-ses" data-needs-write><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg><span class="lbl">Agendar</span></button>
+    <nav class="tabs" aria-label="Seções">
+      <a href="#agenda" data-tab="agenda"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg>Agenda</a>
+      <a href="#pacientes" data-tab="pacientes"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Pacientes</a>
+      <a href="#financeiro" data-tab="financeiro"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Financeiro</a>
+      <a href="#ajustes" data-tab="ajustes"><svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg>Ajustes</a>
+    </nav>
+  </div>
+</header>
+<section id="login" hidden>
+  <div class="login-card">
+    <svg class="login-logo" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo-emblem"/></svg>
+    <h1>Thays Jesus</h1><p class="login-sub">FISIOTERAPIA</p>
+    <form id="form-login" novalidate>
+      <label class="field"><span>CPF</span><input name="cpf" id="lg-cpf" inputmode="numeric" autocomplete="username" maxlength="14" placeholder="000.000.000-00"></label>
+      <label class="field"><span>Senha</span><input name="senha" id="lg-senha" type="password" autocomplete="current-password"></label>
+      <label class="chk" style="font-size:14px;color:var(--muted)"><input type="checkbox" id="lg-ver"> Mostrar senha</label>
+      <div class="formerr" id="login-err"></div>
+      <button type="submit" class="btn primary" style="width:100%;min-height:46px">Entrar</button>
+      <p class="muted" style="font-size:13px;text-align:center;margin:6px 0 0">Esqueceu a senha? Peça ao administrador para criar uma nova.</p>
+    </form>
+  </div>
+</section>
+<div id="banner"></div>
+<main id="main"><div class="skel">Carregando…</div></main>
+<div id="modal-root"></div>
+<div id="toasts" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="dados.js"></script>
+<script>
+(function(){
+'use strict';
+/* ================= Utilitários ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ic=(n,c)=>'<svg class="ic'+(c?' '+c:'')+'" aria-hidden="true"><use href="#i-'+n+'"/></svg>';
+const pad=n=>String(n).padStart(2,'0');
+const isoOf=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const dOf=iso=>{const[y,m,d]=iso.split('-').map(Number);return new Date(y,m-1,d);};
+const addD=(iso,n)=>{const d=dOf(iso);d.setDate(d.getDate()+n);return isoOf(d);};
+const today=()=>isoOf(new Date());
+const wd=iso=>dOf(iso).getDay();
+const monday=iso=>addD(iso,-((wd(iso)+6)%7));
+const ym=iso=>iso.slice(0,7);
+const dim=k=>new Date(+k.slice(0,4),+k.slice(5,7),0).getDate();
+const DOW=['dom','seg','ter','qua','qui','sex','sáb'];
+const DOWL=['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+const MES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const fmtD=iso=>iso?iso.slice(8,10)+'/'+iso.slice(5,7)+'/'+iso.slice(0,4):'—';
+const fmtDS=iso=>DOW[wd(iso)]+', '+iso.slice(8,10)+'/'+iso.slice(5,7);
+const fmtDL=iso=>DOWL[wd(iso)]+', '+(+iso.slice(8,10))+' de '+MES[+iso.slice(5,7)-1];
+const fmtYM=k=>MES[+k.slice(5,7)-1]+'/'+k.slice(0,4);
+const BRL=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
+const money=v=>BRL.format(Number(v)||0);
+const r2=n=>Math.round(n*100)/100;
+const toMin=h=>{const[a,b]=String(h||'0:0').split(':').map(Number);return(a||0)*60+(b||0);};
+const fromMin=m=>pad(Math.floor(m/60))+':'+pad(m%60);
+const norm=s=>String(s??'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const initials=n=>String(n||'?').trim().split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase()||'?';
+function* months(a,b){let y=+a.slice(0,4),m=+a.slice(5,7);const by=+b.slice(0,4),bm=+b.slice(5,7);let g=0;while((y<by||(y===by&&m<=bm))&&g++<240){yield y+'-'+pad(m);m++;if(m>12){m=1;y++;}}}
+function idade(n){if(!n)return'';const t=new Date(),d=dOf(n);let a=t.getFullYear()-d.getFullYear();if(t.getMonth()<d.getMonth()||(t.getMonth()===d.getMonth()&&t.getDate()<d.getDate()))a--;return a>=0&&a<130?a+' anos':'';}
+function phoneDigits(p){let d=String(p||'').replace(/\D/g,'');if(!d)return'';if(d.startsWith('0'))d=d.replace(/^0+/,'');if(d.length<=11)d='55'+d;return d;}
+function waLink(p,msg){const d=phoneDigits(p);return d?'https://wa.me/'+d+(msg?'?text='+encodeURIComponent(msg):''):'';}
+function extenso(v){
+  const u=['','um','dois','três','quatro','cinco','seis','sete','oito','nove','dez','onze','doze','treze','quatorze','quinze','dezesseis','dezessete','dezoito','dezenove'];
+  const d=['','','vinte','trinta','quarenta','cinquenta','sessenta','setenta','oitenta','noventa'];
+  const c=['','cento','duzentos','trezentos','quatrocentos','quinhentos','seiscentos','setecentos','oitocentos','novecentos'];
+  const ate999=n=>{if(!n)return'';if(n===100)return'cem';const p=[];const h=Math.floor(n/100),r=n%100;if(h)p.push(c[h]);if(r){if(r<20)p.push(u[r]);else{const t=Math.floor(r/10),o=r%10;p.push(o?d[t]+' e '+u[o]:d[t]);}}return p.join(' e ');};
+  const reais=Math.floor(v+1e-9),cent=Math.round((v-reais)*100);const parts=[];
+  if(reais){const mil=Math.floor(reais/1000),r=reais%1000;let s='';if(mil)s=mil===1?'mil':ate999(mil)+' mil';if(r)s+=(mil?((r<100||r%100===0)?' e ':' '):'')+ate999(r);parts.push(s+(reais===1?' real':' reais'));}
+  if(cent)parts.push(ate999(cent)+(cent===1?' centavo':' centavos'));
+  return parts.join(' e ')||'zero real';
+}
+
+/* ================= Domínio ================= */
+const ST={agendado:{l:'Agendado',i:'clock'},confirmado:{l:'Confirmado',i:'check'},realizado:{l:'Realizado',i:'okcircle'},falta:{l:'Falta',i:'userx'},cancelado:{l:'Cancelado',i:'xcircle'},remarcado:{l:'Remarcado',i:'rotate'}};
+const COB={avulsa:{l:'Sessão avulsa',s:'Avulsa',i:'coins'},pacote:{l:'Pacote',s:'Pacote',i:'box'},mensalidade:{l:'Mensalidade',s:'Mensal',i:'repeat'},convenio:{l:'Convênio',s:'Convênio',i:'shield'}};
+const FORMAS=['Pix','Dinheiro','Cartão de débito','Cartão de crédito','Transferência','Boleto'];
+const FORMA_IC={'Pix':'zap','Dinheiro':'banknote','Cartão de débito':'card','Cartão de crédito':'card','Transferência':'bank','Boleto':'barcode'};
+const fIc=f=>ic(FORMA_IC[f]||'wallet');
+const AVC=[['#DDF4EC','#16805F'],['#FFF0D6','#9A6400'],['#ECE7FB','#6A4FC0'],['#E3EFFB','#2D6CB0'],['#FCE6E3','#B5463B'],['#E6F3F7','#25748A']];
+const avStyle=n=>{let h=0;for(const ch of String(n||''))h=(h*31+ch.charCodeAt(0))>>>0;const c=AVC[h%AVC.length];return`style="--avbg:${c[0]};--avfg:${c[1]}"`;};
+const DEFAULT_MSG='Olá, {nome}! Passando para confirmar sua sessão de fisioterapia {dia} às {hora}{local}. Posso confirmar?';
+const ACTIVE=s=>s.status!=='cancelado'&&s.status!=='remarcado';
+const stPill=st=>{const x=ST[st]||ST.agendado;return`<span class="pill ${esc(st)}">${ic(x.i)}${x.l}</span>`;};
+const cobPill=c=>{const x=COB[c]||COB.avulsa;return`<span class="pill">${ic(x.i)}${x.s}</span>`;};
+const emptyBox=(n,t)=>`<div class="emptybox">${ic(n,'xl')}<span>${t}</span></div>`;
+
+const S={pac:new Map(),ses:[],pct:new Map(),pla:new Map(),rec:[],cfg:{},ready:{},live:{},timedOut:false,dbErr:null,noAccess:false,
+  tab:'agenda',view:'dia',day:today(),showCanc:false,pq:'',pst:'ativos',fmes:ym(today()),open:null};
+const COLLS={pacientes:'pac',sessoes:'ses',pacotes:'pct',planos:'pla',recebimentos:'rec'};
+let db=null,U=null,DL=null,myId=null,writable=true,loadTimer=null,D=null;
+const CFG=()=>Object.assign({nomeProfissional:'',crefito:'',documento:'',telefone:'',endereco:'',cidade:'',pix:'',valorPadrao:120,duracaoPadrao:50,inicioDia:'07:00',fimDia:'19:00',msgWhats:DEFAULT_MSG},S.cfg);
+const pacList=()=>[...S.pac.entries()].map(([id,d])=>({id,...d})).sort((a,b)=>String(a.nome).localeCompare(String(b.nome),'pt-BR'));
+const pacName=id=>(S.pac.get(id)||{}).nome||'Paciente removido';
+
+function derive(){
+  if(D)return D;
+  const paid=new Map(),convPaid=new Set();
+  for(const r of S.rec){
+    if(r.referencia==='convenio'){(r.sessoes||[]).forEach(id=>convPaid.add(id));continue;}
+    const k=r.referencia+':'+(r.refId||'')+':'+(r.competencia||'');paid.set(k,(paid.get(k)||0)+(+r.valor||0));
+  }
+  const uso=new Map();
+  for(const s of S.ses){if(!s.pacoteId)continue;const p=S.pct.get(s.pacoteId);if(!p)continue;if(s.status==='realizado'||(s.status==='falta'&&p.faltaConsome))uso.set(s.pacoteId,(uso.get(s.pacoteId)||0)+1);}
+  const t=today(),curM=ym(t);const pend=[],semPac=[],conv=[];
+  for(const s of S.ses){
+    if(s.cobranca==='avulsa'&&s.status==='realizado'&&+s.valor>0){const pg=paid.get('sessao:'+s.id+':')||0;const ab=r2(+s.valor-pg);if(ab>0.004)pend.push({key:'s:'+s.id,tipo:'sessao',pacienteId:s.pacienteId,venc:s.data,desc:'Sessão de '+fmtD(s.data),valor:+s.valor,pago:pg,aberto:ab,ref:'sessao',refId:s.id,comp:'',vencido:s.data<t});}
+    if(s.cobranca==='pacote'&&!s.pacoteId&&s.status==='realizado')semPac.push(s);
+    if(s.cobranca==='convenio'&&s.status==='realizado'&&!convPaid.has(s.id))conv.push(s);
+  }
+  for(const[id,p]of S.pct){const pg=paid.get('pacote:'+id+':')||0;const ab=r2(+p.valor-pg);if(ab>0.004)pend.push({key:'p:'+id,tipo:'pacote',pacienteId:p.pacienteId,venc:p.dataCompra||t,desc:'Pacote de '+p.qtd+' sessões',valor:+p.valor,pago:pg,aberto:ab,ref:'pacote',refId:id,comp:'',vencido:(p.dataCompra||t)<t});}
+  for(const[id,pl]of S.pla){
+    if(!pl.inicio)continue;const end=pl.ativo===false&&pl.fim?(pl.fim<curM?pl.fim:curM):curM;
+    for(const k of months(pl.inicio,end)){const venc=k+'-'+pad(Math.min(+pl.dia||10,dim(k)));const pg=paid.get('mensalidade:'+id+':'+k)||0;const ab=r2(+pl.valor-pg);if(ab>0.004)pend.push({key:'m:'+id+':'+k,tipo:'mensalidade',pacienteId:pl.pacienteId,venc,desc:'Mensalidade '+fmtYM(k),valor:+pl.valor,pago:pg,aberto:ab,ref:'mensalidade',refId:id,comp:k,vencido:venc<t});}
+  }
+  pend.sort((a,b)=>a.venc<b.venc?-1:a.venc>b.venc?1:0);
+  return D={paid,convPaid,uso,pend,semPac,conv};
+}
+const saldoPacote=id=>{const p=S.pct.get(id);return p?(+p.qtd||0)-(derive().uso.get(id)||0):0;};
+function pacotesDe(pid){return[...S.pct.entries()].map(([id,p])=>({id,...p})).filter(p=>p.pacienteId===pid).sort((a,b)=>String(a.dataCompra).localeCompare(String(b.dataCompra)));}
+function pickPacote(pid,isFalta){const t=today();return pacotesDe(pid).find(p=>saldoPacote(p.id)>0&&(!p.validade||p.validade>=t)&&(!isFalta||p.faltaConsome))||null;}
+function planoAtivo(pid){for(const[id,p]of S.pla)if(p.pacienteId===pid&&p.ativo!==false)return{id,...p};return null;}
+const pendDe=pid=>derive().pend.filter(p=>p.pacienteId===pid);
+function proxSessao(pid){const t=today();return S.ses.find(s=>s.pacienteId===pid&&ACTIVE(s)&&s.status!=='realizado'&&s.status!=='falta'&&s.data>=t)||null;}
+function conflicts(date,hora,dur,ignoreId){const a=toMin(hora),b=a+(+dur||50);return S.ses.filter(s=>s.id!==ignoreId&&s.data===date&&ACTIVE(s)&&toMin(s.hora)<b&&toMin(s.hora)+(+s.duracao||50)>a);}
+function whatsMsg(s){const p=S.pac.get(s.pacienteId)||{};const c=CFG();const dia=s.data===today()?'hoje':s.data===addD(today(),1)?'amanhã':fmtDS(s.data);
+  return String(c.msgWhats||DEFAULT_MSG).replace(/\{nome\}/g,String(p.nome||'').split(' ')[0]).replace(/\{dia\}/g,dia).replace(/\{hora\}/g,s.hora).replace(/\{local\}/g,s.local==='domicilio'?' em domicílio':' no consultório');}
+
+/* ================= Banner e abas ================= */
+function renderBanner(){
+  const parts=[];
+  if(S.dbErr==='config')parts.push(`<div class="note warn">${ic('alert')}<span class="grow"><b>App ainda não configurado.</b> Preencha o arquivo <b>config.js</b> com a URL e a chave do Supabase (passo 2 do LEIA-ME).</span></div>`);
+  else if(S.dbErr==='nodb')parts.push(`<div class="note warn">${ic('wifioff')}<span class="grow">Sem conexão com o servidor. Verifique a internet do aparelho.</span></div>`);
+  else if(S.dbErr)parts.push(`<div class="note warn">${ic('alert')}<span class="grow">A conexão com os dados foi interrompida. Recarregue a página para reconectar.</span></div>`);
+  else if(S.timedOut)parts.push(`<div class="note warn">${ic('wifioff')}<span class="grow">Os dados ainda não foram confirmados pelo servidor. O que aparece pode estar desatualizado.</span></div>`);
+  if(S.noAccess&&!S.dbErr)parts.push(`<div class="note info">${ic('lock')}<span class="grow">Seu login funcionou, mas este usuário ainda não foi liberado. O administrador precisa incluir o seu CPF na lista de membros (passo 4 do LEIA-ME).</span></div>`);
+  const ex=[...S.pac.values(),...S.ses,...S.pct.values(),...S.pla.values(),...S.rec].some(x=>x.exemplo);
+  if(ex&&writable&&!S.dbErr)parts.push(`<div class="note info">${ic('flask')}<span class="grow"><b>Dados de exemplo carregados.</b> Pacientes e sessões de exemplo mostram como o app funciona. Remova antes de começar a usar.</span><button class="btn sm" data-action="clear-examples">${ic('trash')} Remover exemplos</button></div>`);
+  else if(writable&&!S.dbErr&&S.ready.cfg&&!CFG().nomeProfissional&&S.tab!=='ajustes')parts.push(`<div class="note info">${ic('info')}<span class="grow">Preencha seu nome e CREFITO em Ajustes para que apareçam nos recibos.</span><a class="btn sm" href="#ajustes">${ic('sliders')} Ir para Ajustes</a></div>`);
+  $('#banner').innerHTML=parts.join('');
+  document.querySelectorAll('[data-needs-write]').forEach(el=>el.hidden=!writable||!!S.dbErr);
+  const c=CFG();$('#brand-name').textContent=c.nomeProfissional||'Thays Jesus';$('#brand-sub').textContent=c.crefito?'CREFITO '+c.crefito+' · Agenda e financeiro':'Agenda · Pacientes · Financeiro';const bo=$('#brand-oficial');if(c.simboloOficial&&/^data:image\//.test(c.simboloOficial)){bo.src=c.simboloOficial;bo.hidden=false;}else bo.hidden=true;
+}
+function route(){
+  if($('#modal-root').innerHTML)closeModal();
+  const h=(location.hash||'').replace('#','');
+  S.tab=['agenda','pacientes','financeiro','ajustes'].includes(h)?h:'agenda';
+  document.querySelectorAll('.tabs a').forEach(a=>{if(a.dataset.tab===S.tab)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+  renderTab();
+}
+function allReady(){return Object.keys(COLLS).every(k=>S.ready[k])&&S.ready.cfg;}
+function renderTab(){
+  const m=$('#main');
+  if(S.tab==='agenda'){
+    m.innerHTML=`<div class="agbar">
+      <div class="seg2" role="group" aria-label="Visualização"><button data-action="view" data-v="dia" aria-pressed="${S.view==='dia'}">${ic('list')}Dia</button><button data-action="view" data-v="semana" aria-pressed="${S.view==='semana'}">${ic('grid')}Semana</button></div>
+      <span class="navg"><button class="btn icon" data-action="nav" data-n="-1" aria-label="Anterior">${ic('chevl')}</button>
+      <button class="btn" data-action="hoje">${ic('sun')} Hoje</button>
+      <button class="btn icon" data-action="nav" data-n="1" aria-label="Próximo">${ic('chevr')}</button></span>
+      <input type="date" id="ag-date" value="${S.day}" aria-label="Ir para a data">
+      <span class="grow"></span>
+      <label class="chk"><input type="checkbox" id="ag-canc" ${S.showCanc?'checked':''}> Mostrar canceladas</label>
+    </div><div id="body"></div>`;
+  } else if(S.tab==='pacientes'){
+    m.innerHTML=`<div class="toolbar">
+      <label class="search" for="p-q">${ic('search')}<input id="p-q" type="search" placeholder="Buscar paciente, telefone ou convênio" value="${esc(S.pq)}"></label>
+      <select id="p-st" aria-label="Situação"><option value="ativos" ${S.pst==='ativos'?'selected':''}>Ativos</option><option value="pendencia" ${S.pst==='pendencia'?'selected':''}>Com pagamento em aberto</option><option value="pacote" ${S.pst==='pacote'?'selected':''}>Com pacote</option><option value="mensal" ${S.pst==='mensal'?'selected':''}>Com mensalidade</option><option value="convenio" ${S.pst==='convenio'?'selected':''}>Convênio</option><option value="inativos" ${S.pst==='inativos'?'selected':''}>Inativos</option><option value="todos" ${S.pst==='todos'?'selected':''}>Todos</option></select>
+      <span class="grow"></span>
+      <button class="btn ghost" data-action="export-pac" data-needs-dl>${ic('download')} Exportar</button>
+      <button class="btn primary" data-action="new-pac" data-needs-write>${ic('plus')} Novo paciente</button>
+    </div><div class="count mini">${ic('users')}<span id="count"></span></div><div id="body"></div>`;
+  } else if(S.tab==='financeiro'){
+    m.innerHTML=`<div class="toolbar">
+      <label class="mini muted" for="f-mes">${ic('cal')} Mês</label><input type="month" id="f-mes" value="${S.fmes}">
+      <span class="grow"></span>
+      <button class="btn ghost" data-action="export-rec" data-needs-dl>${ic('download')} Exportar recebimentos</button>
+      <button class="btn primary" data-action="new-rec" data-needs-write>${ic('plus')} Registrar recebimento</button>
+    </div><div id="body"></div>`;
+  } else {
+    m.innerHTML='<div id="body"></div>';
+  }
+  renderBanner();applyDl();renderBody();
+}
+function applyDl(){document.querySelectorAll('[data-needs-dl]').forEach(el=>el.hidden=!DL);}
+function renderBody(){
+  const b=$('#body');if(!b)return;
+  if(!allReady()){b.innerHTML=S.dbErr?'<div class="skel">Dados indisponíveis no momento.</div>':'<div class="skel">Carregando…</div>';return;}
+  if(S.tab==='agenda')b.innerHTML=agendaHTML();
+  else if(S.tab==='pacientes')b.innerHTML=pacientesHTML();
+  else if(S.tab==='financeiro')b.innerHTML=finHTML();
+  else b.innerHTML=ajustesHTML();
+}
+
+/* ================= Agenda ================= */
+function sesCard(s,compact){
+  const p=S.pac.get(s.pacienteId)||{nome:'Paciente removido'};
+  const extra=[];
+  if(s.reposicaoDe)extra.push(`<span class="mini">${ic('rotate')}Reposição</span>`);
+  if(s.recorrenciaId&&!compact)extra.push(`<span class="mini">${ic('repeat')}Fixo</span>`);
+  const pend=s.status==='agendado'||s.status==='confirmado';
+  const lem=pend&&p.telefone?`<button type="button" class="pill wa-chip${s.lembreteEm?' sent':''}" data-action="lembrete" data-id="${esc(s.id)}" title="${s.lembreteEm?'Lembrete enviado em '+esc(fmtDT(s.lembreteEm))+'. Clique para enviar de novo':'Gerar lembrete para o WhatsApp'}">${ic(s.lembreteEm?'check':'msg')}${compact?'':(s.lembreteEm?'Lembrete enviado':'Lembrete')}</button>`:'';
+  const cob=compact?`<span class="mini" title="${esc((COB[s.cobranca]||COB.avulsa).l)}">${ic((COB[s.cobranca]||COB.avulsa).i)}</span>`:cobPill(s.cobranca);
+  return `<div class="ses st-${esc(s.status)}${compact?' compact':''}" role="button" tabindex="0" data-action="open-ses" data-id="${esc(s.id)}">
+    <span class="sh">${ic('clock')}<b>${esc(s.hora)}</b>${compact?'':`<span>${+s.duracao||50} min</span>`}${s.local==='domicilio'?`<span class="mini" title="Domicílio">${ic('home')}${compact?'':'Domicílio'}</span>`:''}</span>
+    <span class="sn">${esc(p.nome)}</span>
+    <span class="sm">${stPill(s.status)}${cob}${lem}${compact?'':extra.join('')}</span>
+  </div>`;
+}
+const fmtDT=iso=>{try{const d=new Date(iso);return pad(d.getDate())+'/'+pad(d.getMonth()+1)+' às '+pad(d.getHours())+':'+pad(d.getMinutes());}catch(_){return'';}};
+function lembreteMsg(s){
+  const p=S.pac.get(s.pacienteId)||{};const c=CFG();
+  const nome=String(p.nome||'').split(' ')[0];
+  const dia=s.data===today()?'hoje':s.data===addD(today(),1)?'amanhã':DOWL[wd(s.data)]+', '+fmtD(s.data).slice(0,5);
+  const local=s.local==='domicilio'?' em domicílio'+(s.endereco?' ('+s.endereco+')':''):(c.endereco?' no consultório ('+c.endereco+')':' no consultório');
+  return `Olá, ${nome}! Passando para lembrar do seu atendimento de fisioterapia ${dia} às ${s.hora}${local}. Qualquer imprevisto, me avise com antecedência para reagendarmos.\n\n`+(c.nomeProfissional||'Thays Jesus')+' · Fisioterapia';
+}
+function lembreteForm(id){
+  const s=S.ses.find(x=>x.id===id);if(!s)return;const p=S.pac.get(s.pacienteId)||{};
+  const msg=lembreteMsg(s);
+  openModal(`<form id="form-lem" data-id="${esc(id)}" novalidate>
+    <div class="modal-h"><h2><span class="hb" style="background:#E3F6EA;color:#1F8A52">${ic('msg')}</span>Lembrete do atendimento</h2>${X}</div>
+    <div class="modal-b">
+      <div class="meta"><span>${ic('user')}<b>${esc(p.nome||'')}</b></span><span>${ic('phone')}${esc(p.telefone||'sem telefone')}</span><span>${ic('cal')}${fmtDS(s.data)} às ${esc(s.hora)}</span><span>${ic(s.local==='domicilio'?'home':'building')}${s.local==='domicilio'?'Domicílio':'Consultório'}</span></div>
+      <label class="field"><span>${ic('note')}Mensagem (pode editar antes de enviar)</span><textarea name="msg" id="lem-msg" rows="6" maxlength="1000">${esc(msg)}</textarea></label>
+      ${s.lembreteEm?`<div class="hint">${ic('check')}<span>Último lembrete enviado em ${esc(fmtDT(s.lembreteEm))}.</span></div>`:''}
+    </div>
+    <div class="modal-f">
+      <button type="button" class="btn" data-action="copy-lem">${ic('note')} Copiar mensagem</button>
+      <a class="btn primary" id="lem-wa" data-mark="${esc(id)}" href="${esc(waLink(p.telefone,msg))}" target="_blank" rel="noopener">${ic('msg')} Abrir no WhatsApp</a>
+    </div>
+  </form>`);
+}
+function updLemLink(){const f=$('#form-lem');if(!f)return;const s=S.ses.find(x=>x.id===f.dataset.id);if(!s)return;const p=S.pac.get(s.pacienteId)||{};$('#lem-wa').href=waLink(p.telefone,f.msg.value);}
+function agTiles(){
+  const t=today(),d=derive();
+  const hoje=S.ses.filter(s=>s.data===t&&ACTIVE(s));
+  const conf=hoje.filter(s=>s.status==='confirmado'||s.status==='realizado').length;
+  const ws=monday(t),we=addD(ws,6);const sem=S.ses.filter(s=>s.data>=ws&&s.data<=we&&ACTIVE(s)).length;
+  const venc=d.pend.filter(p=>p.vencido);const tv=venc.reduce((a,p)=>a+p.aberto,0);
+  const cm=ym(t);const rec=S.rec.filter(r=>ym(r.data||'')===cm).reduce((a,r)=>a+(+r.valor||0),0);
+  const mm=t.slice(5,7);const aniv=pacList().filter(p=>p.ativo!==false&&p.nascimento&&p.nascimento.slice(5,7)===mm);
+  return `<section class="quick">
+    ${writable?`<button class="qa" data-action="new-ses"><span class="qi">${ic('calplus')}</span><span>Agendar<small>Sessão avulsa</small></span></button>
+    <button class="qa" data-action="new-ses" data-rec="1"><span class="qi lilac">${ic('repeat')}</span><span>Horário fixo<small>Toda semana</small></span></button>
+    <button class="qa" data-action="new-pac"><span class="qi blue">${ic('userplus')}</span><span>Novo paciente<small>Cadastro rápido</small></span></button>
+    <button class="qa" data-action="new-rec"><span class="qi amber">${ic('wallet')}</span><span>Receber<small>Pix, dinheiro, cartão</small></span></button>`:''}
+  </section>
+  <section class="tiles">
+    <div class="tile"><span class="ti">${ic('sun','lg')}</span><div class="k">Sessões hoje</div><div class="v">${hoje.length}</div><div class="s">${conf} confirmadas ou realizadas</div></div>
+    <div class="tile"><span class="ti blue">${ic('cal','lg')}</span><div class="k">Nesta semana</div><div class="v">${sem}</div><div class="s">sessões agendadas</div></div>
+    <div class="tile ${venc.length?'warn':''}"><span class="ti">${ic('alert','lg')}</span><div class="k">Pagamentos em atraso</div><div class="v">${money(tv)}</div><div class="s">${venc.length} cobranças vencidas</div></div>
+    <div class="tile ok"><span class="ti">${ic('wallet','lg')}</span><div class="k">Recebido no mês</div><div class="v">${money(rec)}</div><div class="s">${MES[+cm.slice(5,7)-1]}</div></div>
+    <div class="tile"><span class="ti lilac">${ic('gift','lg')}</span><div class="k">Aniversariantes</div><div class="v">${aniv.length}</div><div class="s">${aniv.length?esc(aniv.slice(0,2).map(p=>p.nome.split(' ')[0]+' '+p.nascimento.slice(8,10)+'/'+mm).join(' · '))+(aniv.length>2?' …':''):'neste mês'}</div></div>
+  </section>`;
+}
+function agendaHTML(){
+  const c=CFG();let out=agTiles();
+  if(!S.pac.size){out+=`<section class="panel">${emptyBox('users','')}<h2 style="justify-content:center">Comece cadastrando os pacientes</h2><p class="muted" style="text-align:center">Depois do cadastro, agende sessões avulsas ou horários fixos semanais.</p>${writable?`<div style="text-align:center"><button class="btn primary" data-action="new-pac">${ic('plus')} Cadastrar paciente</button></div>`:''}</section>`;return out;}
+  if(S.view==='dia'){
+    const list=S.ses.filter(s=>s.data===S.day&&(S.showCanc||ACTIVE(s)));
+    const ativos=list.filter(ACTIVE).length;
+    let h0=Math.floor(toMin(c.inicioDia)/60),h1=Math.ceil(toMin(c.fimDia)/60);
+    for(const s of list){const h=Math.floor(toMin(s.hora)/60);if(h<h0)h0=h;if(h>=h1)h1=h+1;}
+    const nowH=S.day===today()?new Date().getHours():-1;
+    let rows='';
+    for(let h=h0;h<h1;h++){
+      const ss=list.filter(s=>Math.floor(toMin(s.hora)/60)===h);
+      rows+=`<div class="slot${h===nowH?' now':''}"><div class="hr">${pad(h)}h</div><div class="cards">${ss.map(s=>sesCard(s,false)).join('')}${ss.length||!writable?'':`<button class="free" data-action="new-ses" data-date="${S.day}" data-hora="${pad(h)}:00">${ic(h===12?'coffee':h>=18?'moon':h<9?'sun':'plus',h===12||h>=18||h<9?'soft':'')} Livre · agendar ${pad(h)}:00</button>`}</div></div>`;
+    }
+    out+=`<div class="dayhead"><h2>${fmtDL(S.day)}</h2><span class="mini muted">${ic('clock')}${ativos} ${ativos===1?'sessão':'sessões'}</span></div><div class="legend">${['agendado','confirmado','realizado','falta','remarcado'].map(stPill).join('')}<span class="mini">${ic('home')}Domicílio</span><span class="mini">${ic('repeat')}Horário fixo</span></div><div class="timeline">${rows}</div>`;
+  } else {
+    const ws=monday(S.day);const days=[];for(let i=0;i<7;i++)days.push(addD(ws,i));
+    const hasSun=S.ses.some(s=>s.data===days[6]&&ACTIVE(s));const show=hasSun?days:days.slice(0,6);
+    out+=`<div class="dayhead"><h2>Semana de ${fmtD(ws).slice(0,5)} a ${fmtD(days[6]).slice(0,5)}</h2></div><div class="week" style="--cols:${show.length}">${show.map(d=>{
+      const ss=S.ses.filter(s=>s.data===d&&(S.showCanc||ACTIVE(s)));
+      return `<div class="wcol${d===today()?' today':''}"><button class="wh" data-action="goto-day" data-d="${d}"><span>${ic('cal')}${DOW[wd(d)]} ${d.slice(8,10)}</span><small>${ss.filter(ACTIVE).length}</small></button>${ss.map(s=>sesCard(s,true)).join('')||'<span class="muted" style="font-size:13px">Sem sessões</span>'}${writable?`<button class="free" data-action="new-ses" data-date="${d}">${ic('plus')} Agendar</button>`:''}</div>`;}).join('')}</div>`;
+  }
+  return out;
+}
+
+/* ================= Pacientes ================= */
+function filteredPac(){
+  const q=norm(S.pq);const d=derive();
+  return pacList().filter(p=>{
+    const f=S.pst;
+    if(f==='ativos'&&p.ativo===false)return false;
+    if(f==='inativos'&&p.ativo!==false)return false;
+    if(f==='pendencia'&&!d.pend.some(x=>x.pacienteId===p.id))return false;
+    if(f==='pacote'&&!pacotesDe(p.id).some(x=>saldoPacote(x.id)>0))return false;
+    if(f==='mensal'&&!planoAtivo(p.id))return false;
+    if(f==='convenio'&&p.cobrancaPadrao!=='convenio')return false;
+    if(q&&!norm([p.nome,p.telefone,p.convenio,p.bairro,p.email].join(' ')).includes(q)&&!String(p.telefone||'').replace(/\D/g,'').includes(q.replace(/\D/g,'')||'§'))return false;
+    return true;
+  });
+}
+function pacientesHTML(){
+  if(!S.pac.size){$('#count').textContent='';return `<section class="panel">${emptyBox('users','Nenhum paciente cadastrado ainda.')}${writable?`<div style="text-align:center"><button class="btn primary" data-action="new-pac">${ic('plus')} Cadastrar paciente</button></div>`:''}</section>`;}
+  const list=filteredPac();$('#count').textContent=list.length+(list.length===1?' paciente':' pacientes');
+  if(!list.length)return`<div class="panel">${emptyBox('search','Nenhum paciente encontrado com esses filtros.')}</div>`;
+  return `<div class="cards">${list.map(p=>{
+    const nx=proxSessao(p.id);const pend=pendDe(p.id).reduce((a,x)=>a+x.aberto,0);
+    const pk=pacotesDe(p.id).filter(x=>saldoPacote(x.id)>0);const pl=planoAtivo(p.id);
+    const tags=[cobPill(p.cobrancaPadrao||'avulsa')];
+    if(pk.length)tags.push(`<span class="pill ok">${ic('box')}${pk.reduce((a,x)=>a+saldoPacote(x.id),0)} sessões no pacote</span>`);
+    if(pl)tags.push(`<span class="pill">${ic('repeat')}${money(pl.valor)}/mês</span>`);
+    if(pend>0)tags.push(`<span class="pill warn">${ic('alert')}${money(pend)} em aberto</span>`);
+    const wl=waLink(p.telefone);
+    return `<div class="pcard${p.ativo===false?' off':''}" role="button" tabindex="0" data-action="open-pac" data-id="${esc(p.id)}">
+      <div class="ph"><span class="av" ${avStyle(p.nome)}>${esc(initials(p.nome))}</span><div style="min-width:0"><div class="pn">${esc(p.nome)}</div><div class="muted" style="font-size:13px">${esc([idade(p.nascimento),p.convenio].filter(Boolean).join(' · '))}</div></div></div>
+      <div class="pl">
+        ${p.telefone?`<span class="mini">${ic('phone')}${esc(p.telefone)}${wl?` · <a class="wa" href="${esc(wl)}" target="_blank" rel="noopener">${ic('msg')}WhatsApp</a>`:''}</span>`:''}
+        ${p.queixa?`<span class="mini">${ic('bone')}${esc(p.queixa)}</span>`:''}
+        <span class="mini">${ic('cal')}${nx?'Próxima: '+fmtDS(nx.data)+' às '+esc(nx.hora):'Sem sessão agendada'}</span>
+      </div>
+      <div class="pf">${tags.join('')}</div>
+    </div>`;}).join('')}</div>`;
+}
+
+/* ================= Financeiro ================= */
+function finHTML(){
+  const d=derive(),m=S.fmes,t=today();
+  const recM=S.rec.filter(r=>ym(r.data||'')===m).sort((a,b)=>String(b.data).localeCompare(String(a.data)));
+  const totM=recM.reduce((a,r)=>a+(+r.valor||0),0);
+  const aberto=d.pend.reduce((a,p)=>a+p.aberto,0),vencidas=d.pend.filter(p=>p.vencido);
+  const convTot=d.conv.reduce((a,s)=>a+(+s.valor||0),0);
+  const sesM=S.ses.filter(s=>ym(s.data)===m);const real=sesM.filter(s=>s.status==='realizado').length,falt=sesM.filter(s=>s.status==='falta').length;
+  const taxa=real+falt?Math.round(falt/(real+falt)*100):0;
+  const porForma=new Map();for(const r of recM)porForma.set(r.forma||'—',(porForma.get(r.forma||'—')||0)+(+r.valor||0));
+  const formas=[...porForma.entries()].sort((a,b)=>b[1]-a[1]);const maxF=formas.length?formas[0][1]:1;
+  const porTipo={avulsa:0,pacote:0,mensalidade:0,convenio:0,outro:0};for(const r of recM){const k=r.referencia==='sessao'?'avulsa':porTipo[r.referencia]!==undefined?r.referencia:'outro';porTipo[k]+=+r.valor||0;}
+  const convG=new Map();for(const s of d.conv){const p=S.pac.get(s.pacienteId)||{};const k=p.convenio||'Convênio não informado';if(!convG.has(k))convG.set(k,[]);convG.get(k).push(s);}
+  return `<section class="tiles">
+    <div class="tile ok"><span class="ti">${ic('wallet','lg')}</span><div class="k">Recebido em ${MES[+m.slice(5,7)-1]}</div><div class="v">${money(totM)}</div><div class="s">${recM.length} recebimentos</div></div>
+    <div class="tile ${vencidas.length?'warn':''}"><span class="ti">${ic('coins','lg')}</span><div class="k">A receber de pacientes</div><div class="v">${money(aberto)}</div><div class="s">${vencidas.length} vencidas · ${d.pend.length-vencidas.length} a vencer</div></div>
+    <div class="tile"><span class="ti">${ic('shield','lg')}</span><div class="k">Convênios a receber</div><div class="v">${money(convTot)}</div><div class="s">${d.conv.length} sessões realizadas</div></div>
+    <div class="tile ${taxa>=15?'crit':taxa>=8?'warn':''}"><span class="ti">${ic('percent','lg')}</span><div class="k">Faltas no mês</div><div class="v">${taxa}%</div><div class="s">${falt} faltas · ${real} realizadas</div></div>
+  </section>
+  ${d.semPac.length?`<div class="note warn">${ic('box')}<span class="grow"><b>${d.semPac.length} ${d.semPac.length===1?'sessão realizada':'sessões realizadas'} de pacote sem pacote com saldo.</b> Cadastre um novo pacote para o paciente e ela será descontada automaticamente quando marcada de novo, ou mude a cobrança da sessão.</span></div>`:''}
+  <div class="grid2">
+    <section class="panel"><div class="panel-h"><h2>${ic('coins')}Cobranças em aberto</h2><span class="muted">${money(aberto)}</span></div>
+      ${d.pend.length?`<div class="rows">${d.pend.slice(0,30).map(p=>`<div class="row ${p.vencido?'crit':p.venc<=addD(t,5)?'warn':''}"><span class="ri">${ic(p.tipo==='pacote'?'box':p.tipo==='mensalidade'?'repeat':'coins')}</span><span class="rt"><b>${esc(pacName(p.pacienteId))}</b><span>${esc(p.desc)} · ${p.vencido?'venceu':'vence'} ${fmtD(p.venc)}${p.pago?' · pago '+money(p.pago):''}</span></span><span class="rv">${money(p.aberto)}${writable?`<button class="btn sm ok" data-action="receber" data-key="${esc(p.key)}">${ic('check')} Receber</button>`:''}</span></div>`).join('')}${d.pend.length>30?`<div class="muted">+ ${d.pend.length-30} cobranças</div>`:''}</div>`:emptyBox('okcircle','Nenhuma cobrança em aberto.')}
+    </section>
+    <section class="panel"><h2>${ic('card')}Recebido por forma</h2>
+      ${formas.length?`<div class="bars">${formas.map(([f,v])=>`<div class="bar"><span class="mini">${fIc(f)}${esc(f)}</span><span class="muted">${money(v)}</span><div class="track"><div class="fill" style="width:${Math.max(4,v/maxF*100).toFixed(1)}%"></div></div></div>`).join('')}</div>
+      <div class="kpis" style="margin-top:14px">${Object.entries({avulsa:['coins','Avulsas'],pacote:['box','Pacotes'],mensalidade:['repeat','Mensalidades'],convenio:['shield','Convênios']}).map(([k,[i,l]])=>`<div><div class="k">${ic(i)}${l}</div><div class="v" style="font-size:17px">${money(porTipo[k])}</div></div>`).join('')}</div>`:emptyBox('card','Nenhum recebimento neste mês.')}
+    </section>
+  </div>
+  <section class="panel"><div class="panel-h"><h2>${ic('shield')}Convênios a receber</h2></div>
+    ${convG.size?[...convG.entries()].map(([k,arr])=>`<div class="sec" style="margin-bottom:14px"><div class="panel-h" style="margin-bottom:6px"><h3>${ic('shield')}${esc(k)} <span class="muted" style="font-weight:500">· ${arr.length} sessões · ${money(arr.reduce((a,s)=>a+(+s.valor||0),0))}</span></h3>${writable?`<button class="btn sm ok" data-action="conv-pay" data-conv="${esc(k)}">${ic('check')} Registrar pagamento</button>`:''}</div>
+      <div class="table-wrap"><table class="t"><thead><tr><th>${ic('cal')}Data</th><th>${ic('user')}Paciente</th><th>${ic('hash')}Guia</th><th class="r">${ic('coins')}Valor</th></tr></thead><tbody>${arr.map(s=>`<tr><td>${fmtD(s.data)}</td><td>${esc(pacName(s.pacienteId))}</td><td>${esc(s.guia||'—')}</td><td class="r">${money(s.valor)}</td></tr>`).join('')}</tbody></table></div></div>`).join(''):emptyBox('shield','Nenhuma sessão de convênio pendente de pagamento.')}
+  </section>
+  <section class="panel"><div class="panel-h"><h2>${ic('receipt')}Recebimentos de ${fmtYM(m)}</h2><span class="muted">${money(totM)}</span></div>
+    ${recM.length?`<div class="table-wrap"><table class="t"><thead><tr><th>${ic('cal')}Data</th><th>${ic('user')}Paciente / convênio</th><th>${ic('note')}Referente a</th><th>${ic('card')}Forma</th><th class="r">${ic('coins')}Valor</th><th class="acts"><span hidden>Ações</span></th></tr></thead><tbody>${recM.map(r=>`<tr><td>${fmtD(r.data)}</td><td>${esc(r.referencia==='convenio'?r.convenio||'Convênio':pacName(r.pacienteId))}</td><td>${esc(r.desc||'—')}</td><td><span class="mini">${fIc(r.forma)}${esc(r.forma||'—')}</span></td><td class="r"><b>${money(r.valor)}</b></td><td class="acts">${DL&&r.referencia!=='convenio'?`<button class="btn sm" data-action="recibo" data-id="${esc(r.id)}">${ic('receipt')} Recibo</button>`:''}${writable?`<button class="btn sm danger" data-action="del-rec" data-id="${esc(r.id)}" aria-label="Excluir recebimento">${ic('trash')}</button>`:''}</td></tr>`).join('')}</tbody></table></div>`:emptyBox('inbox','Nenhum recebimento registrado neste mês.')}
+  </section>`;
+}
+
+/* ================= Ajustes ================= */
+function ajustesHTML(){
+  const c=CFG();const v=k=>esc(c[k]??'');
+  const of=c.simboloOficial&&/^data:image\//.test(c.simboloOficial)?c.simboloOficial:'';
+  return `<section class="panel"><div class="panel-h"><h2>${ic('sparkle')}Logomarca</h2>${DL?`<div class="actions"><button class="btn sm" data-action="dl-logo">${ic('download')} Baixar logomarca</button><button class="btn sm" data-action="dl-emblem">${ic('image')} Baixar símbolo</button></div>`:''}</div>
+    <div class="logo-prev">${logoSVG()}</div>
+    <p class="muted" style="margin:10px 0 0;font-size:13.5px">${ic('handheart')} Símbolo próprio: a figura forma as letras T e J em movimento, com o arco âmbar da amplitude articular. Arquivo em SVG, que abre no navegador, no Canva e no Word.</p>
+  </section>
+  <section class="panel"><h2>${ic('shield')}Símbolo oficial da Fisioterapia</h2>
+    <p class="muted" style="margin:0 0 12px">O símbolo oficial (duas serpentes entrelaçadas no raio) segue a Resolução COFFITO nº 232/2002, que proíbe alterar forma, cores e proporções. Por isso ele não foi redesenhado aqui. Envie o arquivo oficial (PNG ou SVG, até 150 KB) e ele aparece no topo do app e nos recibos.</p>
+    <div class="oficial-box">${of?`<img src="${esc(of)}" alt="Símbolo oficial enviado">`:`<span class="mini muted">${ic('image')}Nenhum arquivo enviado</span>`}
+      ${writable?`<label class="btn sm" for="up-oficial">${ic('upload')} ${of?'Trocar arquivo':'Enviar arquivo oficial'}</label><input type="file" id="up-oficial" accept="image/png,image/svg+xml,image/jpeg,image/webp" hidden>${of?`<button class="btn sm danger" data-action="rm-oficial">${ic('trash')} Remover</button>`:''}`:''}</div>
+  </section>
+  <form id="form-cfg" class="panel" novalidate>
+    <h2>${ic('steth')}Dados da profissional</h2>
+    <div class="fields">
+      <label class="field"><span>${ic('user')}Nome profissional</span><input name="nomeProfissional" value="${v('nomeProfissional')}" maxlength="80" placeholder="Ex.: Thays Jesus"></label>
+      <label class="field"><span>${ic('idcard')}CREFITO</span><input name="crefito" value="${v('crefito')}" maxlength="30" placeholder="Ex.: 4/123456-F"></label>
+      <label class="field"><span>${ic('hash')}CPF ou CNPJ (para recibos)</span><input name="documento" value="${v('documento')}" maxlength="20"></label>
+      <label class="field"><span>${ic('phone')}Telefone</span><input name="telefone" value="${v('telefone')}" maxlength="20" inputmode="tel"></label>
+      <label class="field full"><span>${ic('building')}Endereço do consultório</span><input name="endereco" value="${v('endereco')}" maxlength="140"></label>
+      <label class="field"><span>${ic('pin')}Cidade</span><input name="cidade" value="${v('cidade')}" maxlength="60" placeholder="Ex.: Ipatinga/MG"></label>
+      <label class="field"><span>${ic('card')}Chave Pix</span><input name="pix" value="${v('pix')}" maxlength="80"></label>
+    </div>
+    <h2 style="margin-top:22px">${ic('cal')}Agenda e valores</h2>
+    <div class="fields">
+      <label class="field"><span>${ic('coins')}Valor padrão da sessão (R$)</span><input name="valorPadrao" type="number" min="0" step="0.01" value="${v('valorPadrao')}"></label>
+      <label class="field"><span>${ic('clock')}Duração padrão (min)</span><input name="duracaoPadrao" type="number" min="10" max="240" step="5" value="${v('duracaoPadrao')}"></label>
+      <label class="field"><span>${ic('sun')}Início do expediente</span><input name="inicioDia" type="time" value="${v('inicioDia')}"></label>
+      <label class="field"><span>${ic('clock')}Fim do expediente</span><input name="fimDia" type="time" value="${v('fimDia')}"></label>
+      <label class="field full"><span>${ic('msg')}Mensagem de confirmação no WhatsApp</span><textarea name="msgWhats" maxlength="500">${v('msgWhats')}</textarea><small>Use {nome}, {dia}, {hora} e {local}. Exemplo: ${esc(whatsMsg({pacienteId:'',data:addD(today(),1),hora:'08:00',local:'consultorio'}).replace(/^Olá, !/,'Olá, Maria!'))}</small></label>
+    </div>
+    <div class="formerr" id="cfg-err"></div>
+    ${writable?`<div style="margin-top:16px"><button type="submit" class="btn primary">${ic('save')} Salvar ajustes</button></div>`:''}
+  </form>
+  <section class="panel"><div class="panel-h"><h2>${ic('user')}Minha conta</h2></div>
+    <div class="meta" style="margin-bottom:12px"><span>${ic('idcard')}CPF <b>${esc(contaCPF())}</b></span></div>
+    <form id="form-senha" class="fields" novalidate>
+      <label class="field"><span>${ic('lock')}Nova senha</span><input name="s1" type="password" autocomplete="new-password"></label>
+      <label class="field"><span>${ic('lock')}Repita a nova senha</span><input name="s2" type="password" autocomplete="new-password"></label>
+      <div class="formerr full" id="senha-err"></div>
+      <div class="actions full"><button type="submit" class="btn">${ic('save')} Trocar senha</button><button type="button" class="btn" data-action="backup">${ic('download')} Baixar backup</button><button type="button" class="btn danger" data-action="sair">${ic('xcircle')} Sair</button></div>
+    </form>
+  </section>
+  <section class="panel"><h2>${ic('lock')}Privacidade dos dados</h2>
+    <p class="muted" style="margin:0 0 8px">Os dados ficam no banco Supabase do consultório. Só entra quem tem CPF e senha cadastrados e está na lista de membros. Baixe o backup toda semana: o plano gratuito do Supabase não guarda cópias automáticas.</p>
+    <p class="muted" style="margin:0">Guarde aqui só o necessário para agenda e cobrança. A evolução clínica (prontuário) deve ficar no sistema ou nas fichas próprias para isso.</p>
+  </section>`;
+}
+
+/* ================= Modal, confirmação, aviso ================= */
+let lastFocus=null;
+function openModal(html,wide){
+  lastFocus=document.activeElement;
+  $('#modal-root').innerHTML=`<div class="backdrop" data-backdrop><div class="modal ${wide?'wide':''}" role="dialog" aria-modal="true">${html}</div></div>`;
+  const f=$('#modal-root').querySelector('input:not([type=radio]):not([type=checkbox]):not([type=hidden]),select,textarea');
+  if(f&&!wide)setTimeout(()=>f.focus(),20);
+}
+function closeModal(){$('#modal-root').innerHTML='';S.open=null;if(lastFocus&&lastFocus.isConnected)lastFocus.focus();}
+const X=`<button type="button" class="x" data-action="close" aria-label="Fechar">${ic('x','lg')}</button>`;
+function confirmBox(title,msg,okLabel,danger){
+  return new Promise(res=>{
+    const root=document.createElement('div');
+    root.innerHTML=`<div class="backdrop" style="z-index:30"><div class="modal" role="alertdialog" aria-modal="true"><div class="modal-h"><h2><span class="hb" ${danger?'style="background:var(--crit-bg);color:var(--crit)"':''}>${ic(danger?'trash':'info')}</span>${esc(title)}</h2></div><div class="modal-b"><p style="margin:0">${esc(msg)}</p></div><div class="modal-f"><button class="btn" data-c="0">Cancelar</button><button class="btn primary" data-c="1">${ic('check')} ${esc(okLabel)}</button></div></div></div>`;
+    document.body.appendChild(root);root.querySelector('[data-c="0"]').focus();
+    root.addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;root.remove();res(b.dataset.c==='1');});
+  });
+}
+function toast(msg,kind){const t=document.createElement('div');t.className='toast'+(kind==='err'?' err':'');t.innerHTML=ic(kind==='err'?'alert':'okcircle','lg');const sp=document.createElement('span');sp.textContent=msg;t.appendChild(sp);$('#toasts').appendChild(t);setTimeout(()=>t.remove(),kind==='err'?6000:3200);}
+
+/* ================= Escrita ================= */
+function errMsg(code){
+  if(code==='invalid_argument')return'Não foi possível salvar: seu usuário não tem permissão ou a sessão expirou. Saia e entre de novo.';
+  if(code==='quota_exceeded')return'O limite de armazenamento foi atingido. Exporte e remova registros antigos.';
+  if(code==='resource_exhausted')return'Muitas operações seguidas. Aguarde alguns segundos e tente de novo.';
+  if(code==='revoked')return'Seu acesso a estes dados foi alterado.';
+  return'Falha de conexão. Tente de novo em instantes.';
+}
+async function write(fn,quiet){
+  try{await fn();return true;}
+  catch(e){
+    const code=e&&e.code;
+    if(code==='unavailable'){await new Promise(r=>setTimeout(r,600+Math.random()*900));try{await fn();return true;}catch(e2){if(!quiet)toast(errMsg(e2&&e2.code),'err');return false;}}
+    if(code==='invalid_argument'){writable=false;renderBanner();renderBody();}
+    if(!quiet)toast(errMsg(code),'err');return false;
+  }
+}
+const col=n=>db.collection(n);
+const stamp=()=>({criadoEm:new Date().toISOString(),por:myId||null});
+
+/* ================= Paciente: formulário ================= */
+function pacForm(id){
+  const p=id?S.pac.get(id):null;const v=k=>esc(p?p[k]??'':'');const c=CFG();
+  const cob=p?p.cobrancaPadrao||'avulsa':'avulsa';
+  openModal(`<form id="form-pac" data-id="${esc(id||'')}" novalidate>
+    <div class="modal-h"><h2><span class="hb">${ic(p?'pencil':'user')}</span>${p?'Editar paciente':'Novo paciente'}</h2>${X}</div>
+    <div class="modal-b"><div class="fields">
+      <label class="field full"><span class="req">${ic('user')}Nome completo</span><input name="nome" value="${v('nome')}" maxlength="100" autocomplete="off"></label>
+      <label class="field"><span class="req">${ic('phone')}Telefone / WhatsApp</span><input name="telefone" value="${v('telefone')}" maxlength="20" inputmode="tel" placeholder="(31) 99999-0000"></label>
+      <label class="field"><span>${ic('cake')}Data de nascimento</span><input name="nascimento" type="date" value="${v('nascimento')}"></label>
+      <label class="field"><span>${ic('hash')}CPF (para recibo)</span><input name="cpf" value="${v('cpf')}" maxlength="14" inputmode="numeric"></label>
+      <label class="field"><span>${ic('mail')}E-mail</span><input name="email" type="email" value="${v('email')}" maxlength="100"></label>
+      <label class="field full"><span>${ic('home')}Endereço (atendimento domiciliar)</span><input name="endereco" value="${v('endereco')}" maxlength="160" placeholder="Rua, número, bairro"></label>
+      <label class="field full"><span>${ic('note')}Motivo do atendimento</span><input name="queixa" value="${v('queixa')}" maxlength="140" placeholder="Ex.: reabilitação pós-cirúrgica de joelho"><small>Só o essencial para a agenda. A evolução clínica fica no prontuário.</small></label>
+      <div class="field full"><span>${ic('wallet')}Forma de cobrança padrão</span><div class="opts">${Object.entries(COB).map(([k,x])=>`<label class="opt"><input type="radio" name="cobrancaPadrao" value="${k}" ${k===cob?'checked':''}><span>${ic(x.i)}${x.l}</span></label>`).join('')}</div></div>
+      <label class="field" data-c="avulsa"><span>${ic('coins')}Valor da sessão (R$)</span><input name="valorSessao" type="number" min="0" step="0.01" value="${p&&p.valorSessao!=null?esc(p.valorSessao):esc(c.valorPadrao)}"></label>
+      <label class="field" data-c="convenio"><span>${ic('shield')}Convênio</span><input name="convenio" value="${v('convenio')}" maxlength="60" list="dl-conv"></label>
+      <label class="field" data-c="convenio"><span>${ic('idcard')}Nº da carteirinha</span><input name="carteirinha" value="${v('carteirinha')}" maxlength="40"></label>
+      <label class="field" data-c="convenio"><span>${ic('coins')}Valor pago pelo convênio por sessão (R$)</span><input name="valorConvenio" type="number" min="0" step="0.01" value="${v('valorConvenio')}"></label>
+      <label class="field full"><span>${ic('note')}Observações</span><textarea name="obs" maxlength="400">${v('obs')}</textarea></label>
+    </div>
+    <datalist id="dl-conv">${[...new Set(pacList().map(x=>x.convenio).filter(Boolean))].map(x=>`<option value="${esc(x)}">`).join('')}</datalist>
+    <div class="formerr" id="pac-err"></div></div>
+    <div class="modal-f">${p?`<button type="button" class="btn ghost" data-action="toggle-pac" data-id="${esc(id)}">${p.ativo===false?ic('eye')+' Reativar':ic('eyeoff')+' Inativar'}</button><span style="flex:1"></span>`:''}<button type="button" class="btn" data-action="close">Cancelar</button><button type="submit" class="btn primary">${ic('save')} Salvar</button></div>
+  </form>`);
+  applyPacCob();
+}
+function applyPacCob(){const f=$('#form-pac');if(!f)return;const c=f.cobrancaPadrao.value;f.querySelectorAll('[data-c]').forEach(el=>el.hidden=el.dataset.c!==c&&!(el.dataset.c==='avulsa'&&c!=='convenio'));}
+async function submitPac(f){
+  const err=t=>{$('#pac-err').textContent=t;};const id=f.dataset.id||null;
+  const nome=f.nome.value.trim().replace(/\s+/g,' ');if(nome.length<3)return err('Informe o nome completo do paciente.');
+  const tel=f.telefone.value.trim();if(tel.replace(/\D/g,'').length<10)return err('Informe o telefone com DDD.');
+  const cpf=f.cpf.value.replace(/\D/g,'');if(cpf&&cpf.length!==11)return err('O CPF deve ter 11 dígitos.');
+  const num=x=>x.value===''?null:r2(x.valueAsNumber);
+  const data={nome,telefone:tel,nascimento:f.nascimento.value,cpf:cpf?cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4'):'',email:f.email.value.trim(),endereco:f.endereco.value.trim(),queixa:f.queixa.value.trim(),
+    cobrancaPadrao:f.cobrancaPadrao.value,valorSessao:num(f.valorSessao),convenio:f.convenio.value.trim(),carteirinha:f.carteirinha.value.trim(),valorConvenio:num(f.valorConvenio),obs:f.obs.value.trim(),atualizadoEm:new Date().toISOString()};
+  if(data.cobrancaPadrao==='convenio'&&!data.convenio)return err('Informe o nome do convênio.');
+  const btn=f.querySelector('[type=submit]');btn.disabled=true;
+  const ok=id?await write(()=>col('pacientes').doc(id).update(data)):await write(()=>col('pacientes').add({...data,ativo:true,...stamp()}));
+  btn.disabled=false;if(ok){closeModal();toast(id?'Cadastro atualizado.':'Paciente cadastrado.');}
+}
+
+/* ================= Paciente: ficha ================= */
+function pacDrawer(id){
+  const p=S.pac.get(id);if(!p){closeModal();return;}
+  S.open={t:'pac',id};const html=`<div id="drawer">${pacDrawerHTML(id,p)}</div>`;
+  if($('#drawer'))$('#drawer').outerHTML=html;else openModal(html,true);
+}
+function pacDrawerHTML(id,p){
+  const t=today();const all=S.ses.filter(s=>s.pacienteId===id);
+  const fut=all.filter(s=>s.data>=t&&ACTIVE(s)&&s.status!=='realizado'&&s.status!=='falta');
+  const hist=all.filter(s=>s.data<=t&&(s.status==='realizado'||s.status==='falta'||s.status==='cancelado')).slice().reverse();
+  const real=all.filter(s=>s.status==='realizado').length,falt=all.filter(s=>s.status==='falta').length;
+  const pres=real+falt?Math.round(real/(real+falt)*100):null;
+  const pend=pendDe(id);const pendT=pend.reduce((a,x)=>a+x.aberto,0);
+  const pk=pacotesDe(id);const pl=planoAtivo(id);
+  const recs=new Map();for(const s of fut)if(s.recorrenciaId){if(!recs.has(s.recorrenciaId))recs.set(s.recorrenciaId,[]);recs.get(s.recorrenciaId).push(s);}
+  const wl=waLink(p.telefone);
+  const recPac=S.rec.filter(r=>r.pacienteId===id).slice().sort((a,b)=>String(b.data).localeCompare(String(a.data)));
+  return `<div class="modal-h"><div style="display:flex;gap:12px;align-items:center;min-width:0"><span class="av" ${avStyle(p.nome)} style="width:50px;height:50px;font-size:18px">${esc(initials(p.nome))}</span><div style="min-width:0"><h2>${esc(p.nome)}</h2><div class="actions" style="margin-top:6px">${cobPill(p.cobrancaPadrao||'avulsa')}${p.ativo===false?'<span class="pill">Inativo</span>':''}${pendT>0?`<span class="pill warn">${ic('alert')}${money(pendT)} em aberto</span>`:''}</div></div></div>${X}</div>
+  <div class="modal-b">
+    <div class="meta">
+      ${p.telefone?`<span>${ic('phone')}<b>${esc(p.telefone)}</b></span>`:''}
+      ${p.nascimento?`<span>${ic('cake')}${fmtD(p.nascimento)} · ${idade(p.nascimento)}</span>`:''}
+      ${p.cpf?`<span>${ic('hash')}CPF ${esc(p.cpf)}</span>`:''}
+      ${p.email?`<span>${ic('mail')}${esc(p.email)}</span>`:''}
+      ${p.endereco?`<span>${ic('home')}${esc(p.endereco)}</span>`:''}
+      ${p.convenio?`<span>${ic('shield')}${esc(p.convenio)}${p.carteirinha?' · '+esc(p.carteirinha):''}</span>`:''}
+      ${p.cobrancaPadrao==='convenio'&&p.valorConvenio?`<span>${ic('coins')}${money(p.valorConvenio)}/sessão (convênio)</span>`:p.valorSessao!=null&&p.cobrancaPadrao!=='mensalidade'?`<span>${ic('coins')}${money(p.valorSessao)}/sessão</span>`:''}
+    </div>
+    ${p.queixa?`<div class="hint">${ic('note')}<span><b>Motivo:</b> ${esc(p.queixa)}</span></div>`:''}
+    ${p.obs?`<p class="muted mini" style="margin:0">${ic('note')}${esc(p.obs)}</p>`:''}
+    ${writable?`<div class="actions">
+      <button class="btn primary" data-action="new-ses" data-pac="${esc(id)}">${ic('plus')} Agendar sessão</button>
+      <button class="btn" data-action="new-ses" data-pac="${esc(id)}" data-rec="1">${ic('repeat')} Horário fixo</button>
+      <button class="btn" data-action="new-pct" data-pac="${esc(id)}">${ic('box')} Novo pacote</button>
+      ${pl?'':`<button class="btn" data-action="new-pla" data-pac="${esc(id)}">${ic('repeat')} Mensalidade</button>`}
+      <button class="btn ok" data-action="new-rec" data-pac="${esc(id)}">${ic('wallet')} Receber</button>
+      ${wl?`<a class="btn" href="${esc(wl)}" target="_blank" rel="noopener">${ic('msg')} WhatsApp</a>`:''}
+      <button class="btn ghost" data-action="edit-pac" data-id="${esc(id)}">${ic('pencil')} Editar</button>
+    </div>`:''}
+    <div class="kpis">
+      <div><div class="k">${ic('okcircle')}Realizadas</div><div class="v">${real}</div></div>
+      <div><div class="k">${ic('userx')}Faltas</div><div class="v">${falt}</div></div>
+      <div><div class="k">${ic('percent')}Presença</div><div class="v">${pres==null?'—':pres+'%'}</div></div>
+      <div><div class="k">${ic('cal')}Agendadas</div><div class="v">${fut.length}</div></div>
+      <div><div class="k">${ic('coins')}Em aberto</div><div class="v" style="${pendT>0?'color:var(--warn)':''}">${money(pendT)}</div></div>
+    </div>
+    <div class="grid2">
+      <div class="sec"><h3>${ic('cal')}Próximas sessões</h3>${fut.length?`<div class="rows">${fut.slice(0,8).map(s=>`<button class="row" style="border:0;cursor:pointer;text-align:left;width:100%" data-action="open-ses" data-id="${esc(s.id)}"><span class="ri">${ic(s.local==='domicilio'?'home':'building')}</span><span class="rt"><b>${fmtDS(s.data)} às ${esc(s.hora)}</b><span>${ST[s.status].l} · ${COB[s.cobranca]?.s||''}</span></span><span class="rv">${ic('chevr')}</span></button>`).join('')}${fut.length>8?`<span class="muted">+ ${fut.length-8} sessões</span>`:''}</div>`:emptyBox('cal','Nenhuma sessão futura.')}
+        ${recs.size?`<h3 style="margin-top:14px">${ic('repeat')}Horários fixos</h3><div class="rows">${[...recs.entries()].map(([rid,arr])=>{const dias=[...new Set(arr.map(s=>DOW[wd(s.data)]))].join(', ');return`<div class="row"><span class="ri">${ic('repeat')}</span><span class="rt"><b>${esc(dias)} às ${esc(arr[0].hora)}</b><span>${arr.length} sessões futuras · até ${fmtD(arr[arr.length-1].data)}</span></span><span class="rv">${writable?`<button class="btn sm danger" data-action="cancel-rec" data-rid="${esc(rid)}">${ic('xcircle')} Cancelar futuras</button>`:''}</span></div>`;}).join('')}</div>`:''}
+      </div>
+      <div class="sec"><h3>${ic('wallet')}Financeiro</h3><div class="rows">
+        ${pk.map(x=>{const sd=saldoPacote(x.id);const pg=derive().paid.get('pacote:'+x.id+':')||0;const venc=x.validade&&x.validade<t;return`<div class="row ${sd<=0||venc?'':sd<=2?'warn':'ok'}"><span class="ri">${ic('box')}</span><span class="rt"><b>Pacote ${x.qtd} sessões · saldo ${Math.max(sd,0)}</b><span>${fmtD(x.dataCompra)} · ${money(x.valor)} · ${pg>=x.valor-0.004?'pago':'pago '+money(pg)}${x.validade?' · válido até '+fmtD(x.validade):''}${x.faltaConsome?' · falta desconta':''}</span></span><span class="rv">${writable&&!(derive().uso.get(x.id))&&!pg?`<button class="btn sm danger" data-action="del-pct" data-id="${esc(x.id)}" aria-label="Excluir pacote">${ic('trash')}</button>`:''}</span></div>`;}).join('')}
+        ${pl?`<div class="row ok"><span class="ri">${ic('repeat')}</span><span class="rt"><b>Mensalidade ${money(pl.valor)}</b><span>vence todo dia ${pl.dia} · desde ${fmtYM(pl.inicio)}</span></span><span class="rv">${writable?`<button class="btn sm" data-action="end-pla" data-id="${esc(pl.id)}">${ic('xcircle')} Encerrar</button>`:''}</span></div>`:''}
+        ${pend.map(x=>`<div class="row ${x.vencido?'crit':'warn'}"><span class="ri">${ic('coins')}</span><span class="rt"><b>${esc(x.desc)}</b><span>${x.vencido?'venceu':'vence'} ${fmtD(x.venc)}${x.pago?' · pago '+money(x.pago):''}</span></span><span class="rv">${money(x.aberto)}${writable?`<button class="btn sm ok" data-action="receber" data-key="${esc(x.key)}">${ic('check')}</button>`:''}</span></div>`).join('')}
+        ${!pk.length&&!pl&&!pend.length?emptyBox('wallet','Sem pacotes, mensalidade ou cobranças em aberto.'):''}
+      </div>
+      ${recPac.length?`<h3 style="margin-top:14px">${ic('receipt')}Últimos pagamentos</h3><div class="rows">${recPac.slice(0,5).map(r=>`<div class="row"><span class="ri">${ic('check')}</span><span class="rt"><b>${money(r.valor)} · ${esc(r.forma||'')}</b><span>${fmtD(r.data)} · ${esc(r.desc||'')}</span></span><span class="rv">${DL?`<button class="btn sm" data-action="recibo" data-id="${esc(r.id)}">${ic('receipt')}</button>`:''}</span></div>`).join('')}</div>`:''}
+      </div>
+    </div>
+    <div class="sec"><h3>${ic('history')}Histórico de sessões</h3>${hist.length?`<div class="table-wrap"><table class="t"><thead><tr><th>${ic('cal')}Data</th><th>${ic('clock')}Hora</th><th>${ic('okcircle')}Situação</th><th>${ic('wallet')}Cobrança</th><th>${ic('pin')}Local</th></tr></thead><tbody>${hist.slice(0,30).map(s=>`<tr style="cursor:pointer" data-action="open-ses" data-id="${esc(s.id)}"><td>${fmtD(s.data)}</td><td>${esc(s.hora)}</td><td>${stPill(s.status)}</td><td>${cobPill(s.cobranca)}</td><td>${s.local==='domicilio'?ic('home')+' Domicílio':ic('building')+' Consultório'}</td></tr>`).join('')}</tbody></table></div>`:emptyBox('history','Nenhuma sessão realizada ainda.')}</div>
+  </div>
+  ${writable&&!all.length&&!pk.length&&!S.rec.some(r=>r.pacienteId===id)?`<div class="modal-f"><button class="btn danger" data-action="del-pac" data-id="${esc(id)}">${ic('trash')} Excluir paciente</button></div>`:''}`;
+}
+
+/* ================= Sessão: formulário ================= */
+function sesForm(o){
+  o=o||{};const c=CFG();const s=o.id?S.ses.find(x=>x.id===o.id):null;const base=o.remarcar?S.ses.find(x=>x.id===o.remarcar):null;
+  const src=s||base;const pid=src?src.pacienteId:(o.pac||'');const p=S.pac.get(pid);
+  const pacs=pacList().filter(x=>x.ativo!==false||x.id===pid);
+  if(!pacs.length){toast('Cadastre um paciente antes de agendar.','err');return;}
+  const date=s?s.data:(o.date||(S.tab==='agenda'?S.day:today()));
+  const hora=s?s.hora:(base?base.hora:(o.hora||''));
+  const cob=src?src.cobranca:(p?p.cobrancaPadrao||'avulsa':'avulsa');
+  const local=src?src.local:'consultorio';
+  const valor=src?src.valor:defaultValor(p,cob);
+  const titulo=s?'Editar sessão':base?'Remarcar sessão':o.rec?'Horário fixo semanal':'Agendar sessão';
+  openModal(`<form id="form-ses" data-id="${esc(s?s.id:'')}" data-remarcar="${esc(base?base.id:'')}" novalidate>
+    <div class="modal-h"><h2><span class="hb">${ic(base?'rotate':o.rec?'repeat':'cal')}</span>${titulo}</h2>${X}</div>
+    <div class="modal-b">
+      ${base?`<div class="hint warn">${ic('rotate')}<span>Sessão original: ${fmtDS(base.data)} às ${esc(base.hora)}. Ela ficará marcada como remarcada.</span></div>`:''}
+      <div class="fields">
+        ${s||base?'':`<label class="field full"><span>${ic('search')}Buscar paciente</span><input id="s-busca" type="search" autocomplete="off" placeholder="Digite parte do nome"></label>`}
+        <label class="field full"><span class="req">${ic('user')}Paciente</span><select name="paciente" id="s-pac" ${s||base?'disabled':''}>${pacOptions(pacs,pid,'')}</select></label>
+        <label class="field"><span class="req">${ic('cal')}${o.rec?'Começa em':'Data'}</span><input name="data" type="date" value="${esc(date)}"></label>
+        <label class="field"><span class="req">${ic('clock')}Horário</span><input name="hora" type="time" step="300" value="${esc(hora)}"></label>
+        <label class="field"><span>${ic('clock')}Duração (min)</span><input name="duracao" type="number" min="10" max="240" step="5" value="${esc(src?src.duracao:c.duracaoPadrao)}"></label>
+        <div class="field"><span>${ic('pin')}Local</span><div class="opts"><label class="opt"><input type="radio" name="local" value="consultorio" ${local!=='domicilio'?'checked':''}><span>${ic('building')}Consultório</span></label><label class="opt"><input type="radio" name="local" value="domicilio" ${local==='domicilio'?'checked':''}><span>${ic('home')}Domicílio</span></label></div></div>
+        <label class="field full" data-show="dom"><span>${ic('home')}Endereço do atendimento</span><input name="endereco" value="${esc(src?src.endereco||'':(p?p.endereco||'':''))}" maxlength="160"></label>
+        <div class="field full"><span>${ic('wallet')}Cobrança</span><div class="opts">${Object.entries(COB).map(([k,x])=>`<label class="opt"><input type="radio" name="cobranca" value="${k}" ${k===cob?'checked':''}><span>${ic(x.i)}${x.l}</span></label>`).join('')}</div></div>
+        <label class="field" data-show="val"><span>${ic('coins')}Valor da sessão (R$)</span><input name="valor" type="number" min="0" step="0.01" value="${esc(valor??'')}"></label>
+        <label class="field" data-show="conv"><span>${ic('hash')}Nº da guia / autorização</span><input name="guia" value="${esc(src?src.guia||'':'')}" maxlength="40"></label>
+        <div class="field full"><div class="hint" id="s-hint"></div></div>
+        ${s||base?'':`<div class="field full"><label class="chk"><input type="checkbox" name="repetir" ${o.rec?'checked':''}> ${ic('repeat')} Repetir toda semana (horário fixo)</label></div>
+        <div class="field full" data-show="rep"><span>${ic('cal')}Dias da semana</span><div class="opts">${[1,2,3,4,5,6].map(d=>`<label class="opt"><input type="checkbox" name="dias" value="${d}" ${wd(date)===d?'checked':''}><span>${DOW[d]}</span></label>`).join('')}</div></div>
+        <label class="field" data-show="rep"><span>${ic('hash')}Por quantas semanas</span><input name="semanas" type="number" min="1" max="26" value="8"><small>Até 26 semanas. Depois é só renovar.</small></label>`}
+        <label class="field full"><span>${ic('note')}Observações</span><textarea name="obs" maxlength="300">${esc(src?src.obs||'':'')}</textarea></label>
+      </div>
+      <div class="formerr" id="ses-err"></div>
+    </div>
+    <div class="modal-f"><button type="button" class="btn" data-action="close">Cancelar</button><button type="submit" class="btn primary">${ic('check')} ${s?'Salvar':base?'Remarcar':'Agendar'}</button></div>
+  </form>`);
+  applySes();
+}
+function defaultValor(p,cob){const c=CFG();if(cob==='convenio')return p&&p.valorConvenio!=null?p.valorConvenio:'';if(cob==='avulsa')return p&&p.valorSessao!=null?p.valorSessao:c.valorPadrao;return'';}
+function pacOptions(pacs,sel,q){const nq=norm(q);const l=nq?pacs.filter(x=>norm(x.nome).includes(nq)||x.id===sel):pacs;return(sel?'':'<option value="">Selecione…</option>')+l.map(x=>`<option value="${esc(x.id)}" ${x.id===sel?'selected':''}>${esc(x.nome)}</option>`).join('');}
+function applySes(){
+  const f=$('#form-ses');if(!f)return;
+  const cob=f.cobranca.value,loc=f.local.value,rep=f.repetir&&f.repetir.checked;
+  f.querySelectorAll('[data-show]').forEach(el=>{const k=el.dataset.show;el.hidden=k==='dom'?loc!=='domicilio':k==='val'?!(cob==='avulsa'||cob==='convenio'):k==='conv'?cob!=='convenio':k==='rep'?!rep:false;});
+  const pid=f.paciente.value;const p=S.pac.get(pid);const h=$('#s-hint');
+  if(!p){h.className='hint';h.innerHTML=ic('info')+'<span>Escolha o paciente.</span>';return;}
+  let lvl='',msg='';
+  if(cob==='pacote'){const pk=pacotesDe(pid).filter(x=>saldoPacote(x.id)>0);const sd=pk.reduce((a,x)=>a+saldoPacote(x.id),0);const ag=S.ses.filter(s=>s.pacienteId===pid&&s.cobranca==='pacote'&&!s.pacoteId&&ACTIVE(s)&&s.status!=='falta').length;
+    if(!pk.length){lvl='warn';msg='Paciente sem pacote com saldo. A sessão será descontada do próximo pacote cadastrado.';}else{msg=`Saldo do pacote: <b>${sd} sessões</b> · ${ag} já agendadas no pacote.`;if(ag>=sd)lvl='warn';}}
+  else if(cob==='mensalidade'){const pl=planoAtivo(pid);if(!pl){lvl='warn';msg='Paciente sem mensalidade ativa. Cadastre a mensalidade na ficha do paciente.';}else msg=`Coberta pela mensalidade de ${money(pl.valor)}.`;}
+  else if(cob==='convenio'){msg=p.convenio?`Convênio <b>${esc(p.convenio)}</b>${p.carteirinha?' · carteirinha '+esc(p.carteirinha):''}. O valor entra em "Convênios a receber" quando a sessão for realizada.`:'Informe o convênio no cadastro do paciente.';if(!p.convenio)lvl='warn';}
+  else msg='O valor entra em "Cobranças em aberto" quando a sessão for marcada como realizada.';
+  const dt=f.data.value,hr=f.hora.value;
+  if(dt&&hr){const cf=conflicts(dt,hr,f.duracao.value,f.dataset.id);if(cf.length){lvl='warn';msg+=`<br>${ic('alert')} Neste horário já há sessão com ${cf.map(s=>esc(pacName(s.pacienteId))).join(', ')}.`;}}
+  h.className='hint '+lvl;h.innerHTML=ic(lvl?'alert':'info')+'<span>'+msg+'</span>';
+}
+async function submitSes(f){
+  const err=t=>{$('#ses-err').textContent=t;};
+  const id=f.dataset.id||null,remId=f.dataset.remarcar||null;
+  const pid=f.paciente.value;const p=S.pac.get(pid);if(!p)return err('Escolha o paciente.');
+  const data=f.data.value,hora=f.hora.value;if(!data)return err('Informe a data.');if(!hora)return err('Informe o horário.');
+  const dur=f.duracao.valueAsNumber||50;if(dur<10||dur>240)return err('A duração deve ficar entre 10 e 240 minutos.');
+  const cob=f.cobranca.value,local=f.local.value;
+  let valor=null;if(cob==='avulsa'||cob==='convenio'){valor=f.valor.value===''?null:r2(f.valor.valueAsNumber);if(cob==='avulsa'&&!(valor>=0))return err('Informe o valor da sessão.');}
+  const base={pacienteId:pid,hora,duracao:dur,local,endereco:local==='domicilio'?f.endereco.value.trim():'',cobranca:cob,valor,guia:cob==='convenio'?f.guia.value.trim():'',obs:f.obs.value.trim()};
+  if(local==='domicilio'&&!base.endereco)return err('Informe o endereço do atendimento domiciliar.');
+  let dates=[data];
+  const rep=f.repetir&&f.repetir.checked;
+  if(rep){
+    const dias=[...f.querySelectorAll('input[name=dias]:checked')].map(x=>+x.value);if(!dias.length)return err('Escolha pelo menos um dia da semana.');
+    const sem=Math.min(26,Math.max(1,f.semanas.valueAsNumber||1));dates=[];
+    const end=addD(monday(data),sem*7-1);
+    for(let d=data;d<=end;d=addD(d,1))if(dias.includes(wd(d)))dates.push(d);
+    if(!dates.length)return err('Nenhuma data gerada. Confira os dias e a data de início.');
+    if(dates.length>60)return err('Gere no máximo 60 sessões de uma vez.');
+  }
+  const cfl=dates.filter(d=>conflicts(d,hora,dur,id).length);
+  if(cfl.length&&f.dataset.force!=='1'){f.dataset.force='1';f.querySelector('[type=submit]').innerHTML=ic('check')+' Salvar mesmo assim';return err(`Há outra sessão no mesmo horário em ${cfl.length===1?fmtDS(cfl[0]):cfl.length+' datas'}. Clique de novo para salvar assim mesmo.`);}
+  const btn=f.querySelector('[type=submit]');btn.disabled=true;
+  let ok=true;
+  if(id){ok=await write(()=>col('sessoes').doc(id).update({...base,data,atualizadoEm:new Date().toISOString()}));}
+  else if(remId){
+    const ref=col('sessoes').doc();
+    ok=await write(()=>ref.set({...base,data,status:'agendado',reposicaoDe:remId,...stamp()}));
+    if(ok)ok=await write(()=>col('sessoes').doc(remId).update({status:'remarcado',remarcadaPara:ref.id}));
+  } else {
+    const rid=rep?'r'+Date.now().toString(36):'';let n=0;
+    for(const d of dates){btn.textContent='Salvando '+(n+1)+' de '+dates.length+'…';const doc={...base,data,status:'agendado',...stamp()};doc.data=d;if(rid)doc.recorrenciaId=rid;
+      if(!(await write(()=>col('sessoes').add(doc))))ok=false;else n++;if(!ok)break;}
+    if(n&&dates.length>1)toast(n+' sessões agendadas.');
+  }
+  btn.disabled=false;
+  if(ok){closeModal();if(dates.length===1)toast(id?'Sessão atualizada.':remId?'Sessão remarcada.':'Sessão agendada para '+fmtDS(data)+' às '+hora+'.');if(S.tab==='agenda'&&!id){S.day=data;renderTab();}}
+}
+
+/* ================= Sessão: detalhe e status ================= */
+function sesDrawer(id){
+  const s=S.ses.find(x=>x.id===id);if(!s){closeModal();return;}
+  S.open={t:'ses',id};const html=`<div id="drawer">${sesDrawerHTML(s)}</div>`;
+  if($('#drawer'))$('#drawer').outerHTML=html;else openModal(html,false);
+}
+function sesDrawerHTML(s){
+  const p=S.pac.get(s.pacienteId)||{};const d=derive();
+  const wl=waLink(p.telefone,whatsMsg(s));
+  const pg=d.paid.get('sessao:'+s.id+':')||0;
+  const pendS=d.pend.find(x=>x.key==='s:'+s.id);
+  let fin='';
+  if(s.cobranca==='avulsa')fin=s.status==='realizado'?(pendS?`<span class="pill warn">${ic('alert')}${money(pendS.aberto)} a receber</span>`:+s.valor>0?`<span class="pill ok">${ic('check')}Pago</span>`:''):`<span class="muted">${money(s.valor)} · cobrado quando realizada</span>`;
+  else if(s.cobranca==='pacote')fin=s.pacoteId?`<span class="pill ok">${ic('box')}Descontada do pacote</span>`:s.status==='realizado'?`<span class="pill warn">${ic('alert')}Sem pacote com saldo</span>`:`<span class="muted">Desconta do pacote ao realizar</span>`;
+  else if(s.cobranca==='mensalidade')fin=`<span class="muted">Coberta pela mensalidade</span>`;
+  else fin=s.status==='realizado'?(d.convPaid.has(s.id)?`<span class="pill ok">${ic('check')}Convênio pagou</span>`:`<span class="pill warn">${ic('shield')}Aguardando convênio · ${money(s.valor)}</span>`):`<span class="muted">${p.convenio?esc(p.convenio):'Convênio'}${s.guia?' · guia '+esc(s.guia):''}</span>`;
+  const st=s.status;const can=writable;
+  const btn=(a,i,l,cls)=>`<button class="btn ${cls||''}" data-action="${a}" data-id="${esc(s.id)}">${ic(i)} ${l}</button>`;
+  const acts=[];
+  if(can){
+    if(st==='agendado')acts.push(btn('st-confirmado','check','Confirmado'));
+    if(st==='agendado'||st==='confirmado'){acts.push(btn('st-realizado','okcircle','Realizada','primary'));acts.push(btn('st-falta','userx','Falta','danger'));acts.push(btn('remarcar','rotate','Remarcar'));acts.push(btn('st-cancelado','xcircle','Cancelar'));}
+    if(st==='realizado'||st==='falta'||st==='cancelado')acts.push(btn('st-agendado','history','Voltar para agendada','ghost'));
+    if(st==='falta')acts.push(btn('remarcar','rotate','Agendar reposição'));
+    if(pendS)acts.push(`<button class="btn ok" data-action="receber" data-key="${esc(pendS.key)}">${ic('wallet')} Receber ${money(pendS.aberto)}</button>`);
+  }
+  return `<div class="modal-h"><h2><span class="hb">${ic(s.local==='domicilio'?'home':'building')}</span>${esc(p.nome||'Paciente removido')}</h2>${X}</div>
+  <div class="modal-b">
+    <div class="actions">${stPill(st)}${cobPill(s.cobranca)}${s.recorrenciaId?`<span class="pill">${ic('repeat')}Horário fixo</span>`:''}${s.reposicaoDe?`<span class="pill warn">${ic('rotate')}Reposição</span>`:''}</div>
+    <div class="meta">
+      <span>${ic('cal')}<b>${fmtDL(s.data)}</b></span>
+      <span>${ic('clock')}<b>${esc(s.hora)}</b> · ${+s.duracao||50} min (até ${fromMin(toMin(s.hora)+(+s.duracao||50))})</span>
+      <span>${ic(s.local==='domicilio'?'home':'building')}${s.local==='domicilio'?'Domicílio'+(s.endereco?': '+esc(s.endereco):''):'Consultório'}</span>
+      ${p.telefone?`<span>${ic('phone')}${esc(p.telefone)}</span>`:''}
+    </div>
+    <div class="hint">${ic('wallet')}<span>${fin}</span></div>
+    ${s.remarcadaPara?(()=>{const n=S.ses.find(x=>x.id===s.remarcadaPara);return n?`<div class="hint warn">${ic('rotate')}<span>Remarcada para ${fmtDS(n.data)} às ${esc(n.hora)}. <button class="linkbtn" data-action="open-ses" data-id="${esc(n.id)}">Abrir ${ic('arrowright')}</button></span></div>`:'';})():''}
+    ${s.obs?`<p class="muted mini" style="margin:0">${ic('note')}${esc(s.obs)}</p>`:''}
+    ${acts.length?`<div class="actions">${acts.join('')}</div>`:''}
+    <div class="actions">
+      ${p.telefone&&(st==='agendado'||st==='confirmado')?`<button class="btn ok" data-action="lembrete" data-id="${esc(s.id)}">${ic('msg')} ${s.lembreteEm?'Lembrete enviado · reenviar':'Lembrete no WhatsApp'}</button>`:''}
+      <button class="btn ghost" data-action="open-pac" data-id="${esc(s.pacienteId)}">${ic('user')} Ficha do paciente</button>
+      ${can&&st!=='remarcado'?btn('edit-ses','pencil','Editar','ghost'):''}
+      ${can&&!pg&&!d.convPaid.has(s.id)?btn('del-ses','trash','Excluir','ghost'):''}
+    </div>
+  </div>`;
+}
+async function setStatus(id,st){
+  const s=S.ses.find(x=>x.id===id);if(!s)return;
+  const data={status:st,atualizadoEm:new Date().toISOString()};
+  if(s.cobranca==='pacote'){
+    if((st==='realizado'||st==='falta')&&!s.pacoteId){const pk=pickPacote(s.pacienteId,st==='falta');if(pk)data.pacoteId=pk.id;else if(st==='realizado')toast('Paciente sem pacote com saldo. Cadastre um novo pacote.','err');}
+    if(st!=='realizado'&&st!=='falta'&&s.pacoteId)data.pacoteId=null;
+    if(st==='falta'&&s.pacoteId){const p=S.pct.get(s.pacoteId);if(p&&!p.faltaConsome)data.pacoteId=null;}
+  }
+  const ok=await write(()=>col('sessoes').doc(id).update(data));
+  if(ok){toast(st==='realizado'?'Sessão marcada como realizada.':st==='falta'?'Falta registrada.':st==='confirmado'?'Presença confirmada.':st==='cancelado'?'Sessão cancelada.':'Sessão voltou para agendada.');}
+}
+
+/* ================= Pacote e mensalidade ================= */
+function pctForm(pid){
+  const p=S.pac.get(pid);const c=CFG();
+  openModal(`<form id="form-pct" data-pac="${esc(pid)}" novalidate>
+    <div class="modal-h"><h2><span class="hb">${ic('box')}</span>Novo pacote · ${esc(p?p.nome:'')}</h2>${X}</div>
+    <div class="modal-b"><div class="fields">
+      <label class="field"><span class="req">${ic('hash')}Quantidade de sessões</span><input name="qtd" type="number" min="1" max="200" value="10"></label>
+      <label class="field"><span class="req">${ic('coins')}Valor total (R$)</span><input name="valor" type="number" min="0" step="0.01" value="${esc(r2((p&&p.valorSessao!=null?p.valorSessao:c.valorPadrao)*10*0.9))}"><small>Sugestão: 10 sessões com 10% de desconto.</small></label>
+      <label class="field"><span class="req">${ic('cal')}Data da compra</span><input name="dataCompra" type="date" value="${today()}"></label>
+      <label class="field"><span>${ic('cal')}Válido até (opcional)</span><input name="validade" type="date"></label>
+      <div class="field full"><label class="chk"><input type="checkbox" name="faltaConsome"> ${ic('userx')} Falta sem aviso desconta uma sessão do pacote</label></div>
+      <div class="field full"><label class="chk"><input type="checkbox" name="pagoAgora" checked> ${ic('wallet')} Já recebi o pagamento</label></div>
+      <label class="field" data-show="pg"><span>${ic('card')}Forma de pagamento</span><select name="forma">${FORMAS.map(x=>`<option>${x}</option>`).join('')}</select></label>
+      <label class="field" data-show="pg"><span>${ic('coins')}Valor recebido agora (R$)</span><input name="valorPago" type="number" min="0" step="0.01"><small>Em branco = valor total.</small></label>
+      <label class="field full"><span>${ic('note')}Observações</span><input name="obs" maxlength="200"></label>
+    </div><div class="formerr" id="pct-err"></div></div>
+    <div class="modal-f"><button type="button" class="btn" data-action="close">Cancelar</button><button type="submit" class="btn primary">${ic('save')} Salvar pacote</button></div>
+  </form>`);
+  applyPct();
+}
+function applyPct(){const f=$('#form-pct');if(!f)return;f.querySelectorAll('[data-show="pg"]').forEach(el=>el.hidden=!f.pagoAgora.checked);}
+async function submitPct(f){
+  const err=t=>{$('#pct-err').textContent=t;};const pid=f.dataset.pac;
+  const qtd=Math.round(f.qtd.valueAsNumber);if(!(qtd>0))return err('Informe a quantidade de sessões.');
+  const valor=r2(f.valor.valueAsNumber);if(!(valor>=0))return err('Informe o valor do pacote.');
+  const dc=f.dataCompra.value||today();const val=f.validade.value;if(val&&val<dc)return err('A validade não pode ser antes da compra.');
+  const btn=f.querySelector('[type=submit]');btn.disabled=true;
+  const ref=col('pacotes').doc();
+  let ok=await write(()=>ref.set({pacienteId:pid,qtd,valor,dataCompra:dc,validade:val,faltaConsome:f.faltaConsome.checked,obs:f.obs.value.trim(),...stamp()}));
+  if(ok&&f.pagoAgora.checked&&valor>0){const vp=f.valorPago.value===''?valor:r2(f.valorPago.valueAsNumber);if(vp>0)ok=await write(()=>col('recebimentos').add({pacienteId:pid,data:dc,valor:vp,forma:f.forma.value,referencia:'pacote',refId:ref.id,competencia:'',desc:'Pacote de '+qtd+' sessões',obs:'',...stamp()}));}
+  btn.disabled=false;if(ok){closeModal();toast('Pacote de '+qtd+' sessões cadastrado.');}
+}
+function plaForm(pid){
+  const p=S.pac.get(pid);
+  openModal(`<form id="form-pla" data-pac="${esc(pid)}" novalidate>
+    <div class="modal-h"><h2><span class="hb">${ic('repeat')}</span>Mensalidade · ${esc(p?p.nome:'')}</h2>${X}</div>
+    <div class="modal-b"><div class="fields">
+      <label class="field"><span class="req">${ic('coins')}Valor mensal (R$)</span><input name="valor" type="number" min="0" step="0.01"></label>
+      <label class="field"><span class="req">${ic('cal')}Dia do vencimento</span><input name="dia" type="number" min="1" max="31" value="10"></label>
+      <label class="field"><span class="req">${ic('cal')}Primeiro mês cobrado</span><input name="inicio" type="month" value="${ym(today())}"></label>
+      <label class="field full"><span>${ic('note')}Observações</span><input name="obs" maxlength="200" placeholder="Ex.: 2x por semana"></label>
+    </div><div class="formerr" id="pla-err"></div></div>
+    <div class="modal-f"><button type="button" class="btn" data-action="close">Cancelar</button><button type="submit" class="btn primary">${ic('save')} Salvar mensalidade</button></div>
+  </form>`);
+}
+async function submitPla(f){
+  const err=t=>{$('#pla-err').textContent=t;};const pid=f.dataset.pac;
+  const valor=r2(f.valor.valueAsNumber);if(!(valor>0))return err('Informe o valor mensal.');
+  const dia=Math.round(f.dia.valueAsNumber);if(!(dia>=1&&dia<=31))return err('O dia do vencimento deve ficar entre 1 e 31.');
+  const inicio=f.inicio.value;if(!/^\d{4}-\d{2}$/.test(inicio))return err('Informe o primeiro mês cobrado.');
+  if(planoAtivo(pid))return err('Este paciente já tem uma mensalidade ativa.');
+  const ok=await write(()=>col('planos').add({pacienteId:pid,valor,dia,inicio,ativo:true,obs:f.obs.value.trim(),...stamp()}));
+  if(ok){closeModal();toast('Mensalidade cadastrada.');}
+}
+
+/* ================= Recebimento ================= */
+function recForm(o){
+  o=o||{};const d=derive();const pre=o.key?d.pend.find(x=>x.key===o.key):null;
+  const pid=pre?pre.pacienteId:(o.pac||'');
+  const pacs=pacList();if(!pacs.length){toast('Cadastre um paciente primeiro.','err');return;}
+  openModal(`<form id="form-rec" novalidate>
+    <div class="modal-h"><h2><span class="hb" style="background:var(--ok-bg);color:var(--ok)">${ic('wallet')}</span>Registrar recebimento</h2>${X}</div>
+    <div class="modal-b"><div class="fields">
+      <label class="field full"><span class="req">${ic('user')}Paciente</span><select name="paciente" id="r-pac">${pacOptions(pacs,pid,'')}</select></label>
+      <label class="field full"><span class="req">${ic('note')}Referente a</span><select name="ref" id="r-ref">${refOptions(pid,pre?pre.key:'')}</select></label>
+      <label class="field"><span class="req">${ic('coins')}Valor (R$)</span><input name="valor" type="number" min="0" step="0.01" value="${pre?esc(pre.aberto):''}"></label>
+      <label class="field"><span class="req">${ic('cal')}Data do pagamento</span><input name="data" type="date" value="${today()}" max="${today()}"></label>
+      <div class="field full"><span>${ic('card')}Forma de pagamento</span><div class="opts">${FORMAS.map((x,i)=>`<label class="opt"><input type="radio" name="forma" value="${x}" ${i===0?'checked':''}><span>${fIc(x)}${x}</span></label>`).join('')}</div></div>
+      <label class="field full" data-show="outro"><span class="req">${ic('note')}Descrição</span><input name="desc" maxlength="120" placeholder="Ex.: avaliação inicial"></label>
+      <label class="field full"><span>${ic('note')}Observações</span><input name="obs" maxlength="200"></label>
+    </div><div class="formerr" id="rec-err"></div></div>
+    <div class="modal-f"><button type="button" class="btn" data-action="close">Cancelar</button><button type="submit" class="btn primary">${ic('check')} Registrar</button></div>
+  </form>`);
+  applyRec();
+}
+function refOptions(pid,sel){const l=pid?pendDe(pid):[];return l.map(x=>`<option value="${esc(x.key)}" ${x.key===sel?'selected':''}>${esc(x.desc)} · ${money(x.aberto)} em aberto</option>`).join('')+`<option value="outro" ${!l.length||sel==='outro'?'selected':''}>Outro (avaliação, atendimento avulso etc.)</option>`;}
+function applyRec(){const f=$('#form-rec');if(!f)return;f.querySelectorAll('[data-show="outro"]').forEach(el=>el.hidden=f.ref.value!=='outro');}
+async function submitRec(f){
+  const err=t=>{$('#rec-err').textContent=t;};
+  const pid=f.paciente.value;if(!S.pac.get(pid))return err('Escolha o paciente.');
+  const valor=r2(f.valor.valueAsNumber);if(!(valor>0))return err('Informe o valor recebido.');
+  const data=f.data.value;if(!data)return err('Informe a data.');if(data>today())return err('A data não pode ser futura.');
+  let doc={pacienteId:pid,data,valor,forma:f.forma.value,obs:f.obs.value.trim(),...stamp()};
+  if(f.ref.value==='outro'){const ds=f.desc.value.trim();if(!ds)return err('Descreva a que se refere o pagamento.');Object.assign(doc,{referencia:'outro',refId:'',competencia:'',desc:ds});}
+  else{const pe=derive().pend.find(x=>x.key===f.ref.value);if(!pe)return err('Esta cobrança já foi quitada. Atualize a tela.');
+    if(valor>pe.aberto+0.004&&f.dataset.force!=='1'){f.dataset.force='1';return err(`O valor é maior que o saldo em aberto (${money(pe.aberto)}). Clique de novo para registrar assim mesmo.`);}
+    Object.assign(doc,{referencia:pe.ref,refId:pe.refId,competencia:pe.comp,desc:pe.desc});}
+  const btn=f.querySelector('[type=submit]');btn.disabled=true;
+  const ok=await write(()=>col('recebimentos').add(doc));btn.disabled=false;
+  if(ok){closeModal();toast(money(valor)+' recebido de '+pacName(pid).split(' ')[0]+'.');}
+}
+function convForm(nome){
+  const arr=derive().conv.filter(s=>((S.pac.get(s.pacienteId)||{}).convenio||'Convênio não informado')===nome);
+  openModal(`<form id="form-conv" data-conv="${esc(nome)}" novalidate>
+    <div class="modal-h"><h2><span class="hb">${ic('shield')}</span>Pagamento · ${esc(nome)}</h2>${X}</div>
+    <div class="modal-b">
+      <div class="hint">${ic('info')}<span>Marque as sessões que o convênio pagou neste repasse.</span></div>
+      <div class="rows">${arr.map(s=>`<label class="row" style="cursor:pointer"><input type="checkbox" name="ses" value="${esc(s.id)}" data-v="${+s.valor||0}" checked style="width:18px;height:18px;accent-color:var(--primary)"><span class="rt"><b>${esc(pacName(s.pacienteId))}</b><span>${fmtD(s.data)}${s.guia?' · guia '+esc(s.guia):''}</span></span><span class="rv">${money(s.valor)}</span></label>`).join('')}</div>
+      <div class="fields">
+        <label class="field"><span class="req">${ic('coins')}Valor recebido (R$)</span><input name="valor" type="number" min="0" step="0.01" value="${r2(arr.reduce((a,s)=>a+(+s.valor||0),0))}"><small>Se houve glosa, informe o valor efetivamente pago.</small></label>
+        <label class="field"><span class="req">${ic('cal')}Data do repasse</span><input name="data" type="date" value="${today()}" max="${today()}"></label>
+        <label class="field"><span>${ic('card')}Forma</span><select name="forma">${FORMAS.map(x=>`<option ${x==='Transferência'?'selected':''}>${x}</option>`).join('')}</select></label>
+        <label class="field"><span>${ic('note')}Observações</span><input name="obs" maxlength="200" placeholder="Ex.: lote 10/2026, glosa de 1 guia"></label>
+      </div><div class="formerr" id="conv-err"></div>
+    </div>
+    <div class="modal-f"><button type="button" class="btn" data-action="close">Cancelar</button><button type="submit" class="btn primary">${ic('check')} Registrar repasse</button></div>
+  </form>`);
+}
+async function submitConv(f){
+  const err=t=>{$('#conv-err').textContent=t;};
+  const ids=[...f.querySelectorAll('input[name=ses]:checked')].map(x=>x.value);if(!ids.length)return err('Marque pelo menos uma sessão.');
+  const valor=r2(f.valor.valueAsNumber);if(!(valor>=0))return err('Informe o valor recebido.');
+  const data=f.data.value;if(!data)return err('Informe a data.');
+  const ok=await write(()=>col('recebimentos').add({referencia:'convenio',convenio:f.dataset.conv,sessoes:ids,pacienteId:null,valor,data,forma:f.forma.value,desc:f.dataset.conv+' · '+ids.length+' sessões',obs:f.obs.value.trim(),...stamp()}));
+  if(ok){closeModal();toast('Repasse do convênio registrado.');}
+}
+
+/* ================= Recibo e exportação ================= */
+function emblemSVG(size){return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3CCB9F"/><stop offset="1" stop-color="#168465"/></linearGradient></defs><circle cx="32" cy="32" r="31" fill="url(#g)"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/><circle cx="32" cy="15.5" r="4.6" fill="#fff"/><path d="M17 25.5 Q32 20 47 25.5" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/><path d="M32 23.5 V39 Q32 49.5 22.5 49.5" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/><path d="M44.5 33.5 A14 14 0 0 1 37.5 47" fill="none" stroke="#FFE3A3" stroke-width="2.6" stroke-linecap="round"/><circle cx="46" cy="29.6" r="1.7" fill="#FFE3A3"/></svg>`;}
+function logoSVG(){const c=CFG();const nome=c.nomeProfissional||'Thays Jesus';const cr=c.crefito?'CREFITO '+c.crefito:'';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="560" height="150" viewBox="0 0 560 150"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3CCB9F"/><stop offset="1" stop-color="#168465"/></linearGradient></defs>
+  <g transform="translate(8 11) scale(2)"><circle cx="32" cy="32" r="31" fill="url(#g)"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/><circle cx="32" cy="15.5" r="4.6" fill="#fff"/><path d="M17 25.5 Q32 20 47 25.5" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/><path d="M32 23.5 V39 Q32 49.5 22.5 49.5" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/><path d="M44.5 33.5 A14 14 0 0 1 37.5 47" fill="none" stroke="#FFE3A3" stroke-width="2.6" stroke-linecap="round"/><circle cx="46" cy="29.6" r="1.7" fill="#FFE3A3"/></g>
+  <text x="160" y="76" font-family="'Bricolage Grotesque','Trebuchet MS',Arial,sans-serif" font-size="50" font-weight="700" fill="#1D3B36">${esc(nome)}</text>
+  <text x="163" y="108" font-family="Figtree,Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="7" fill="#1E9A78">FISIOTERAPIA</text>
+  ${cr?`<text x="163" y="134" font-family="Figtree,Arial,sans-serif" font-size="14" fill="#5F7A75">${esc(cr)}</text>`:''}</svg>`;}
+function reciboHTML(r){
+  const p=S.pac.get(r.pacienteId)||{};const c=CFG();const dt=r.data||today();
+  return `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Recibo ${esc(p.nome||'')}</title><style>body{font:15px/1.6 Georgia,serif;color:#111;max-width:680px;margin:40px auto;padding:0 24px}h1{font:700 26px/1 Arial,sans-serif;letter-spacing:.2em;text-align:center;margin:0 0 6px}.v{text-align:right;font:700 20px Arial,sans-serif;border:2px solid #111;display:inline-block;padding:6px 14px;float:right}.top{overflow:hidden;margin-bottom:28px}p{text-align:justify}.ass{margin-top:70px;text-align:center}.ass div{border-top:1px solid #111;width:320px;margin:0 auto;padding-top:6px}small{color:#555}@media print{body{margin:0 auto}.np{display:none}}.np{position:fixed;top:12px;right:12px;font:600 15px Arial;padding:10px 16px;border-radius:999px;border:0;background:#1E9A78;color:#fff;cursor:pointer}</style></head><body><button class="np" onclick="window.print()">Imprimir / salvar PDF</button>
+  <div class="top"><span class="v">${money(r.valor)}</span><div style="display:flex;gap:14px;align-items:center">${emblemSVG(58)}${c.simboloOficial&&/^data:image\//.test(c.simboloOficial)?`<img src="${esc(c.simboloOficial)}" alt="" style="height:54px">`:''}<div><h1 style="text-align:left;margin:0">RECIBO</h1><small>${esc(c.nomeProfissional||'Thays Jesus')} · Fisioterapia${c.crefito?' · CREFITO '+esc(c.crefito):''}</small></div></div></div>
+  <p>Recebi de <b>${esc(p.nome||'')}</b>${p.cpf?', CPF '+esc(p.cpf):''}, a importância de <b>${money(r.valor)}</b> (${extenso(+r.valor||0)}), referente a serviços de fisioterapia: ${esc(r.desc||'atendimento')}, pagos em ${fmtD(dt)} por ${esc(String(r.forma||'').toLowerCase())}.</p>
+  <p>Para clareza, firmo o presente.</p>
+  <p style="text-align:right">${esc(c.cidade||'')}${c.cidade?', ':''}${+dt.slice(8,10)} de ${MES[+dt.slice(5,7)-1]} de ${dt.slice(0,4)}.</p>
+  <div class="ass"><div>${esc(c.nomeProfissional||'Thays Jesus')}<br><small>${c.crefito?'CREFITO '+esc(c.crefito):''}${c.documento?' · CPF/CNPJ '+esc(c.documento):''}</small>${c.endereco?'<br><small>'+esc(c.endereco)+'</small>':''}${c.telefone?'<br><small>'+esc(c.telefone)+'</small>':''}</div></div>
+  </body></html>`;
+}
+const MIME={csv:'text/csv;charset=utf-8',html:'text/html;charset=utf-8',svg:'image/svg+xml',json:'application/json'};
+async function saveFile(name,data){try{const ext=name.split('.').pop();const blob=new Blob([data],{type:MIME[ext]||'application/octet-stream'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);toast('Arquivo gerado: '+name);}catch(e){toast('Não foi possível gerar o arquivo agora.','err');}}
+function abrirRecibo(r){const html=reciboHTML(r);const w=window.open('','_blank');if(w){w.document.open();w.document.write(html);w.document.close();}else saveFile('recibo_'+slug(pacName(r.pacienteId))+'_'+r.data+'.html',html);}
+const DL_LOCAL={save:async()=>({status:'saved'})};
+function contaCPF(){const e=(window.__sessao&&window.__sessao.user&&window.__sessao.user.email)||'';const d=e.split('@')[0].replace(/\D/g,'');return d.length===11?d.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4'):(e||'—');}
+function csv(rows){return'﻿'+rows.map(r=>r.map(v=>{let s=typeof v==='number'?String(v).replace('.',','):String(v??'');if(typeof v!=='number'&&/^[=+\-@]/.test(s))s="'"+s;if(/[;"\n\r]/.test(s))s='"'+s.replace(/"/g,'""')+'"';return s;}).join(';')).join('\r\n');}
+const slug=s=>norm(s).replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'').slice(0,40);
+
+/* ================= Ações ================= */
+document.addEventListener('click',async e=>{
+  {const an=e.target.closest('a[href]');if(an){if(an.dataset.mark&&db&&writable){const sid=an.dataset.mark;write(()=>col('sessoes').doc(sid).update({lembreteEm:new Date().toISOString()}),true).then(ok=>{if(ok){toast('Lembrete marcado como enviado.');closeModal();}});}return;}}
+  if(e.target.matches('[data-backdrop]')){closeModal();return;}
+  const a=e.target.closest('[data-action]');if(!a)return;
+  const id=a.dataset.id;
+  switch(a.dataset.action){
+    case'close':closeModal();break;
+    case'view':S.view=a.dataset.v;renderTab();break;
+    case'nav':S.day=addD(S.day,(S.view==='dia'?1:7)*(+a.dataset.n));renderTab();break;
+    case'hoje':S.day=today();renderTab();break;
+    case'goto-day':S.day=a.dataset.d;S.view='dia';renderTab();break;
+    case'new-ses':if(writable&&db)sesForm({date:a.dataset.date,hora:a.dataset.hora,pac:a.dataset.pac,rec:a.dataset.rec==='1'});break;
+    case'edit-ses':sesForm({id});break;
+    case'remarcar':sesForm({remarcar:id});break;
+    case'open-ses':sesDrawer(id);break;
+    case'lembrete':{const pr=$('#modal-root').innerHTML;if(pr)closeModal();lembreteForm(id);break;}
+    case'copy-lem':{const f=$('#form-lem');try{await navigator.clipboard.writeText(f.msg.value);toast('Mensagem copiada.');}catch(_){f.msg.select();toast('Selecione e copie o texto (Ctrl+C).','err');}break;}
+    case'open-pac':pacDrawer(id);break;
+    case'new-pac':if(writable&&db)pacForm(null);break;
+    case'edit-pac':pacForm(id);break;
+    case'new-pct':pctForm(a.dataset.pac);break;
+    case'new-pla':plaForm(a.dataset.pac);break;
+    case'new-rec':if(writable&&db)recForm({pac:a.dataset.pac});break;
+    case'receber':recForm({key:a.dataset.key});break;
+    case'conv-pay':convForm(a.dataset.conv);break;
+    case'st-confirmado':case'st-realizado':case'st-falta':case'st-agendado':await setStatus(id,a.dataset.action.slice(3));break;
+    case'st-cancelado':if(await confirmBox('Cancelar sessão','A sessão fica no histórico como cancelada e o horário é liberado.','Cancelar sessão'))await setStatus(id,'cancelado');break;
+    case'del-ses':{const s=S.ses.find(x=>x.id===id);if(!s)break;if(!(await confirmBox('Excluir sessão','Excluir a sessão de '+fmtDS(s.data)+' às '+s.hora+'? Use "Cancelar" se quiser manter no histórico. Esta ação não pode ser desfeita.','Excluir',true)))break;if(await write(()=>col('sessoes').doc(id).delete())){closeModal();toast('Sessão excluída.');}break;}
+    case'cancel-rec':{const rid=a.dataset.rid;const t=today();const arr=S.ses.filter(s=>s.recorrenciaId===rid&&s.data>=t&&(s.status==='agendado'||s.status==='confirmado'));if(!arr.length)break;
+      if(!(await confirmBox('Cancelar horário fixo','Cancelar as '+arr.length+' sessões futuras deste horário fixo? As sessões já realizadas não mudam.','Cancelar sessões',true)))break;
+      a.disabled=true;let n=0;for(const s of arr){if(await write(()=>col('sessoes').doc(s.id).update({status:'cancelado',pacoteId:null}),true))n++;else break;}toast(n+' sessões canceladas.');break;}
+    case'toggle-pac':{const p=S.pac.get(id);if(!p)break;if(await write(()=>col('pacientes').doc(id).update({ativo:p.ativo===false}))){closeModal();toast(p.ativo===false?'Paciente reativado.':'Paciente inativado.');}break;}
+    case'del-pac':{const p=S.pac.get(id);if(!p)break;if(!(await confirmBox('Excluir paciente','Excluir o cadastro de '+p.nome+'? Esta ação não pode ser desfeita.','Excluir',true)))break;if(await write(()=>col('pacientes').doc(id).delete())){closeModal();toast('Paciente excluído.');}break;}
+    case'del-pct':{if(!(await confirmBox('Excluir pacote','Excluir este pacote? Ele ainda não foi usado nem pago.','Excluir',true)))break;if(await write(()=>col('pacotes').doc(id).delete()))toast('Pacote excluído.');break;}
+    case'end-pla':{if(!(await confirmBox('Encerrar mensalidade','A mensalidade deixa de gerar cobranças a partir do próximo mês. As cobranças em aberto continuam.','Encerrar')))break;if(await write(()=>col('planos').doc(id).update({ativo:false,fim:ym(today())})))toast('Mensalidade encerrada.');break;}
+    case'del-rec':{const r=S.rec.find(x=>x.id===id);if(!r)break;if(!(await confirmBox('Excluir recebimento','Excluir o recebimento de '+money(r.valor)+' em '+fmtD(r.data)+'? A cobrança volta a ficar em aberto.','Excluir',true)))break;if(await write(()=>col('recebimentos').doc(id).delete()))toast('Recebimento excluído.');break;}
+    case'recibo':{const r=S.rec.find(x=>x.id===id);if(!r)break;abrirRecibo(r);break;}
+    case'sair':if(await confirmBox('Sair','Você vai precisar do CPF e da senha para entrar de novo.','Sair'))Dados.sair();break;
+    case'backup':{try{const b=await Dados.backup();await saveFile('backup_thays_fisio_'+today()+'.json',JSON.stringify({gerado:new Date().toISOString(),dados:b},null,1));}catch(e){toast('Não foi possível gerar o backup agora.','err');}break;}
+    case'export-rec':{const rows=[['Data','Paciente/Convênio','CPF','Referente a','Forma','Valor']];for(const r of S.rec.filter(x=>ym(x.data||'')===S.fmes).sort((a,b)=>String(a.data).localeCompare(String(b.data)))){const p=S.pac.get(r.pacienteId)||{};rows.push([fmtD(r.data),r.referencia==='convenio'?r.convenio:p.nome||'',p.cpf||'',r.desc||'',r.forma||'',+r.valor||0]);}await saveFile('recebimentos_'+S.fmes+'.csv',csv(rows));break;}
+    case'export-pac':{const rows=[['Nome','Telefone','Nascimento','CPF','E-mail','Endereço','Cobrança','Convênio','Carteirinha','Situação']];for(const p of filteredPac())rows.push([p.nome,p.telefone||'',p.nascimento?fmtD(p.nascimento):'',p.cpf||'',p.email||'',p.endereco||'',(COB[p.cobrancaPadrao]||COB.avulsa).l,p.convenio||'',p.carteirinha||'',p.ativo===false?'Inativo':'Ativo']);await saveFile('pacientes_'+today()+'.csv',csv(rows));break;}
+    case'dl-logo':await saveFile('logomarca_'+slug(CFG().nomeProfissional||'thays_jesus')+'.svg',logoSVG());break;
+    case'dl-emblem':await saveFile('simbolo_'+slug(CFG().nomeProfissional||'thays_jesus')+'.svg',emblemSVG(512));break;
+    case'rm-oficial':if(await confirmBox('Remover símbolo oficial','O arquivo enviado deixa de aparecer no app e nos recibos.','Remover',true)){if(await write(()=>db.doc('config/geral').set({...S.cfg,simboloOficial:''}))){toast('Símbolo removido.');renderBody();}}break;
+    case'clear-examples':{
+      if(!(await confirmBox('Remover dados de exemplo','Todos os pacientes, sessões, pacotes, mensalidades e recebimentos de exemplo serão apagados. O que você cadastrou permanece.','Remover',true)))break;
+      a.disabled=true;let n=0;const jobs=[];
+      for(const r of S.rec)if(r.exemplo)jobs.push(['recebimentos',r.id]);
+      for(const s of S.ses)if(s.exemplo)jobs.push(['sessoes',s.id]);
+      for(const[i,x]of S.pct)if(x.exemplo)jobs.push(['pacotes',i]);
+      for(const[i,x]of S.pla)if(x.exemplo)jobs.push(['planos',i]);
+      for(const[i,x]of S.pac)if(x.exemplo&&!S.ses.some(s=>s.pacienteId===i&&!s.exemplo))jobs.push(['pacientes',i]);
+      for(const[c,i]of jobs){if(await write(()=>col(c).doc(i).delete(),true))n++;else{toast('Parte dos exemplos não pôde ser removida. Tente de novo.','err');break;}}
+      toast(n+' registros de exemplo removidos.');break;}
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&$('#modal-root').innerHTML&&!document.querySelector('[role=alertdialog]'))closeModal();
+  if((e.key==='Enter'||e.key===' ')&&e.target.matches('.pcard')){e.preventDefault();pacDrawer(e.target.dataset.id);}
+  if((e.key==='Enter'||e.key===' ')&&e.target.matches('.ses')){e.preventDefault();sesDrawer(e.target.dataset.id);}
+});
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.id==='lg-cpf'){const d=t.value.replace(/\D/g,'').slice(0,11);t.value=d.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})\.(\d{3})(\d)/,'$1.$2.$3').replace(/(\d{3})\.(\d{3})\.(\d{3})(\d)/,'$1.$2.$3-$4');}
+  if(t.id==='p-q'){S.pq=t.value;renderBody();}
+  else if(t.id==='lem-msg')updLemLink();
+  else if(t.id==='s-busca'){const f=$('#form-ses');const sel=f.paciente.value;f.paciente.innerHTML=pacOptions(pacList().filter(x=>x.ativo!==false),sel,t.value);if(!f.paciente.value&&f.paciente.options.length>1){f.paciente.selectedIndex=1;onSesPac(f);}applySes();}
+});
+function onSesPac(f){const p=S.pac.get(f.paciente.value);if(!p)return;const cb=p.cobrancaPadrao||'avulsa';const r=f.querySelector(`input[name=cobranca][value="${cb}"]`);if(r)r.checked=true;f.valor.value=defaultValor(p,cb)??'';if(!f.endereco.value)f.endereco.value=p.endereco||'';}
+document.addEventListener('change',e=>{
+  const t=e.target;const f=t.form;
+  if(t.id==='lg-ver'){$('#lg-senha').type=t.checked?'text':'password';return;}
+  if(t.id==='up-oficial'&&t.files&&t.files[0]){const file=t.files[0];if(file.size>150*1024){toast('Arquivo maior que 150 KB. Reduza o tamanho e envie de novo.','err');return;}
+    const rd=new FileReader();rd.onload=async()=>{const url=String(rd.result||'');if(!/^data:image\//.test(url)){toast('Envie uma imagem PNG, SVG, JPG ou WEBP.','err');return;}if(await write(()=>db.doc('config/geral').set({...S.cfg,simboloOficial:url}))){toast('Símbolo oficial enviado.');setTimeout(renderBody,300);}};rd.readAsDataURL(file);return;}
+  if(t.id==='ag-date'&&t.value){S.day=t.value;renderTab();}
+  else if(t.id==='ag-canc'){S.showCanc=t.checked;renderBody();}
+  else if(t.id==='p-st'){S.pst=t.value;renderBody();}
+  else if(t.id==='f-mes'&&t.value){S.fmes=t.value;renderBody();}
+  else if(f&&f.id==='form-pac'&&t.name==='cobrancaPadrao')applyPacCob();
+  else if(f&&f.id==='form-ses'){if(t.id==='s-pac')onSesPac(f);if(t.name==='cobranca'){const p=S.pac.get(f.paciente.value);f.valor.value=defaultValor(p,t.value)??'';}if(t.name==='local'&&t.value==='domicilio'&&!f.endereco.value){const p=S.pac.get(f.paciente.value);if(p)f.endereco.value=p.endereco||'';}if(t.name==='data'&&f.repetir){const d=wd(t.value);f.querySelectorAll('input[name=dias]').forEach(x=>{if(+x.value===d)x.checked=true;});}delete f.dataset.force;applySes();}
+  else if(f&&f.id==='form-pct'&&t.name==='pagoAgora')applyPct();
+  else if(f&&f.id==='form-rec'){if(t.id==='r-pac'){f.ref.innerHTML=refOptions(t.value,'');}const pe=derive().pend.find(x=>x.key===f.ref.value);if(pe&&(t.id==='r-ref'||t.id==='r-pac'))f.valor.value=pe.aberto;delete f.dataset.force;applyRec();}
+});
+document.addEventListener('submit',async e=>{
+  e.preventDefault();const f=e.target;
+  if(f.id==='form-ses')submitSes(f);else if(f.id==='form-pac')submitPac(f);else if(f.id==='form-pct')submitPct(f);
+  else if(f.id==='form-pla')submitPla(f);else if(f.id==='form-rec')submitRec(f);else if(f.id==='form-conv')submitConv(f);
+  else if(f.id==='form-senha'){
+    const e1=$('#senha-err');const a1=f.s1.value,a2=f.s2.value;
+    if(a1.length<8){e1.textContent='A senha deve ter pelo menos 8 caracteres.';return;}
+    if(a1!==a2){e1.textContent='As duas senhas não conferem.';return;}
+    try{await Dados.novaSenha(a1);e1.textContent='';f.reset();toast('Senha alterada.');}catch(err){e1.textContent='Não foi possível trocar a senha: '+(err&&err.message||'tente de novo.');}
+  }
+  else if(f.id==='form-login'){
+    const e1=$('#login-err');const cpf=f.cpf.value.replace(/\D/g,'');
+    if(!cpfValido(cpf)){e1.textContent='Confira o CPF: ele deve ter 11 números válidos.';return;}
+    if(!f.senha.value){e1.textContent='Digite a senha.';return;}
+    const btn=f.querySelector('[type=submit]');btn.disabled=true;btn.textContent='Entrando…';
+    try{const ses=await Dados.entrar(cpf,f.senha.value);e1.textContent='';await iniciar(ses);}
+    catch(err){e1.textContent=/Invalid login/i.test(err&&err.message||'')?'CPF ou senha incorretos.':'Não foi possível entrar agora. Verifique a internet e tente de novo.';}
+    btn.disabled=false;btn.textContent='Entrar';
+  }
+  else if(f.id==='form-cfg'){
+    const g=n=>f.elements[n];const vp=g('valorPadrao').valueAsNumber,dp=g('duracaoPadrao').valueAsNumber;
+    if(toMin(g('fimDia').value)<=toMin(g('inicioDia').value)){$('#cfg-err').textContent='O fim do expediente deve ser depois do início.';return;}
+    const data={nomeProfissional:g('nomeProfissional').value.trim(),crefito:g('crefito').value.trim(),documento:g('documento').value.trim(),telefone:g('telefone').value.trim(),endereco:g('endereco').value.trim(),cidade:g('cidade').value.trim(),pix:g('pix').value.trim(),
+      valorPadrao:vp>=0?r2(vp):120,duracaoPadrao:dp>=10?Math.round(dp):50,inicioDia:g('inicioDia').value||'07:00',fimDia:g('fimDia').value||'19:00',msgWhats:g('msgWhats').value.trim()||DEFAULT_MSG,simboloOficial:S.cfg.simboloOficial||''};
+    const btn=f.querySelector('[type=submit]');btn.disabled=true;const ok=await write(()=>db.doc('config/geral').set(data));btn.disabled=false;if(ok){$('#cfg-err').textContent='';toast('Ajustes salvos.');}
+  }
+});
+window.addEventListener('hashchange',route);
+
+/* ================= Dados ================= */
+function refresh(){
+  D=null;renderBanner();
+  if(S.tab!=='ajustes'||!$('#form-cfg'))renderBody();
+  if(S.open&&$('#drawer')){if(S.open.t==='pac')pacDrawer(S.open.id);else sesDrawer(S.open.id);}
+}
+function checkLive(){if(Object.keys(COLLS).every(k=>S.live[k])&&S.live.cfg){clearTimeout(loadTimer);S.timedOut=false;}}
+function cpfValido(c){c=String(c||'').replace(/\D/g,'');if(c.length!==11||/^(\d)\1{10}$/.test(c))return false;let t=0;for(let i=0;i<9;i++)t+=+c[i]*(10-i);let d=(t*10)%11%10;if(d!==+c[9])return false;t=0;for(let i=0;i<10;i++)t+=+c[i]*(11-i);d=(t*10)%11%10;return d===+c[10];}
+function mostrarLogin(){document.body.classList.add('locked');$('#login').hidden=false;setTimeout(()=>{const i=$('#lg-cpf');if(i)i.focus();},50);}
+let iniciado=false;
+async function iniciar(sessao){
+  window.__sessao=sessao;document.body.classList.remove('locked');$('#login').hidden=true;
+  if(iniciado){refresh();return;}iniciado=true;
+  db=Dados.db;DL=DL_LOCAL;myId=sessao.user.id;applyDl();
+  try{if(!(await Dados.souMembro())){writable=false;S.noAccess=true;}}catch(_){}
+  loadTimer=setTimeout(()=>{S.timedOut=true;renderBanner();},12000);
+  const onErr=e=>{clearTimeout(loadTimer);const perm=(e&&e.code)==='invalid_argument';S.dbErr=perm?null:'nodb';if(perm){S.noAccess=true;writable=false;}Object.keys(COLLS).forEach(k=>S.ready[k]=true);S.ready.cfg=true;refresh();};
+  for(const[c,key]of Object.entries(COLLS)){
+    db.collection(c).onSnapshot(snap=>{
+      if(key==='ses')S.ses=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.data===b.data?String(a.hora).localeCompare(String(b.hora)):a.data<b.data?-1:1);
+      else if(key==='rec')S.rec=snap.docs.map(d=>({id:d.id,...d.data()}));
+      else S[key]=new Map(snap.docs.map(d=>[d.id,d.data()]));
+      S.ready[c]=true;S.live[c]=true;checkLive();refresh();
+    },onErr);
+  }
+  db.doc('config/geral').onSnapshot(snap=>{S.cfg=snap.exists?snap.data():{};S.ready.cfg=true;S.live.cfg=true;checkLive();refresh();},onErr);
+  Dados.iniciarTempoReal();
+}
+async function boot(){
+  route();
+  if(!window.Dados||!Dados.configurado){S.dbErr='config';Object.keys(COLLS).forEach(k=>S.ready[k]=true);S.ready.cfg=true;writable=false;refresh();return;}
+  Dados.aoMudarLogin((ev,ses)=>{if(ev==='SIGNED_OUT'){window.__sessao=null;mostrarLogin();}else if(ses)window.__sessao=ses;});
+  let ses=null;try{ses=await Dados.sessao();}catch(_){}
+  if(ses)iniciar(ses);else mostrarLogin();
+}
+if('serviceWorker' in navigator&&location.protocol==='https:')window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+boot();
+})();
+</script>
+</body>
+</html>
