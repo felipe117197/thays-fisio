@@ -21,8 +21,10 @@ jobs:
       - uses: actions/configure-pages@v5
         with:
           enablement: true
+      # Publica só os arquivos do site (as pastas android/ e ios/ do aplicativo ficam de fora)
+      - run: node scripts/copiar-web.mjs
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: www
       - id: deployment
         uses: actions/deploy-pages@v4

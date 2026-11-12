@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Thays Fisio</string>
+    <string name="title_activity_main">Thays Fisio</string>
+    <string name="package_name">br.com.controlefisio.app</string>
+    <string name="custom_url_scheme">br.com.controlefisio.app</string>
+</resources>

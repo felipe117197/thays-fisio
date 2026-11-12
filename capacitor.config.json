@@ -1,0 +1,7 @@
+{
+  "appId": "br.com.controlefisio.app",
+  "appName": "Thays Fisio",
+  "webDir": "www",
+  "android": { "backgroundColor": "#F3FAF8" },
+  "ios": { "backgroundColor": "#F3FAF8", "contentInset": "always" }
+}
