@@ -1,5 +1,5 @@
 /* =====================================================================
-   dados.js — camada de dados e login do app Thays Jesus Fisioterapia
+   dados.js — camada de dados e login do app Thays Freitas Fisioterapia
    ---------------------------------------------------------------------
    Usa o Supabase (banco Postgres + login) no lugar do banco do Claude.
    Login por CPF e senha: o CPF vira o usuário interno <cpf>@LOGIN_DOMINIO

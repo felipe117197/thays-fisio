@@ -1,5 +1,5 @@
 -- =====================================================================
--- esquema.sql — banco do app Thays Jesus Fisioterapia (Supabase)
+-- esquema.sql — banco do app Thays Freitas Fisioterapia (Supabase)
 -- Rode TUDO de uma vez no Supabase: SQL Editor > New query > colar > Run.
 -- Pode rodar de novo sem problema (não apaga dados).
 -- =====================================================================

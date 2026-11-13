@@ -1,7 +1,7 @@
 {
-  "name": "Thays Jesus Fisioterapia",
+  "name": "Thays Freitas Fisioterapia",
   "short_name": "Thays Fisio",
-  "description": "Agenda, pacientes e financeiro do consultório",
+  "description": "Agenda, pacientes, prontuário e financeiro do consultório",
   "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",
