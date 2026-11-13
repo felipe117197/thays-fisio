@@ -475,13 +475,48 @@ table.t{width:100%;border-collapse:collapse;font-size:13.5px}
 /* Modo privado: esconde valores em dinheiro (quando o paciente está olhando a tela) */
 body.privado .kpi .v.money,body.privado .tile .v,body.privado .rv,body.privado td.r,body.privado .money,body.privado .kpis .v{filter:blur(7px);user-select:none}
 
+/* Etapa 2: combobox de paciente, dados opcionais, desfazer, bloqueio */
+.combo{position:relative}
+.combo input{width:100%}
+.combo-l{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:5;background:var(--elev);border:1px solid var(--line);border-radius:10px;box-shadow:var(--sh-pop);padding:4px;max-height:280px;overflow-y:auto}
+.combo-l button{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;padding:8px 10px;border-radius:8px;cursor:pointer;text-align:left;color:var(--ink)}
+.combo-l button[aria-selected="true"],.combo-l button:hover{background:var(--primary-soft)}
+.combo-l .av{width:26px;height:26px;font-size:10.5px}
+.combo-l small{color:var(--muted);font-size:12px;margin-left:auto;white-space:nowrap}
+.combo-l .none{padding:10px;color:var(--muted);font-size:13px}
+.freq{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.freq button{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px 3px 3px;cursor:pointer;font-size:13px;font-weight:600;color:var(--ink-2)}
+.freq button:hover{border-color:var(--primary);background:var(--primary-soft)}
+.freq .av{width:24px;height:24px;font-size:10px}
+.freq-t{font-size:12px;color:var(--muted)}
+.pick{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--primary);background:var(--primary-soft);border-radius:10px}
+.pick b{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pick .av{width:30px;height:30px;font-size:11px}
+details.more{border:1px dashed var(--line);border-radius:10px;padding:0 12px}
+details.more[open]{padding-bottom:12px}
+details.more > summary{cursor:pointer;padding:10px 0;font-size:13px;font-weight:600;color:var(--primary-2);list-style:none;display:flex;align-items:center;gap:6px}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::before{content:"+";font-weight:700;width:14px;text-align:center}
+details.more[open] > summary::before{content:"–"}
+details.convg{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;background:var(--surface)}
+details.convg > summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px}
+details.convg > summary::-webkit-details-marker{display:none}
+details.convg > summary h3{margin:0;font-size:14.5px;display:flex;align-items:center;gap:7px}
+details.convg > summary h3::before{content:"";width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(-45deg);transition:transform .15s;margin-right:4px}
+details.convg[open] > summary h3::before{transform:rotate(45deg)}
+details.convg .table-wrap{border:0;border-top:1px solid var(--line);border-radius:0 0 10px 10px}
+.toast .undo{margin-left:auto;background:none;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:4px 10px;font-weight:650;cursor:pointer}
+.toast .undo:hover{background:rgba(255,255,255,.12)}
+.sug{font-size:12px;color:var(--primary-2)}
+#lockscr{position:fixed;inset:0;z-index:55;display:grid;place-items:center;padding:20px;background:radial-gradient(1000px 500px at 10% -10%,var(--mint),transparent 60%),var(--bg)}
+body.locked2 .shell,body.locked2 .bnav,body.locked2 #modal-root,body.locked2 #toasts{visibility:hidden}
 /* Tela de login */
 #login{position:fixed;inset:0;z-index:50;background:radial-gradient(1200px 600px at 10% -10%,var(--mint),transparent 60%),radial-gradient(900px 500px at 110% 110%,var(--primary-soft),transparent 60%),var(--bg);display:grid;place-items:center;padding:20px;overflow-y:auto}
 .login-card{width:100%;max-width:390px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px 26px;box-shadow:var(--sh-3);display:grid;gap:4px;text-align:center}
 .login-logo{width:76px;height:76px;margin:0 auto 8px}
 .login-card h1{font-size:25px}
 .login-sub{margin:0 0 18px;font:700 10.5px/1 var(--f-body);letter-spacing:.34em;color:var(--primary)}
-#form-login{display:grid;gap:12px;text-align:left}
+#form-login,#form-lock{display:grid;gap:12px;text-align:left}
 body.locked .shell,body.locked .bnav{display:none}
 
 /* ===== Responsivo ===== */
@@ -1244,8 +1279,8 @@ function finHTML(){
       ${d.pend.length?`<div class="toolbar" style="margin-bottom:12px"><div class="seg2" role="group" aria-label="Filtrar cobranças">${[['todas','Todas',d.pend.length],['atrasadas','Atrasadas',vencidas.length],['avencer','No prazo',aVencer.length]].map(([k,l,n])=>`<button data-action="ffil" data-f="${k}" aria-pressed="${S.ffil===k}">${l} <span class="badge soft">${n}</span></button>`).join('')}</div><label class="search" for="f-q" style="flex:1 1 220px">${ic('search')}<input id="f-q" type="search" placeholder="Filtrar por paciente" value="${esc(S.fq)}"></label></div><div id="cob-rows">${cobRows()}</div>`:emptyBox('okcircle','Nenhuma cobrança em aberto.')}
     </section>
   <section class="panel"><div class="panel-h"><h2>${ic('shield')}Convênios a receber</h2></div>
-    ${convG.size?[...convG.entries()].map(([k,arr])=>`<div class="sec" style="margin-bottom:14px"><div class="panel-h" style="margin-bottom:6px"><h3>${ic('shield')}${esc(k)} <span class="muted" style="font-weight:500">· ${arr.length} sessões · ${money(arr.reduce((a,s)=>a+(+s.valor||0),0))}</span></h3>${writable?`<button class="btn sm ok" data-action="conv-pay" data-conv="${esc(k)}">${ic('check')} Registrar pagamento</button>`:''}</div>
-      <div class="table-wrap"><table class="t"><thead><tr><th>${ic('cal')}Data</th><th>${ic('user')}Paciente</th><th>${ic('hash')}Guia</th><th class="r">${ic('coins')}Valor</th></tr></thead><tbody>${arr.map(s=>`<tr><td>${fmtD(s.data)}</td><td>${esc(pacName(s.pacienteId))}</td><td>${esc(s.guia||'—')}</td><td class="r">${money(s.valor)}</td></tr>`).join('')}</tbody></table></div></div>`).join(''):emptyBox('shield','Nenhuma sessão de convênio pendente de pagamento.')}
+    ${convG.size?[...convG.entries()].map(([k,arr])=>`<details class="convg" ${convG.size===1&&arr.length<=10?'open':''}><summary><h3>${ic('shield')}${esc(k)} <span class="muted" style="font-weight:500">· ${arr.length} ${arr.length===1?'sessão':'sessões'} · <span class="money">${money(arr.reduce((a,s)=>a+(+s.valor||0),0))}</span> · desde ${fmtD(arr.reduce((m,s)=>s.data<m?s.data:m,arr[0].data))}</span></h3>${writable?`<button class="btn sm ok" data-action="conv-pay" data-conv="${esc(k)}">${ic('check')} Registrar pagamento</button>`:''}</summary>
+      <div class="table-wrap"><table class="t"><thead><tr><th>${ic('cal')}Data</th><th>${ic('user')}Paciente</th><th>${ic('hash')}Guia</th><th class="r">${ic('coins')}Valor</th></tr></thead><tbody>${arr.map(s=>`<tr><td>${fmtD(s.data)}</td><td>${esc(pacName(s.pacienteId))}</td><td>${esc(s.guia||'—')}</td><td class="r">${money(s.valor)}</td></tr>`).join('')}</tbody></table></div></details>`).join(''):emptyBox('shield','Nenhuma sessão de convênio pendente de pagamento.')}
   </section>
   <section class="panel"><div class="panel-h"><h2>${ic('receipt')}Recebimentos de ${fmtYM(m)}</h2><span class="muted">${money(totM)}</span></div>
     ${recM.length?`<div class="table-wrap"><table class="t"><thead><tr><th>${ic('cal')}Data</th><th>${ic('user')}Paciente / convênio</th><th>${ic('note')}Referente a</th><th>${ic('card')}Forma</th><th class="r">${ic('coins')}Valor</th><th class="acts"><span hidden>Ações</span></th></tr></thead><tbody>${recM.map(r=>`<tr><td>${fmtD(r.data)}</td><td>${esc(r.referencia==='convenio'?r.convenio||'Convênio':pacName(r.pacienteId))}</td><td>${esc(r.desc||'—')}</td><td><span class="mini">${fIc(r.forma)}${esc(r.forma||'—')}</span></td><td class="r"><b>${money(r.valor)}</b></td><td class="acts">${DL&&r.referencia!=='convenio'?`<button class="btn sm" data-action="recibo" data-id="${esc(r.id)}">${ic('receipt')} Recibo</button>`:''}${writable?`<button class="btn sm danger" data-action="del-rec" data-id="${esc(r.id)}" aria-label="Excluir recebimento">${ic('trash')}</button>`:''}</td></tr>`).join('')}</tbody></table></div>`:emptyBox('inbox','Nenhum recebimento registrado neste mês.')}
@@ -1299,6 +1334,7 @@ function ajustesHTML(){
   </form>
   <section class="panel"><div class="panel-h"><h2>${ic('user')}Minha conta</h2></div>
     <div class="meta" style="margin-bottom:12px"><span>${ic('idcard')}CPF <b>${esc(contaCPF())}</b></span></div>
+    <div class="fields" style="margin-bottom:14px"><label class="field"><span>${ic('lock')}Bloquear o app depois de parado</span><select id="cfg-lock">${[[0,'Nunca'],[5,'5 minutos'],[15,'15 minutos'],[30,'30 minutos'],[60,'1 hora']].map(([v,l])=>`<option value="${v}" ${lockMin()===v?'selected':''}>${l}</option>`).join('')}</select><small>Vale para este aparelho. Para voltar, basta digitar a senha. Protege os prontuários se o celular ou o computador ficar aberto.</small></label></div>
     <form id="form-senha" class="fields" novalidate>
       <label class="field"><span>${ic('lock')}Nova senha</span><input name="s1" type="password" autocomplete="new-password"></label>
       <label class="field"><span>${ic('lock')}Repita a nova senha</span><input name="s2" type="password" autocomplete="new-password"></label>
@@ -1330,7 +1366,9 @@ function confirmBox(title,msg,okLabel,danger){
     root.addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;root.remove();res(b.dataset.c==='1');});
   });
 }
-function toast(msg,kind){const t=document.createElement('div');t.className='toast'+(kind==='err'?' err':'');t.innerHTML=ic(kind==='err'?'alert':'okcircle','lg');const sp=document.createElement('span');sp.textContent=msg;t.appendChild(sp);$('#toasts').appendChild(t);setTimeout(()=>t.remove(),kind==='err'?6000:3200);}
+function toast(msg,kind,undo){const t=document.createElement('div');t.className='toast'+(kind==='err'?' err':'');t.innerHTML=ic(kind==='err'?'alert':'okcircle','lg');const sp=document.createElement('span');sp.textContent=msg;t.appendChild(sp);
+  if(undo){const b=document.createElement('button');b.type='button';b.className='undo';b.textContent='Desfazer';b.onclick=async()=>{t.remove();if(await undo())toast('Alteração desfeita.');};t.appendChild(b);}
+  $('#toasts').appendChild(t);setTimeout(()=>t.remove(),undo?7000:kind==='err'?6000:3200);}
 
 /* ================= Escrita ================= */
 function errMsg(code){
@@ -1399,9 +1437,11 @@ function pacForm(id,tab){
       <label class="field full"><span class="req">${ic('user')}Nome completo</span><input name="nome" value="${v('nome')}" maxlength="100" autocomplete="off"></label>
       <label class="field"><span class="req">${ic('phone')}Telefone / WhatsApp</span><input name="telefone" value="${v('telefone')}" maxlength="20" inputmode="tel" placeholder="(31) 99999-0000"></label>
       <label class="field"><span>${ic('cake')}Data de nascimento</span><input name="nascimento" type="date" value="${v('nascimento')}"></label>
+      ${p?'':`<details class="more field full"><summary>Mais dados (opcional): CPF, e-mail e endereço</summary><div class="fields">`}
       <label class="field"><span>${ic('hash')}CPF (para recibo)</span><input name="cpf" value="${v('cpf')}" maxlength="14" inputmode="numeric"></label>
       <label class="field"><span>${ic('mail')}E-mail</span><input name="email" type="email" value="${v('email')}" maxlength="100"></label>
       <label class="field full"><span>${ic('home')}Endereço (atendimento domiciliar)</span><input name="endereco" value="${v('endereco')}" maxlength="160" placeholder="Rua, número, bairro"></label>
+      ${p?'':'</div></details>'}
       <label class="field full"><span>${ic('note')}Motivo do atendimento</span><input name="queixa" value="${v('queixa')}" maxlength="140" placeholder="Ex.: reabilitação pós-cirúrgica de joelho"><small>Resumo curto que aparece na agenda. Os detalhes vão na aba Avaliação fisioterapêutica.</small></label>
       <div class="field full"><span>${ic('wallet')}Forma de cobrança padrão</span><div class="opts">${Object.entries(COB).map(([k,x])=>`<label class="opt"><input type="radio" name="cobrancaPadrao" value="${k}" ${k===cob?'checked':''}><span>${ic(x.i)}${x.l}</span></label>`).join('')}</div></div>
       <label class="field" data-c="avulsa"><span>${ic('coins')}Valor da sessão (R$)</span><input name="valorSessao" type="number" min="0" step="0.01" value="${p&&p.valorSessao!=null?esc(p.valorSessao):esc(c.valorPadrao)}"></label>
@@ -1430,6 +1470,8 @@ async function submitPac(f){
   const data={nome,telefone:tel,nascimento:f.nascimento.value,cpf:cpf?cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4'):'',email:f.email.value.trim(),endereco:f.endereco.value.trim(),queixa:f.queixa.value.trim(),
     cobrancaPadrao:f.cobrancaPadrao.value,valorSessao:num(f.valorSessao),convenio:f.convenio.value.trim(),carteirinha:f.carteirinha.value.trim(),valorConvenio:num(f.valorConvenio),obs:f.obs.value.trim(),atualizadoEm:new Date().toISOString()};
   if(data.cobrancaPadrao==='convenio'&&!data.convenio)return err('Informe o nome do convênio.');
+  if(!id&&f.dataset.force!=='1'){const td=tel.replace(/\D/g,'');const dup=pacList().find(x=>norm(x.nome)===norm(nome)||(td.length>=10&&String(x.telefone||'').replace(/\D/g,'').slice(-9)===td.slice(-9)));
+    if(dup){f.dataset.force='1';return err('Já existe '+dup.nome+(dup.telefone?' ('+dup.telefone+')':'')+' cadastrado. Confira se não é a mesma pessoa. Para salvar mesmo assim, toque em Salvar de novo.');}}
   {const rv=lerVitais(f,'av_');if(rv.erro){pacTab(f,'aval');return err('Avaliação: '+rv.erro);}
    const av={sinais:rv.v};for(const[k,,,t]of AVAL){if(t==='vit')continue;const el=f.elements['av_'+k];if(!el)continue;const x=el.value.trim();av[k]=t==='eva'?(x===''?null:Math.max(0,Math.min(10,Math.round(+x)))):x;}
    if(avalTemDados(av)){if(!av.dataAvaliacao)av.dataAvaliacao=today();data.avaliacao=av;}else if(id&&S.pac.get(id)&&S.pac.get(id).avaliacao)data.avaliacao=av;}
@@ -1521,10 +1563,11 @@ function sesForm(o){
     <div class="modal-b">
       ${base?`<div class="hint warn">${ic('rotate')}<span>Sessão original: ${fmtDS(base.data)} às ${esc(base.hora)}. Ela ficará marcada como remarcada.</span></div>`:''}
       <div class="fields">
-        ${s||base?'':`<label class="field full"><span>${ic('search')}Buscar paciente</span><input id="s-busca" type="search" autocomplete="off" placeholder="Digite parte do nome"></label>`}
-        <label class="field full"><span class="req">${ic('user')}Paciente</span><select name="paciente" id="s-pac" ${s||base?'disabled':''}>${pacOptions(pacs,pid,'')}</select></label>
+        ${s||base?`<label class="field full"><span class="req">${ic('user')}Paciente</span><select name="paciente" id="s-pac" disabled>${pacOptions(pacs,pid,'')}</select></label>`:`<div class="field full"><span class="req">${ic('user')}Paciente</span>
+          <div id="s-pickbox">${pickBox(pid)}</div>
+          <select name="paciente" id="s-pac" hidden>${pacOptions(pacs,pid,'')}</select></div>`}
         <label class="field"><span class="req">${ic('cal')}${o.rec?'Começa em':'Data'}</span><input name="data" type="date" value="${esc(date)}"></label>
-        <label class="field"><span class="req">${ic('clock')}Horário</span><input name="hora" type="time" step="300" value="${esc(hora)}"></label>
+        <label class="field"><span class="req">${ic('clock')}Horário</span><input name="hora" type="time" step="300" value="${esc(hora)}"><small class="sug" id="s-sug"></small></label>
         <label class="field"><span>${ic('clock')}Duração (min)</span><input name="duracao" type="number" min="10" max="240" step="5" value="${esc(src?src.duracao:c.duracaoPadrao)}"></label>
         <div class="field"><span>${ic('pin')}Local</span><div class="opts"><label class="opt"><input type="radio" name="local" value="consultorio" ${local!=='domicilio'?'checked':''}><span>${ic('building')}Consultório</span></label><label class="opt"><input type="radio" name="local" value="domicilio" ${local==='domicilio'?'checked':''}><span>${ic('home')}Domicílio</span></label></div></div>
         <label class="field full" data-show="dom"><span>${ic('home')}Endereço do atendimento</span><input name="endereco" value="${esc(src?src.endereco||'':(p?p.endereco||'':''))}" maxlength="160"></label>
@@ -1541,8 +1584,32 @@ function sesForm(o){
     </div>
     <div class="modal-f"><button type="button" class="btn" data-action="close">Cancelar</button><button type="submit" class="btn primary">${ic('check')} ${s?'Salvar':base?'Remarcar':'Agendar'}</button></div>
   </form>`);
+  const f0=$('#form-ses');if(f0&&!s&&!base&&!hora){f0.dataset.autoHora='1';sugHora(f0);}
   applySes();
+  if(f0&&!s&&!base&&!pid)setTimeout(()=>{const i=$('#s-busca');if(i)i.focus();},30);
 }
+/* Escolha de paciente em um passo: busca com lista + pacientes frequentes em um toque */
+function freqPacs(){const t=today(),ini=addD(t,-60),fim=addD(t,30);const n=new Map();for(const s of S.ses)if(s.data>=ini&&s.data<=fim&&ACTIVE(s))n.set(s.pacienteId,(n.get(s.pacienteId)||0)+1);
+  return [...n.entries()].filter(([id])=>{const p=S.pac.get(id);return p&&p.ativo!==false;}).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([id])=>({id,...S.pac.get(id)}));}
+function pickBox(pid){const p=pid?S.pac.get(pid):null;
+  if(p)return `<div class="pick"><span class="av" ${avStyle(p.nome)}>${esc(initials(p.nome))}</span><b>${esc(p.nome)}</b><button type="button" class="btn sm ghost" data-action="s-trocar">${ic('pencil')} Trocar</button></div>`;
+  const fr=freqPacs();
+  return `<div class="combo"><input id="s-busca" type="search" autocomplete="off" placeholder="Digite o nome, telefone ou CPF" role="combobox" aria-controls="s-list" aria-expanded="false" aria-autocomplete="list"><div class="combo-l" id="s-list" role="listbox" hidden></div></div>
+  ${fr.length?`<span class="freq-t">Frequentes:</span><div class="freq">${fr.map(x=>`<button type="button" data-action="s-pick" data-id="${esc(x.id)}"><span class="av" ${avStyle(x.nome)}>${esc(initials(x.nome))}</span>${esc(x.nome.split(' ').slice(0,2).join(' '))}</button>`).join('')}</div>`:''}`;}
+function pacMatches(q){const nq=norm(q.trim()),dg=q.replace(/\D/g,'');if(!nq)return[];
+  return pacList().filter(p=>p.ativo!==false&&(norm(p.nome).includes(nq)||(dg.length>=3&&(String(p.telefone||'').replace(/\D/g,'').includes(dg)||String(p.cpf||'').replace(/\D/g,'').includes(dg))))).sort((a,b)=>norm(a.nome).indexOf(nq)-norm(b.nome).indexOf(nq)).slice(0,8);}
+function renderCombo(){const i=$('#s-busca'),l=$('#s-list');if(!i||!l)return;const m=pacMatches(i.value);S.cmb=m;S.cmbSel=0;
+  if(!i.value.trim()){l.hidden=true;i.setAttribute('aria-expanded','false');return;}
+  l.innerHTML=m.length?m.map((p,n)=>{const nx=proxSessao(p.id);return`<button type="button" role="option" aria-selected="${n===0}" data-action="s-pick" data-id="${esc(p.id)}"><span class="av" ${avStyle(p.nome)}>${esc(initials(p.nome))}</span><span>${esc(p.nome)}</span><small>${nx?'próx. '+fmtDS(nx.data):esc(p.telefone||'')}</small></button>`;}).join(''):`<div class="none">Nenhum paciente ativo com "${esc(i.value)}". ${writable?'Cadastre em Novo paciente.':''}</div>`;
+  l.hidden=false;i.setAttribute('aria-expanded','true');}
+function pickPac(id){const f=$('#form-ses');if(!f||!S.pac.get(id))return;f.paciente.value=id;$('#s-pickbox').innerHTML=pickBox(id);onSesPac(f);if(f.dataset.autoHora==='1')sugHora(f);delete f.dataset.force;applySes();const h=f.hora;if(h&&!h.value)h.focus();}
+/* Sugere horário: o habitual do paciente, se estiver livre; senão o primeiro horário livre do dia */
+function sugHora(f){const c=CFG();const date=f.data.value;if(!date)return;const pid=f.paciente.value;const dur=+f.duracao.value||+c.duracaoPadrao||50;let h='',why='';
+  if(pid){const cnt=new Map();const ini=addD(today(),-120);for(const s of S.ses)if(s.pacienteId===pid&&s.data>=ini&&ACTIVE(s))cnt.set(s.hora,(cnt.get(s.hora)||0)+1);const best=[...cnt.entries()].sort((a,b)=>b[1]-a[1])[0];
+    if(best&&!conflicts(date,best[0],dur,null).length&&!(date===today()&&toMin(best[0])<=nowMin())){h=best[0];why='Horário habitual do paciente';}}
+  if(!h){let m=toMin(c.inicioDia);const end=toMin(c.fimDia);if(date===today())m=Math.max(m,Math.ceil((nowMin()+1)/60)*60);
+    for(;m+dur<=end+1;m+=30)if(!conflicts(date,fromMin(m),dur,null).length){h=fromMin(m);why='Primeiro horário livre do dia';break;}}
+  const sg=$('#s-sug');if(h){f.hora.value=h;if(sg)sg.textContent=why;}else{f.hora.value='';if(sg)sg.textContent='Sem horário livre no expediente deste dia';}}
 function defaultValor(p,cob){const c=CFG();if(cob==='convenio')return p&&p.valorConvenio!=null?p.valorConvenio:'';if(cob==='avulsa')return p&&p.valorSessao!=null?p.valorSessao:c.valorPadrao;return'';}
 function pacOptions(pacs,sel,q){const nq=norm(q);const l=nq?pacs.filter(x=>norm(x.nome).includes(nq)||x.id===sel):pacs;return(sel?'':'<option value="">Selecione…</option>')+l.map(x=>`<option value="${esc(x.id)}" ${x.id===sel?'selected':''}>${esc(x.nome)}</option>`).join('');}
 function applySes(){
@@ -1564,7 +1631,8 @@ function applySes(){
 async function submitSes(f){
   const err=t=>{$('#ses-err').textContent=t;};
   const id=f.dataset.id||null,remId=f.dataset.remarcar||null;
-  const pid=f.paciente.value;const p=S.pac.get(pid);if(!p)return err('Escolha o paciente.');
+  if(!f.paciente.value&&$('#s-busca')){const m=pacMatches($('#s-busca').value);if(m.length===1)pickPac(m[0].id);}
+  const pid=f.paciente.value;const p=S.pac.get(pid);if(!p)return err('Escolha o paciente: digite o nome e toque nele na lista.');
   const data=f.data.value,hora=f.hora.value;if(!data)return err('Informe a data.');if(!hora)return err('Informe o horário.');
   const dur=f.duracao.valueAsNumber||50;if(dur<10||dur>240)return err('A duração deve ficar entre 10 e 240 minutos.');
   const cob=f.cobranca.value,local=f.local.value;
@@ -1656,9 +1724,10 @@ async function setStatus(id,st,extra){
     if(st!=='realizado'&&st!=='falta'&&s.pacoteId)data.pacoteId=null;
     if(st==='falta'&&s.pacoteId){const p=S.pct.get(s.pacoteId);if(p&&!p.faltaConsome)data.pacoteId=null;}
   }
+  const prev={status:s.status,pacoteId:s.pacoteId||null};
   const ok=await write(()=>col('sessoes').doc(id).update(data));
   if(ok&&extra){toast('Atendimento finalizado.');return true;}
-  if(ok){toast(st==='realizado'?'Sessão marcada como realizada.':st==='falta'?'Falta registrada.':st==='confirmado'?'Presença confirmada.':st==='cancelado'?'Sessão cancelada.':'Sessão voltou para agendada.');}
+  if(ok){toast(st==='realizado'?'Sessão marcada como realizada.':st==='falta'?'Falta registrada.':st==='confirmado'?'Presença confirmada.':st==='cancelado'?'Sessão cancelada.':'Sessão voltou para agendada.','',()=>write(()=>col('sessoes').doc(id).update({status:prev.status,pacoteId:prev.pacoteId,atualizadoEm:new Date().toISOString()})));}
   return ok;
 }
 
@@ -1682,6 +1751,8 @@ function lerVitais(f,pre){
   let fc=null;if(fc0){fc=Math.round(+fc0);if(!(fc>=20&&fc<=250))return{erro:'Frequência cardíaca deve ficar entre 20 e 250 bpm.'};}
   let spo2=null;if(sp0){spo2=Math.round(+sp0);if(!(spo2>=50&&spo2<=100))return{erro:'Saturação deve ficar entre 50% e 100%.'};}
   return{v:{pa,fc,spo2}};}
+/* Última evolução registrada do mesmo paciente (antes desta sessão) */
+function ultimaEvol(id){const s=S.ses.find(x=>x.id===id);if(!s)return null;return S.ses.filter(x=>x.id!==id&&x.pacienteId===s.pacienteId&&x.status==='realizado'&&x.evolucao&&(x.data+x.hora)<=(s.data+s.hora)).sort((a,b)=>(b.data+b.hora).localeCompare(a.data+a.hora))[0]||null;}
 function finForm(id){
   const s=S.ses.find(x=>x.id===id);if(!s)return;const p=S.pac.get(s.pacienteId)||{};const ja=s.status==='realizado';
   openModal(`<form id="form-fin" data-id="${esc(id)}" novalidate>
@@ -1691,6 +1762,7 @@ function finForm(id){
       <div class="fields">
         <div class="fsub">${ic('pulse')}Sinais vitais</div>
         ${vitFields(s.sinais,'')}
+        ${ultimaEvol(id)?`<div class="field full"><button type="button" class="btn sm" data-action="fin-copy" data-id="${esc(id)}" style="justify-self:start">${ic('history')} Copiar a evolução de ${fmtD(ultimaEvol(id).data)}</button></div>`:''}
         <label class="field full"><span class="req">${ic('note')}Evolução</span><textarea name="evolucao" maxlength="4000" rows="6" placeholder="Condutas realizadas, resposta do paciente, queixas, orientações e plano para a próxima sessão.">${esc(s.evolucao||'')}</textarea><small>Obrigatória para finalizar o atendimento.</small></label>
       </div>
       <div class="formerr" id="fin-err"></div>
@@ -1778,7 +1850,7 @@ function recForm(o){
       <label class="field full" data-show="qtd"><span>${ic('hash')}Quantidade de sessões</span><input name="qtd" id="r-qtd" type="number" min="1" max="60" step="1" value="1" inputmode="numeric"><small id="r-qtd-info"></small></label>
       <label class="field"><span class="req">${ic('coins')}Valor (R$)</span><input name="valor" type="number" min="0" step="0.01" value="${pre?esc(pre.aberto):''}"></label>
       <label class="field"><span class="req">${ic('cal')}Data do pagamento</span><input name="data" type="date" value="${today()}" max="${today()}"></label>
-      <div class="field full"><span>${ic('card')}Forma de pagamento</span><div class="opts">${FORMAS.map((x,i)=>`<label class="opt"><input type="radio" name="forma" value="${x}" ${i===0?'checked':''}><span>${fIc(x)}${x}</span></label>`).join('')}</div></div>
+      <div class="field full"><span>${ic('card')}Forma de pagamento</span><div class="opts">${FORMAS.map((x,i)=>`<label class="opt"><input type="radio" name="forma" value="${x}" ${x===formaPref(pid)?'checked':''}><span>${fIc(x)}${x}</span></label>`).join('')}</div></div>
       <label class="field full" data-show="outro"><span class="req">${ic('note')}Descrição</span><input name="desc" maxlength="120" placeholder="Ex.: avaliação inicial"></label>
       <label class="field full"><span>${ic('note')}Observações</span><input name="obs" maxlength="200"></label>
       <label class="chk full" style="font-size:14px"><input type="checkbox" name="recibo" checked> ${ic('receipt')} Gerar o recibo ao registrar</label>
@@ -1787,6 +1859,8 @@ function recForm(o){
   </form>`);
   applyRec();recQtd($('#form-rec'),false);
 }
+/* Forma de pagamento mais recente do paciente (ou Pix) */
+function formaPref(pid){const r=S.rec.filter(x=>x.pacienteId===pid&&FORMAS.includes(x.forma)).sort((a,b)=>String(b.data).localeCompare(String(a.data)))[0];return r?r.forma:FORMAS[0];}
 function refOptions(pid,sel){const l=pid?pendDe(pid):[];return l.map(x=>`<option value="${esc(x.key)}" ${x.key===sel?'selected':''}>${esc(x.desc)} · ${money(x.aberto)} em aberto</option>`).join('')+`<option value="outro" ${!l.length||sel==='outro'?'selected':''}>Outro (avaliação, atendimento avulso etc.)</option>`;}
 function applyRec(){const f=$('#form-rec');if(!f)return;f.querySelectorAll('[data-show="outro"]').forEach(el=>el.hidden=f.ref.value!=='outro');
   f.querySelectorAll('[data-show="qtd"]').forEach(el=>el.hidden=!(f.ref.value==='outro'||f.ref.value.startsWith('s:')));}
@@ -1922,6 +1996,10 @@ document.addEventListener('click',async e=>{
     case'fin-filtro':S.ffil=a.dataset.f;S.fq='';S.flim=30;if(S.tab!=='financeiro')location.hash='financeiro';else renderBody();setTimeout(()=>{const el=$('#cob-panel');if(el)el.scrollIntoView({block:'start',behavior:'smooth'});},60);break;
     case'pac-filtro':S.pst=a.dataset.f;S.pq='';if(S.tab!=='pacientes')location.hash='pacientes';else renderTab();break;
     case'ffil':S.ffil=a.dataset.f;S.flim=30;a.parentNode.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===a)));$('#cob-rows').innerHTML=cobRows();break;
+    case's-pick':pickPac(a.dataset.id);break;
+    case's-trocar':{const f=$('#form-ses');f.paciente.value='';$('#s-pickbox').innerHTML=pickBox('');applySes();$('#s-busca').focus();break;}
+    case'fin-copy':{const f=$('#form-fin');const ev=ultimaEvol(a.dataset.id);if(f&&ev){f.evolucao.value=(f.evolucao.value.trim()?f.evolucao.value.trim()+'\n':'')+ev.evolucao;f.evolucao.focus();toast('Evolução de '+fmtD(ev.data)+' copiada. Ajuste o que mudou.');}break;}
+    case'lock-sair':Dados.sair();break;
     case'pd-more':a.closest('.panel').querySelectorAll('[data-more]').forEach(el=>el.hidden=false);a.parentNode.remove();break;
     case'fmore':S.flim+=30;$('#cob-rows').innerHTML=cobRows();break;
     case'pview':S.pview=a.dataset.v;try{localStorage.setItem('tf-pview',S.pview);}catch(_){}renderTab();break;
@@ -1977,7 +2055,10 @@ document.addEventListener('click',async e=>{
   }
 });
 document.addEventListener('keydown',e=>{
+  if(document.body.classList.contains('locked2'))return;
   if((e.ctrlKey||e.metaKey)&&!e.altKey&&(e.key==='k'||e.key==='K')){if(!document.body.classList.contains('locked')&&!document.querySelector('[role=alertdialog]')){e.preventDefault();openPalette();}return;}
+  if(e.target.id==='s-busca'){const l=$('#s-list');const n=(S.cmb||[]).length;if(l&&!l.hidden&&n&&(e.key==='ArrowDown'||e.key==='ArrowUp')){e.preventDefault();S.cmbSel=(S.cmbSel+(e.key==='ArrowDown'?1:-1)+n)%n;l.querySelectorAll('button').forEach((b,i)=>b.setAttribute('aria-selected',String(i===S.cmbSel)));return;}
+    if(e.key==='Enter'){e.preventDefault();if(n)pickPac(S.cmb[S.cmbSel||0].id);return;}if(e.key==='Escape'&&l&&!l.hidden){e.preventDefault();e.stopPropagation();l.hidden=true;return;}}
   if(e.target.id==='pal-q'){const n=(S.palItems||[]).length;if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();if(!n)return;S.palSel=(S.palSel+(e.key==='ArrowDown'?1:-1)+n)%n;document.querySelectorAll('.pal-i').forEach(b=>b.setAttribute('aria-selected',String(+b.dataset.n===S.palSel)));const el=$('#pal-'+S.palSel);if(el)el.scrollIntoView({block:'nearest'});e.target.setAttribute('aria-activedescendant','pal-'+S.palSel);return;}
     if(e.key==='Enter'){e.preventDefault();palGo(S.palSel);return;}}
   if(e.key==='Escape'&&$('#modal-root').innerHTML&&!document.querySelector('[role=alertdialog]'))closeModal();
@@ -2006,7 +2087,10 @@ document.addEventListener('input',e=>{
   else if(t.id==='f-q'){S.fq=t.value;S.flim=30;const r=$('#cob-rows');if(r)r.innerHTML=cobRows();}
   else if(t.id==='lem-msg')updLemLink();
   else if(t.id==='r-qtd'){recQtd(t.form,true);}
-  else if(t.id==='s-busca'){const f=$('#form-ses');const sel=f.paciente.value;f.paciente.innerHTML=pacOptions(pacList().filter(x=>x.ativo!==false),sel,t.value);if(!f.paciente.value&&f.paciente.options.length>1){f.paciente.selectedIndex=1;onSesPac(f);}applySes();}
+  else if(t.id==='s-busca'){const f=$('#form-ses');if(f)f.paciente.value='';renderCombo();applySes();}
+  else if(t.form&&t.form.id==='form-pac'&&t.name==='telefone'){const d=t.value.replace(/\D/g,'').slice(0,11);t.value=d.length>10?d.replace(/(\d{2})(\d{5})(\d{0,4})/,'($1) $2-$3'):d.length>6?d.replace(/(\d{2})(\d{4})(\d{0,4})/,'($1) $2-$3'):d.length>2?d.replace(/(\d{2})(\d+)/,'($1) $2'):d;}
+  else if(t.form&&t.form.id==='form-pac'&&t.name==='cpf'){const d=t.value.replace(/\D/g,'').slice(0,11);t.value=d.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})\.(\d{3})(\d)/,'$1.$2.$3').replace(/(\d{3})\.(\d{3})\.(\d{3})(\d)/,'$1.$2.$3-$4');}
+  else if(t.form&&t.form.id==='form-pac'&&(t.name==='nome'||t.name==='telefone'))delete t.form.dataset.force;
 });
 function onSesPac(f){const p=S.pac.get(f.paciente.value);if(!p)return;const cb=p.cobrancaPadrao||'avulsa';const r=f.querySelector(`input[name=cobranca][value="${cb}"]`);if(r)r.checked=true;f.valor.value=defaultValor(p,cb)??'';if(!f.endereco.value)f.endereco.value=p.endereco||'';}
 document.addEventListener('change',e=>{
@@ -2018,12 +2102,13 @@ document.addEventListener('change',e=>{
   else if(t.id==='ag-canc'){S.showCanc=t.checked;renderBody();}
   else if(t.id==='p-st'){S.pst=t.value;renderBody();}
   else if(t.id==='p-sort'){S.psort=t.value;renderBody();}
+  else if(t.id==='cfg-lock'){try{localStorage.setItem('tf-lock-min',t.value);}catch(_){}marcaAtividade(true);toast(+t.value?'O app vai bloquear após '+t.options[t.selectedIndex].text+' parado.':'Bloqueio automático desligado.');}
   else if(t.id==='f-mes'&&t.value){S.fmes=t.value;renderBody();}
   else if(f&&f.id==='form-pac'&&t.name==='cobrancaPadrao')applyPacCob();
-  else if(f&&f.id==='form-ses'){if(t.id==='s-pac')onSesPac(f);if(t.name==='cobranca'){const p=S.pac.get(f.paciente.value);f.valor.value=defaultValor(p,t.value)??'';}if(t.name==='local'&&t.value==='domicilio'&&!f.endereco.value){const p=S.pac.get(f.paciente.value);if(p)f.endereco.value=p.endereco||'';}if(t.name==='data'&&f.repetir){const d=wd(t.value);f.querySelectorAll('input[name=dias]').forEach(x=>{if(+x.value===d)x.checked=true;});}delete f.dataset.force;applySes();}
+  else if(f&&f.id==='form-ses'){if(t.id==='s-pac')onSesPac(f);if(t.name==='cobranca'){const p=S.pac.get(f.paciente.value);f.valor.value=defaultValor(p,t.value)??'';}if(t.name==='local'&&t.value==='domicilio'&&!f.endereco.value){const p=S.pac.get(f.paciente.value);if(p)f.endereco.value=p.endereco||'';}if(t.name==='hora'){delete f.dataset.autoHora;const sg=$('#s-sug');if(sg)sg.textContent='';}if((t.name==='data'||t.name==='duracao')&&f.dataset.autoHora==='1')sugHora(f);if(t.name==='data'&&f.repetir){const d=wd(t.value);f.querySelectorAll('input[name=dias]').forEach(x=>{if(+x.value===d)x.checked=true;});}delete f.dataset.force;applySes();}
   else if(f&&f.id==='form-pct'&&t.name==='pagoAgora')applyPct();
   else if(f&&f.id==='form-rec'&&(t.id==='r-pac'||t.id==='r-ref')){f.qtd.value=1;}
-  if(f&&f.id==='form-rec'){if(t.id==='r-pac'){f.ref.innerHTML=refOptions(t.value,'');}const pe=derive().pend.find(x=>x.key===f.ref.value);if(pe&&(t.id==='r-ref'||t.id==='r-pac'))f.valor.value=pe.aberto;delete f.dataset.force;applyRec();if(t.id==='r-pac'||t.id==='r-ref'||t.id==='r-qtd')recQtd(f,t.id==='r-qtd'||f.ref.value==='outro');}
+  if(f&&f.id==='form-rec'){if(t.id==='r-pac'){f.ref.innerHTML=refOptions(t.value,'');const fr=f.querySelector(`input[name=forma][value="${formaPref(t.value)}"]`);if(fr)fr.checked=true;}const pe=derive().pend.find(x=>x.key===f.ref.value);if(pe&&(t.id==='r-ref'||t.id==='r-pac'))f.valor.value=pe.aberto;delete f.dataset.force;applyRec();if(t.id==='r-pac'||t.id==='r-ref'||t.id==='r-qtd')recQtd(f,t.id==='r-qtd'||f.ref.value==='outro');}
 });
 document.addEventListener('submit',async e=>{
   e.preventDefault();const f=e.target;
@@ -2035,12 +2120,13 @@ document.addEventListener('submit',async e=>{
     if(a1!==a2){e1.textContent='As duas senhas não conferem.';return;}
     try{await Dados.novaSenha(a1);e1.textContent='';f.reset();toast('Senha alterada.');}catch(err){e1.textContent='Não foi possível trocar a senha: '+(err&&err.message||'tente de novo.');}
   }
+  else if(f.id==='form-lock')desbloquear(f);
   else if(f.id==='form-login'){
     const e1=$('#login-err');const cpf=f.cpf.value.replace(/\D/g,'');
     if(!cpfValido(cpf)){e1.textContent='Confira o CPF: ele deve ter 11 números válidos.';return;}
     if(!f.senha.value){e1.textContent='Digite a senha.';return;}
     const btn=f.querySelector('[type=submit]');btn.disabled=true;btn.textContent='Entrando…';
-    try{const ses=await Dados.entrar(cpf,f.senha.value);e1.textContent='';await iniciar(ses);}
+    try{const ses=await Dados.entrar(cpf,f.senha.value);e1.textContent='';try{localStorage.removeItem('tf-locked');localStorage.setItem('tf-last',String(Date.now()));}catch(_){}await iniciar(ses);}
     catch(err){e1.textContent=/Invalid login/i.test(err&&err.message||'')?'CPF ou senha incorretos.':'Não foi possível entrar agora. Verifique a internet e tente de novo.';}
     btn.disabled=false;btn.textContent='Entrar';
   }
@@ -2064,10 +2150,30 @@ function doRefresh(){
 }
 function checkLive(){if(Object.keys(COLLS).every(k=>S.live[k])&&S.live.cfg){clearTimeout(loadTimer);S.timedOut=false;}}
 function cpfValido(c){c=String(c||'').replace(/\D/g,'');if(c.length!==11||/^(\d)\1{10}$/.test(c))return false;let t=0;for(let i=0;i<9;i++)t+=+c[i]*(10-i);let d=(t*10)%11%10;if(d!==+c[9])return false;t=0;for(let i=0;i<10;i++)t+=+c[i]*(11-i);d=(t*10)%11%10;return d===+c[10];}
+/* ===== Bloqueio por inatividade ===== */
+function lockMin(){try{const v=localStorage.getItem('tf-lock-min');return v==null?30:Math.max(0,+v||0);}catch(_){return 30;}}
+let ultAtiv=0;
+function marcaAtividade(force){const n=Date.now();if(!force&&n-ultAtiv<15000)return;ultAtiv=n;try{localStorage.setItem('tf-last',String(n));}catch(_){}}
+function checaBloqueio(){if(!window.__sessao||document.body.classList.contains('locked2')||document.body.classList.contains('locked'))return;const m=lockMin();if(!m)return;
+  let last=ultAtiv;try{last=Math.max(last,+localStorage.getItem('tf-last')||0);}catch(_){}if(last&&Date.now()-last>m*60000)bloquear();}
+function bloquear(){if(document.body.classList.contains('locked2'))return;try{localStorage.setItem('tf-locked','1');}catch(_){}document.body.classList.add('locked2');if(tipEl)tipEl.hidden=true;
+  const d=document.createElement('section');d.id='lockscr';d.innerHTML=`<div class="login-card"><svg class="login-logo" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo-emblem"/></svg><h1>App bloqueado</h1><p class="login-sub">PROTEÇÃO DOS DADOS</p>
+  <form id="form-lock" novalidate><p class="muted" style="margin:0;font-size:14px;text-align:center">Ficou parado por um tempo. Digite a senha para continuar de onde parou.</p><label class="field"><span>CPF</span><input value="${esc(contaCPF())}" disabled></label><label class="field"><span>Senha</span><input id="lk-senha" type="password" autocomplete="current-password"></label><div class="formerr" id="lock-err"></div><button type="submit" class="btn primary" style="width:100%;min-height:46px">${ic('lock')} Desbloquear</button><button type="button" class="linkbtn" data-action="lock-sair" style="justify-self:center;margin-top:4px">Entrar com outra conta</button></form></div>`;
+  document.body.appendChild(d);setTimeout(()=>{const i=$('#lk-senha');if(i)i.focus();},50);}
+async function desbloquear(f){const e1=$('#lock-err');const senha=$('#lk-senha').value;if(!senha){e1.textContent='Digite a senha.';return;}
+  const cpf=String((window.__sessao&&window.__sessao.user&&window.__sessao.user.email)||'').split('@')[0].replace(/\D/g,'');
+  const btn=f.querySelector('[type=submit]');btn.disabled=true;
+  try{const ses=await Dados.entrar(cpf,senha);if(ses)window.__sessao=ses;try{localStorage.removeItem('tf-locked');}catch(_){}document.body.classList.remove('locked2');const d=$('#lockscr');if(d)d.remove();marcaAtividade(true);refresh();}
+  catch(err){e1.textContent=/Invalid login/i.test(err&&err.message||'')?'Senha incorreta.':'Não foi possível conferir a senha agora. Verifique a internet.';btn.disabled=false;}}
+['pointerdown','keydown','touchstart','wheel'].forEach(ev=>document.addEventListener(ev,()=>{if(!document.body.classList.contains('locked2'))marcaAtividade();},{passive:true,capture:true}));
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')checaBloqueio();});
+setInterval(checaBloqueio,20000);
 function mostrarLogin(){document.body.classList.add('locked');$('#login').hidden=false;setTimeout(()=>{const i=$('#lg-cpf');if(i)i.focus();},50);}
 let iniciado=false;
 async function iniciar(sessao){
   window.__sessao=sessao;document.body.classList.remove('locked');$('#login').hidden=true;
+  {let fl=false,last=0;try{fl=localStorage.getItem('tf-locked')==='1';last=+localStorage.getItem('tf-last')||0;}catch(_){}const m=lockMin();
+   if(m&&(fl||(last&&Date.now()-last>m*60000)))setTimeout(bloquear,0);else if(!fl)marcaAtividade(true);}
   if(iniciado){refresh();return;}iniciado=true;
   db=Dados.db;DL=DL_LOCAL;myId=sessao.user.id;applyDl();
   try{if(!(await Dados.souMembro())){writable=false;S.noAccess=true;}}catch(_){}

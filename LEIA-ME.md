@@ -118,3 +118,13 @@ O ícone da logomarca aparece na tela, e o app abre em tela cheia, sem a barra d
 - **Relatório do mês** para imprimir ou salvar em PDF (Início e Financeiro).
 - **Tema escuro** e botão de olho para **ocultar valores** quando um paciente estiver vendo a tela.
 - Segurança: política de conteúdo (CSP) que só permite falar com o Supabase do consultório.
+
+## Etapa 2: formulários mais rápidos e bloqueio automático
+
+- **Agendar:** um campo só para achar o paciente (nome, telefone ou CPF), pacientes frequentes em um toque e horário sugerido (o habitual do paciente ou o primeiro livre).
+- **Novo paciente:** só nome e telefone; CPF, e-mail e endereço ficam em "Mais dados". Telefone e CPF são formatados sozinhos e o app avisa se o paciente já existe.
+- **Finalizar:** botão para copiar a última evolução do paciente e ajustar só o que mudou.
+- **Receber:** já vem marcada a forma de pagamento que o paciente costuma usar.
+- **Desfazer:** depois de confirmar, marcar falta ou cancelar, aparece "Desfazer" por alguns segundos.
+- **Bloqueio por inatividade:** padrão de 30 minutos (Ajustes > Minha conta). Para voltar, basta digitar a senha.
+- **Convênios a receber** agrupados e recolhíveis.
