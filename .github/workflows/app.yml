@@ -62,7 +62,8 @@ jobs:
 
   ios:
     name: iOS (verificação e envio ao TestFlight)
-    runs-on: macos-15
+    runs-on: macos-latest
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
