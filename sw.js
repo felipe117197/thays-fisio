@@ -1,7 +1,7 @@
 /* Service worker: guarda a "casca" do app para abrir rápido e funcionar como aplicativo no celular.
    Os dados dos pacientes NÃO ficam aqui: sempre vêm do Supabase, com login.
    Ao publicar uma nova versão, troque o número abaixo (v1 -> v2) para o celular baixar a atualização. */
-const VERSAO = 'thays-fisio-v2';
+const VERSAO = 'thays-fisio-v3';
 const CASCA = ['./', './index.html', './config.js', './dados.js', './manifest.webmanifest',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 

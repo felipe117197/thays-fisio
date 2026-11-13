@@ -108,3 +108,13 @@ O ícone da logomarca aparece na tela, e o app abre em tela cheia, sem a barra d
 - Use senhas fortes e não compartilhe.
 - Os dados dos pacientes são dados de saúde (sensíveis na LGPD). Guarde no app só o necessário para agenda e cobrança. A evolução clínica fica no prontuário.
 - Se trocar de celular ou perdê-lo: troque a senha. Se precisar cortar o acesso na hora, use o comando BLOQUEAR.
+
+## Versão 3: visual premium e painel executivo
+
+- **Início (painel):** indicadores do mês (recebido, previsão, a receber, atrasados, sessões, presença, ocupação da agenda, pacientes ativos), comparação com o mesmo período do mês anterior, gráfico de receita de 12 meses, agenda do dia e **Central de pendências** (atendimentos para finalizar, lembretes de amanhã, cobranças atrasadas, pacotes acabando, horários fixos terminando, aniversários e pacientes sem retorno).
+- **Navegação:** menu lateral no computador, só ícones no tablet e barra inferior com botão **+** no celular.
+- **Busca global:** `Ctrl + K` (ou `/`) busca paciente, telefone, CPF, data (ex.: 15/11) ou ação.
+- **Atalhos:** `N` agendar, `P` novo paciente, `R` receber, `1` a `5` trocam de tela, `T` hoje, `?` mostra todos.
+- **Relatório do mês** para imprimir ou salvar em PDF (Início e Financeiro).
+- **Tema escuro** e botão de olho para **ocultar valores** quando um paciente estiver vendo a tela.
+- Segurança: política de conteúdo (CSP) que só permite falar com o Supabase do consultório.
