@@ -332,7 +332,8 @@ button.kpi:hover{border-color:color-mix(in srgb,var(--primary) 40%,var(--line));
 :root[data-theme="dark"] .av{filter:saturate(.8) brightness(.85)}
 .pcard .pn{font-weight:650;font-size:15px;line-height:1.25}
 .pcard .pl{display:grid;gap:4px;font-size:13px;color:var(--muted)}
-.pcard .pf{display:flex;flex-wrap:wrap;gap:6px}
+.pcard .pf{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pcard .sitb{margin-left:auto;padding:3px 10px;font-size:12.5px}.t .sitb{padding:3px 10px;font-size:12.5px}
 .wa{display:inline-flex;align-items:center;gap:6px;color:var(--ok);font-weight:600;text-decoration:none}
 .pname{display:flex;align-items:center;gap:10px;min-width:0}
 .pname b{font-weight:600}
@@ -1280,13 +1281,14 @@ function filteredPac(){
   else if(S.psort==='recentes')l.sort((a,b)=>String(b.criadoEm||'').localeCompare(String(a.criadoEm||'')));
   return l;
 }
+const sitBtn=p=>writable?`<button type="button" class="btn sm ghost sitb" data-action="toggle-pac" data-id="${esc(p.id)}" aria-label="${p.ativo===false?'Reativar':'Inativar'} ${esc(p.nome)}">${ic(p.ativo===false?'okcircle':'eyeoff')}${p.ativo===false?'Reativar':'Inativar'}</button>`:'';
 function pacientesHTML(){
   if(!S.pac.size){$('#count').textContent='';return `<section class="panel">${emptyBox('users','Nenhum paciente cadastrado ainda.')}${writable?`<div style="text-align:center"><button class="btn primary" data-action="new-pac">${ic('plus')} Cadastrar paciente</button></div>`:''}</section>`;}
   const list=filteredPac();$('#count').textContent=list.length+(list.length===1?' paciente':' pacientes');
   if(!list.length)return`<div class="panel">${emptyBox('search','Nenhum paciente encontrado com esses filtros.')}</div>`;
-  if(S.pview==='tabela')return `<div class="table-wrap"><table class="t"><thead><tr><th>Paciente</th><th class="t-hide">Telefone</th><th class="t-hide">Próxima sessão</th><th class="t-hide">Cobrança</th><th class="r">Em aberto</th></tr></thead><tbody>${list.map(p=>{const nx=proxSessao(p.id);const pend=pendDe(p.id).reduce((a,x)=>a+x.aberto,0);const wl=waLink(p.telefone);
+  if(S.pview==='tabela')return `<div class="table-wrap"><table class="t"><thead><tr><th>Paciente</th><th class="t-hide">Telefone</th><th class="t-hide">Próxima sessão</th><th class="t-hide">Cobrança</th><th class="r">Em aberto</th>${writable?'<th class="acts"><span hidden>Situação</span></th>':''}</tr></thead><tbody>${list.map(p=>{const nx=proxSessao(p.id);const pend=pendDe(p.id).reduce((a,x)=>a+x.aberto,0);const wl=waLink(p.telefone);
     return`<tr data-action="open-pac" data-id="${esc(p.id)}" tabindex="0" class="${p.ativo===false?'off':''}" style="${p.ativo===false?'opacity:.6':''}"><td><span class="pname"><span class="av" ${avStyle(p.nome)}>${esc(initials(p.nome))}</span><span style="min-width:0"><b>${esc(p.nome)}</b>${p.ativo===false?' <span class="pill" style="vertical-align:1px">Inativo</span>':''}<small>${esc([idade(p.nascimento),p.queixa].filter(Boolean).join(' · '))}</small></span></span></td>
-    <td class="t-hide">${p.telefone?esc(p.telefone):'—'}${wl?` <a class="wa" href="${esc(wl)}" target="_blank" rel="noopener" aria-label="WhatsApp">${ic('msg')}</a>`:''}</td><td class="t-hide">${nx?fmtDS(nx.data)+' · '+esc(nx.hora):'<span class="muted">—</span>'}</td><td class="t-hide">${cobPill(p.cobrancaPadrao||'avulsa')}</td><td class="r">${pend>0?`<b style="color:var(--warn)">${money(pend)}</b>`:'<span class="muted">—</span>'}</td></tr>`;}).join('')}</tbody></table></div>`;
+    <td class="t-hide">${p.telefone?esc(p.telefone):'—'}${wl?` <a class="wa" href="${esc(wl)}" target="_blank" rel="noopener" aria-label="WhatsApp">${ic('msg')}</a>`:''}</td><td class="t-hide">${nx?fmtDS(nx.data)+' · '+esc(nx.hora):'<span class="muted">—</span>'}</td><td class="t-hide">${cobPill(p.cobrancaPadrao||'avulsa')}</td><td class="r">${pend>0?`<b style="color:var(--warn)">${money(pend)}</b>`:'<span class="muted">—</span>'}</td>${writable?`<td class="acts">${sitBtn(p)}</td>`:''}</tr>`;}).join('')}</tbody></table></div>`;
   return `<div class="cards">${list.map(p=>{
     const nx=proxSessao(p.id);const pend=pendDe(p.id).reduce((a,x)=>a+x.aberto,0);
     const pk=pacotesDe(p.id).filter(x=>saldoPacote(x.id)>0);const pl=planoAtivo(p.id);
@@ -1302,7 +1304,7 @@ function pacientesHTML(){
         ${p.queixa?`<span class="mini">${ic('bone')}${esc(p.queixa)}</span>`:''}
         <span class="mini">${ic('cal')}${nx?'Próxima: '+fmtDS(nx.data)+' às '+esc(nx.hora):'Sem sessão agendada'}</span>
       </div>
-      <div class="pf">${tags.join('')}</div>
+      <div class="pf">${tags.join('')}${sitBtn(p)}</div>
     </div>`;}).join('')}</div>`;
 }
 
@@ -1756,7 +1758,7 @@ function pacDrawerHTML(id,p){
   const recs=new Map();for(const s of fut)if(s.recorrenciaId){if(!recs.has(s.recorrenciaId))recs.set(s.recorrenciaId,[]);recs.get(s.recorrenciaId).push(s);}
   const wl=waLink(p.telefone);
   const recPac=S.rec.filter(r=>r.pacienteId===id).slice().sort((a,b)=>String(b.data).localeCompare(String(a.data)));
-  return `<div class="modal-h"><div style="display:flex;gap:12px;align-items:center;min-width:0"><span class="av" ${avStyle(p.nome)} style="width:50px;height:50px;font-size:18px">${esc(initials(p.nome))}</span><div style="min-width:0"><h2>${esc(p.nome)}</h2><div class="actions" style="margin-top:6px">${cobPill(p.cobrancaPadrao||'avulsa')}${p.ativo===false?'<span class="pill">Inativo</span>':''}${pendT>0?`<span class="pill warn">${ic('alert')}${money(pendT)} em aberto</span>`:''}</div></div></div>${X}</div>
+  return `<div class="modal-h"><div style="display:flex;gap:12px;align-items:center;min-width:0"><span class="av" ${avStyle(p.nome)} style="width:50px;height:50px;font-size:18px">${esc(initials(p.nome))}</span><div style="min-width:0"><h2>${esc(p.nome)}</h2><div class="actions" style="margin-top:6px">${cobPill(p.cobrancaPadrao||'avulsa')}${p.ativo===false?`<span class="pill falta">${ic('eyeoff')}Inativo</span>`:`<span class="pill ok">${ic('okcircle')}Ativo</span>`}${writable?`<button class="btn sm ghost" data-action="toggle-pac" data-id="${esc(id)}" style="padding:3px 10px">${p.ativo===false?'Reativar':'Inativar'}</button>`:''}${pendT>0?`<span class="pill warn">${ic('alert')}${money(pendT)} em aberto</span>`:''}</div></div></div>${X}</div>
   <div class="modal-b">
     <div class="meta">
       ${p.telefone?`<span>${ic('phone')}<b>${esc(p.telefone)}</b></span>`:''}
@@ -2292,7 +2294,7 @@ document.addEventListener('click',async e=>{
     case'cancel-rec':{const rid=a.dataset.rid;const t=today();const arr=S.ses.filter(s=>s.recorrenciaId===rid&&s.data>=t&&(s.status==='agendado'||s.status==='confirmado'));if(!arr.length)break;
       if(!(await confirmBox('Cancelar horário fixo','Cancelar as '+arr.length+' sessões futuras deste horário fixo? As sessões já realizadas não mudam.','Cancelar sessões',true)))break;
       a.disabled=true;let n=0;for(const s of arr){if(await write(()=>col('sessoes').doc(s.id).update({status:'cancelado',pacoteId:null}),true))n++;else break;}toast(n+' sessões canceladas.');break;}
-    case'toggle-pac':{const p=S.pac.get(id);if(!p)break;const vira=p.ativo===false;if(await write(()=>col('pacientes').doc(id).update({ativo:vira})))toast(vira?'Paciente marcado como ativo.':'Paciente marcado como inativo.','',async()=>{await write(()=>col('pacientes').doc(id).update({ativo:!vira}));});break;}
+    case'toggle-pac':{const p=S.pac.get(id);if(!p)break;const vira=p.ativo===false;if(await write(()=>col('pacientes').doc(id).update({ativo:vira})))toast(vira?'Paciente marcado como ativo.':'Paciente marcado como inativo.','',()=>write(()=>col('pacientes').doc(id).update({ativo:!vira})));break;}
     case'del-pac':{const p=S.pac.get(id);if(!p)break;if(!(await confirmBox('Excluir paciente','Excluir o cadastro de '+p.nome+'? Esta ação não pode ser desfeita.','Excluir',true)))break;if(await write(()=>col('pacientes').doc(id).delete())){closeModal();toast('Paciente excluído.');}break;}
     case'del-pct':{if(!(await confirmBox('Excluir pacote','Excluir este pacote? Ele ainda não foi usado nem pago.','Excluir',true)))break;if(await write(()=>col('pacotes').doc(id).delete()))toast('Pacote excluído.');break;}
     case'end-pla':{if(!(await confirmBox('Encerrar mensalidade','A mensalidade deixa de gerar cobranças a partir do próximo mês. As cobranças em aberto continuam.','Encerrar')))break;if(await write(()=>col('planos').doc(id).update({ativo:false,fim:ym(today())})))toast('Mensalidade encerrada.');break;}

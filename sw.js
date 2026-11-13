@@ -1,7 +1,7 @@
 /* Service worker: guarda a "casca" do app para abrir rápido e funcionar como aplicativo no celular.
    Os dados dos pacientes NÃO ficam aqui: sempre vêm do Supabase, com login.
    Ao publicar uma nova versão, troque o número abaixo (v1 -> v2) para o celular baixar a atualização. */
-const VERSAO = 'thays-fisio-v5';
+const VERSAO = 'thays-fisio-v6';
 const CASCA = ['./', './index.html', './config.js', './dados.js', './manifest.webmanifest',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
@@ -22,7 +22,8 @@ self.addEventListener('fetch', e => {
   if (!mesmoSite && !biblioteca) return;
   // Rede primeiro (pega sempre a versão mais nova); sem internet, usa a cópia guardada
   e.respondWith(
-    fetch(req).then(res => {
+    // no-cache: confere sempre com o servidor, para a versão nova aparecer logo após publicar
+    (mesmoSite ? fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' }) : fetch(req)).then(res => {
       if (res && (res.ok || res.type === 'opaque')) { const copia = res.clone(); caches.open(VERSAO).then(c => c.put(req, copia)); }
       return res;
     }).catch(() => caches.match(req).then(r => r || caches.match('./index.html')))
