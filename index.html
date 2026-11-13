@@ -1285,12 +1285,12 @@ function pacientesHTML(){
   const list=filteredPac();$('#count').textContent=list.length+(list.length===1?' paciente':' pacientes');
   if(!list.length)return`<div class="panel">${emptyBox('search','Nenhum paciente encontrado com esses filtros.')}</div>`;
   if(S.pview==='tabela')return `<div class="table-wrap"><table class="t"><thead><tr><th>Paciente</th><th class="t-hide">Telefone</th><th class="t-hide">Próxima sessão</th><th class="t-hide">Cobrança</th><th class="r">Em aberto</th></tr></thead><tbody>${list.map(p=>{const nx=proxSessao(p.id);const pend=pendDe(p.id).reduce((a,x)=>a+x.aberto,0);const wl=waLink(p.telefone);
-    return`<tr data-action="open-pac" data-id="${esc(p.id)}" tabindex="0" class="${p.ativo===false?'off':''}" style="${p.ativo===false?'opacity:.6':''}"><td><span class="pname"><span class="av" ${avStyle(p.nome)}>${esc(initials(p.nome))}</span><span style="min-width:0"><b>${esc(p.nome)}</b><small>${esc([idade(p.nascimento),p.queixa].filter(Boolean).join(' · '))}</small></span></span></td>
+    return`<tr data-action="open-pac" data-id="${esc(p.id)}" tabindex="0" class="${p.ativo===false?'off':''}" style="${p.ativo===false?'opacity:.6':''}"><td><span class="pname"><span class="av" ${avStyle(p.nome)}>${esc(initials(p.nome))}</span><span style="min-width:0"><b>${esc(p.nome)}</b>${p.ativo===false?' <span class="pill" style="vertical-align:1px">Inativo</span>':''}<small>${esc([idade(p.nascimento),p.queixa].filter(Boolean).join(' · '))}</small></span></span></td>
     <td class="t-hide">${p.telefone?esc(p.telefone):'—'}${wl?` <a class="wa" href="${esc(wl)}" target="_blank" rel="noopener" aria-label="WhatsApp">${ic('msg')}</a>`:''}</td><td class="t-hide">${nx?fmtDS(nx.data)+' · '+esc(nx.hora):'<span class="muted">—</span>'}</td><td class="t-hide">${cobPill(p.cobrancaPadrao||'avulsa')}</td><td class="r">${pend>0?`<b style="color:var(--warn)">${money(pend)}</b>`:'<span class="muted">—</span>'}</td></tr>`;}).join('')}</tbody></table></div>`;
   return `<div class="cards">${list.map(p=>{
     const nx=proxSessao(p.id);const pend=pendDe(p.id).reduce((a,x)=>a+x.aberto,0);
     const pk=pacotesDe(p.id).filter(x=>saldoPacote(x.id)>0);const pl=planoAtivo(p.id);
-    const tags=[cobPill(p.cobrancaPadrao||'avulsa')];
+    const tags=[p.ativo===false?`<span class="pill">${ic('eyeoff')}Inativo</span>`:'',cobPill(p.cobrancaPadrao||'avulsa')].filter(Boolean);
     if(pk.length)tags.push(`<span class="pill ok">${ic('box')}${pk.reduce((a,x)=>a+saldoPacote(x.id),0)} sessões no pacote</span>`);
     if(pl)tags.push(`<span class="pill">${ic('repeat')}${money(pl.valor)}/mês</span>`);
     if(pend>0)tags.push(`<span class="pill warn">${ic('alert')}${money(pend)} em aberto</span>`);
@@ -1693,6 +1693,7 @@ function pacForm(id,tab){
       <label class="field full"><span class="req">${ic('user')}Nome completo</span><input name="nome" value="${v('nome')}" maxlength="100" autocomplete="off"></label>
       <label class="field"><span class="req">${ic('phone')}Telefone / WhatsApp</span><input name="telefone" value="${v('telefone')}" maxlength="20" inputmode="tel" placeholder="(31) 99999-0000"></label>
       <label class="field"><span>${ic('cake')}Data de nascimento</span><input name="nascimento" type="date" value="${v('nascimento')}"></label>
+      <div class="field full"><span>${ic('users')}Situação</span><div class="opts"><label class="opt"><input type="radio" name="ativo" value="1" ${p&&p.ativo===false?'':'checked'}><span>${ic('okcircle')}Ativo</span></label><label class="opt"><input type="radio" name="ativo" value="0" ${p&&p.ativo===false?'checked':''}><span>${ic('eyeoff')}Inativo</span></label></div><small id="pac-sit-h">${pacSitHint(id,p&&p.ativo===false)}</small></div>
       ${p?'':`<details class="more field full"><summary>Mais dados (opcional): CPF, e-mail e endereço</summary><div class="fields">`}
       <label class="field"><span>${ic('hash')}CPF (para recibo)</span><input name="cpf" value="${v('cpf')}" maxlength="14" inputmode="numeric"></label>
       <label class="field"><span>${ic('mail')}E-mail</span><input name="email" type="email" value="${v('email')}" maxlength="100"></label>
@@ -1711,11 +1712,13 @@ function pacForm(id,tab){
     </div>
     <datalist id="dl-conv">${[...new Set(pacList().map(x=>x.convenio).filter(Boolean))].map(x=>`<option value="${esc(x)}">`).join('')}</datalist>
     <div class="formerr" id="pac-err"></div></div>
-    <div class="modal-f">${p?`<button type="button" class="btn ghost" data-action="toggle-pac" data-id="${esc(id)}">${p.ativo===false?ic('eye')+' Reativar':ic('eyeoff')+' Inativar'}</button><span style="flex:1"></span>`:''}<button type="button" class="btn" data-action="close">Cancelar</button><button type="submit" class="btn primary">${ic('save')} Salvar</button></div>
+    <div class="modal-f"><button type="button" class="btn" data-action="close">Cancelar</button><button type="submit" class="btn primary">${ic('save')} Salvar</button></div>
   </form>`);
   applyPacCob();
   if(tab==='aval')pacTab($('#form-pac'),'aval');
 }
+function pacSitHint(id,inativo){const fut=id?S.ses.filter(s=>s.pacienteId===id&&s.data>=today()&&(s.status==='agendado'||s.status==='confirmado')).length:0;
+  return inativo?'Inativo: sai da lista principal e das sugestões ao agendar. O histórico, as sessões e os valores em aberto continuam.'+(fut?' Atenção: ainda há '+fut+(fut===1?' sessão agendada':' sessões agendadas')+' para este paciente.':''):'Ativo: em atendimento. Aparece na lista principal e ao agendar.';}
 function applyPacCob(){const f=$('#form-pac');if(!f)return;const c=f.cobrancaPadrao.value;f.querySelectorAll('[data-c]').forEach(el=>el.hidden=el.dataset.c!==c&&!(el.dataset.c==='avulsa'&&c!=='convenio'));}
 async function submitPac(f){
   const err=t=>{$('#pac-err').textContent=t;};const id=f.dataset.id||null;
@@ -1724,7 +1727,7 @@ async function submitPac(f){
   const cpf=f.cpf.value.replace(/\D/g,'');if(cpf&&cpf.length!==11)return err('O CPF deve ter 11 dígitos.');
   const num=x=>x.value===''?null:r2(x.valueAsNumber);
   const data={nome,telefone:tel,nascimento:f.nascimento.value,cpf:cpf?cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4'):'',email:f.email.value.trim(),endereco:f.endereco.value.trim(),queixa:f.queixa.value.trim(),
-    cobrancaPadrao:f.cobrancaPadrao.value,valorSessao:num(f.valorSessao),convenio:f.convenio.value.trim(),carteirinha:f.carteirinha.value.trim(),valorConvenio:num(f.valorConvenio),obs:f.obs.value.trim(),atualizadoEm:new Date().toISOString()};
+    cobrancaPadrao:f.cobrancaPadrao.value,valorSessao:num(f.valorSessao),convenio:f.convenio.value.trim(),carteirinha:f.carteirinha.value.trim(),valorConvenio:num(f.valorConvenio),obs:f.obs.value.trim(),ativo:f.ativo.value!=='0',atualizadoEm:new Date().toISOString()};
   if(data.cobrancaPadrao==='convenio'&&!data.convenio)return err('Informe o nome do convênio.');
   if(!id&&f.dataset.force!=='1'){const td=tel.replace(/\D/g,'');const dup=pacList().find(x=>norm(x.nome)===norm(nome)||(td.length>=10&&String(x.telefone||'').replace(/\D/g,'').slice(-9)===td.slice(-9)));
     if(dup){f.dataset.force='1';return err('Já existe '+dup.nome+(dup.telefone?' ('+dup.telefone+')':'')+' cadastrado. Confira se não é a mesma pessoa. Para salvar mesmo assim, toque em Salvar de novo.');}}
@@ -1732,8 +1735,8 @@ async function submitPac(f){
    const av={sinais:rv.v};for(const[k,,,t]of AVAL){if(t==='vit')continue;const el=f.elements['av_'+k];if(!el)continue;const x=el.value.trim();av[k]=t==='eva'?(x===''?null:Math.max(0,Math.min(10,Math.round(+x)))):x;}
    if(avalTemDados(av)){if(!av.dataAvaliacao)av.dataAvaliacao=today();data.avaliacao=av;}else if(id&&S.pac.get(id)&&S.pac.get(id).avaliacao)data.avaliacao=av;}
   const btn=f.querySelector('[type=submit]');btn.disabled=true;
-  const ok=id?await write(()=>col('pacientes').doc(id).update(data)):await write(()=>col('pacientes').add({...data,ativo:true,...stamp()}));
-  btn.disabled=false;if(ok){closeModal();toast(id?'Cadastro atualizado.':'Paciente cadastrado.');}
+  const ok=id?await write(()=>col('pacientes').doc(id).update(data)):await write(()=>col('pacientes').add({...data,...stamp()}));
+  btn.disabled=false;if(ok){closeModal();const was=id&&S.pac.get(id);toast(!data.ativo&&(!was||was.ativo!==false)?'Paciente salvo como inativo.':id?'Cadastro atualizado.':'Paciente cadastrado.');}
 }
 
 /* ================= Paciente: ficha ================= */
@@ -1774,6 +1777,7 @@ function pacDrawerHTML(id,p){
       <button class="btn ok" data-action="new-rec" data-pac="${esc(id)}">${ic('wallet')} Receber</button>
       ${wl?`<a class="btn" href="${esc(wl)}" target="_blank" rel="noopener">${ic('msg')} WhatsApp</a>`:''}
       <button class="btn ghost" data-action="edit-pac" data-id="${esc(id)}">${ic('pencil')} Editar</button>
+      <button class="btn ghost" data-action="toggle-pac" data-id="${esc(id)}">${p.ativo===false?ic('okcircle')+' Marcar como ativo':ic('eyeoff')+' Marcar como inativo'}</button>
     </div>`:''}
     <div class="kpis">
       <div><div class="k">${ic('okcircle')}Realizadas</div><div class="v">${real}</div></div>
@@ -2288,7 +2292,7 @@ document.addEventListener('click',async e=>{
     case'cancel-rec':{const rid=a.dataset.rid;const t=today();const arr=S.ses.filter(s=>s.recorrenciaId===rid&&s.data>=t&&(s.status==='agendado'||s.status==='confirmado'));if(!arr.length)break;
       if(!(await confirmBox('Cancelar horário fixo','Cancelar as '+arr.length+' sessões futuras deste horário fixo? As sessões já realizadas não mudam.','Cancelar sessões',true)))break;
       a.disabled=true;let n=0;for(const s of arr){if(await write(()=>col('sessoes').doc(s.id).update({status:'cancelado',pacoteId:null}),true))n++;else break;}toast(n+' sessões canceladas.');break;}
-    case'toggle-pac':{const p=S.pac.get(id);if(!p)break;if(await write(()=>col('pacientes').doc(id).update({ativo:p.ativo===false}))){closeModal();toast(p.ativo===false?'Paciente reativado.':'Paciente inativado.');}break;}
+    case'toggle-pac':{const p=S.pac.get(id);if(!p)break;const vira=p.ativo===false;if(await write(()=>col('pacientes').doc(id).update({ativo:vira})))toast(vira?'Paciente marcado como ativo.':'Paciente marcado como inativo.','',async()=>{await write(()=>col('pacientes').doc(id).update({ativo:!vira}));});break;}
     case'del-pac':{const p=S.pac.get(id);if(!p)break;if(!(await confirmBox('Excluir paciente','Excluir o cadastro de '+p.nome+'? Esta ação não pode ser desfeita.','Excluir',true)))break;if(await write(()=>col('pacientes').doc(id).delete())){closeModal();toast('Paciente excluído.');}break;}
     case'del-pct':{if(!(await confirmBox('Excluir pacote','Excluir este pacote? Ele ainda não foi usado nem pago.','Excluir',true)))break;if(await write(()=>col('pacotes').doc(id).delete()))toast('Pacote excluído.');break;}
     case'end-pla':{if(!(await confirmBox('Encerrar mensalidade','A mensalidade deixa de gerar cobranças a partir do próximo mês. As cobranças em aberto continuam.','Encerrar')))break;if(await write(()=>col('planos').doc(id).update({ativo:false,fim:ym(today())})))toast('Mensalidade encerrada.');break;}
@@ -2372,6 +2376,7 @@ document.addEventListener('change',e=>{
   else if(t.id==='nf-min'){lsS('tf-notif-min',t.value);}
   else if(t.id==='nf-antes'||t.id==='nf-resumo'||t.id==='nf-fin'){lsS('tf-notif-'+t.id.slice(3),t.checked?'1':'0');}
   else if(f&&f.id==='form-pac'&&t.name==='cobrancaPadrao')applyPacCob();
+  else if(f&&f.id==='form-pac'&&t.name==='ativo'){const h=$('#pac-sit-h');if(h)h.textContent=pacSitHint(f.dataset.id||null,t.value==='0');}
   else if(f&&f.id==='form-ses'){if(t.id==='s-pac')onSesPac(f);if(t.name==='cobranca'){const p=S.pac.get(f.paciente.value);f.valor.value=defaultValor(p,t.value)??'';}if(t.name==='local'&&t.value==='domicilio'&&!f.endereco.value){const p=S.pac.get(f.paciente.value);if(p)f.endereco.value=p.endereco||'';}if(t.name==='hora'){delete f.dataset.autoHora;const sg=$('#s-sug');if(sg)sg.textContent='';}if((t.name==='data'||t.name==='duracao')&&f.dataset.autoHora==='1')sugHora(f);if(t.name==='data'&&f.repetir){const d=wd(t.value);f.querySelectorAll('input[name=dias]').forEach(x=>{if(+x.value===d)x.checked=true;});}delete f.dataset.force;applySes();}
   else if(f&&f.id==='form-pct'&&t.name==='pagoAgora')applyPct();
   else if(f&&f.id==='form-rec'&&(t.id==='r-pac'||t.id==='r-ref')){f.qtd.value=1;}
