@@ -1,0 +1,21 @@
+{
+  "name": "thays-fisio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Thays Jesus Fisioterapia - app Android e iOS (Capacitor)",
+  "scripts": {
+    "web": "node scripts/copiar-web.mjs",
+    "sync": "npm run web && npx cap sync",
+    "android": "npm run sync && npx cap open android",
+    "ios": "npm run sync && npx cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/core": "^8.6.2",
+    "@capacitor/ios": "^8.6.2"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^4.0.0",
+    "@capacitor/cli": "^8.6.2"
+  }
+}
