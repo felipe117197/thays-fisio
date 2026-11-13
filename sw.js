@@ -1,7 +1,7 @@
 /* Service worker: guarda a "casca" do app para abrir rápido e funcionar como aplicativo no celular.
    Os dados dos pacientes NÃO ficam aqui: sempre vêm do Supabase, com login.
    Ao publicar uma nova versão, troque o número abaixo (v1 -> v2) para o celular baixar a atualização. */
-const VERSAO = 'thays-fisio-v4';
+const VERSAO = 'thays-fisio-v5';
 const CASCA = ['./', './index.html', './config.js', './dados.js', './manifest.webmanifest',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
@@ -27,4 +27,13 @@ self.addEventListener('fetch', e => {
       return res;
     }).catch(() => caches.match(req).then(r => r || caches.match('./index.html')))
   );
+});
+// Toque na notificação (aviso de sessão, resumo do dia): abre o app na tela certa
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const alvo = new URL((e.notification.data && e.notification.data.url) || './', self.registration.scope).href;
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(cs => {
+    for (const c of cs) { if (c.url.startsWith(self.registration.scope) && 'focus' in c) { return c.navigate ? c.navigate(alvo).then(w => (w || c).focus()).catch(() => c.focus()) : c.focus(); } }
+    return self.clients.openWindow ? self.clients.openWindow(alvo) : null;
+  }));
 });

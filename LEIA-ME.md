@@ -114,7 +114,7 @@ O ícone da logomarca aparece na tela, e o app abre em tela cheia, sem a barra d
 - **Início (painel):** indicadores do mês (recebido, previsão, a receber, atrasados, sessões, presença, ocupação da agenda, pacientes ativos), comparação com o mesmo período do mês anterior, gráfico de receita de 12 meses, agenda do dia e **Central de pendências** (atendimentos para finalizar, lembretes de amanhã, cobranças atrasadas, pacotes acabando, horários fixos terminando, aniversários e pacientes sem retorno).
 - **Navegação:** menu lateral no computador, só ícones no tablet e barra inferior com botão **+** no celular.
 - **Busca global:** `Ctrl + K` (ou `/`) busca paciente, telefone, CPF, data (ex.: 15/11) ou ação.
-- **Atalhos:** `N` agendar, `P` novo paciente, `R` receber, `1` a `5` trocam de tela, `T` hoje, `?` mostra todos.
+- **Atalhos:** `N` agendar, `P` novo paciente, `R` receber, `1` a `6` trocam de tela (5 = Relatórios, 6 = Ajustes), `T` hoje, `?` mostra todos.
 - **Relatório do mês** para imprimir ou salvar em PDF (Início e Financeiro).
 - **Tema escuro** e botão de olho para **ocultar valores** quando um paciente estiver vendo a tela.
 - Segurança: política de conteúdo (CSP) que só permite falar com o Supabase do consultório.
@@ -128,3 +128,15 @@ O ícone da logomarca aparece na tela, e o app abre em tela cheia, sem a barra d
 - **Desfazer:** depois de confirmar, marcar falta ou cancelar, aparece "Desfazer" por alguns segundos.
 - **Bloqueio por inatividade:** padrão de 30 minutos (Ajustes > Minha conta). Para voltar, basta digitar a senha.
 - **Convênios a receber** agrupados e recolhíveis.
+
+## Etapa 3: relatórios e notificações
+
+- **Relatórios** (menu lateral, tecla `5` ou botão no Início): escolha o período (este mês, mês passado, 3 ou 12 meses, este ano, ano passado ou datas livres) e veja:
+  - indicadores com comparação ao período anterior (recebido, sessões, presença, recebido por sessão, pacientes atendidos e novos, faltas, cancelamentos);
+  - receita por semana ou por mês;
+  - valores em aberto por tempo (até 30, 31–60, 61–90 e mais de 90 dias) e os maiores devedores;
+  - ranking de pacientes (sessões, faltas, presença, recebido, em aberto);
+  - ocupação por dia da semana e horário (mostra os horários mais cheios e os vazios);
+  - convênios, pacotes com saldo e mensalidades ativas.
+- Cada relatório tem botão **CSV** (abre no Excel ou Google Planilhas) e há a **Planilha completa**. O botão **Imprimir ou PDF** imprime a tela inteira, sem menus.
+- **Notificações neste aparelho** (Ajustes): aviso antes de cada sessão (5 a 60 min), resumo do dia a partir das 7h e lembrete para finalizar o atendimento. Ative em cada aparelho. Funcionam com o app aberto ou minimizado; com o app totalmente fechado (principalmente no iPhone) o sistema pode não entregar.
