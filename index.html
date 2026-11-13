@@ -521,6 +521,7 @@ function derive(){
   const paid=new Map(),convPaid=new Set();
   for(const r of S.rec){
     if(r.referencia==='convenio'){(r.sessoes||[]).forEach(id=>convPaid.add(id));continue;}
+    if(Array.isArray(r.itens)&&r.itens.length){for(const it of r.itens){const k='sessao:'+it.refId+':';paid.set(k,(paid.get(k)||0)+(+it.valor||0));}continue;}
     const k=r.referencia+':'+(r.refId||'')+':'+(r.competencia||'');paid.set(k,(paid.get(k)||0)+(+r.valor||0));
   }
   const uso=new Map();
@@ -1281,18 +1282,35 @@ function recForm(o){
     <div class="modal-b"><div class="fields">
       <label class="field full"><span class="req">${ic('user')}Paciente</span><select name="paciente" id="r-pac">${pacOptions(pacs,pid,'')}</select></label>
       <label class="field full"><span class="req">${ic('note')}Referente a</span><select name="ref" id="r-ref">${refOptions(pid,pre?pre.key:'')}</select></label>
+      <label class="field full" data-show="qtd"><span>${ic('hash')}Quantidade de sessões</span><input name="qtd" id="r-qtd" type="number" min="1" max="60" step="1" value="1" inputmode="numeric"><small id="r-qtd-info"></small></label>
       <label class="field"><span class="req">${ic('coins')}Valor (R$)</span><input name="valor" type="number" min="0" step="0.01" value="${pre?esc(pre.aberto):''}"></label>
       <label class="field"><span class="req">${ic('cal')}Data do pagamento</span><input name="data" type="date" value="${today()}" max="${today()}"></label>
       <div class="field full"><span>${ic('card')}Forma de pagamento</span><div class="opts">${FORMAS.map((x,i)=>`<label class="opt"><input type="radio" name="forma" value="${x}" ${i===0?'checked':''}><span>${fIc(x)}${x}</span></label>`).join('')}</div></div>
       <label class="field full" data-show="outro"><span class="req">${ic('note')}Descrição</span><input name="desc" maxlength="120" placeholder="Ex.: avaliação inicial"></label>
       <label class="field full"><span>${ic('note')}Observações</span><input name="obs" maxlength="200"></label>
+      <label class="chk full" style="font-size:14px"><input type="checkbox" name="recibo" checked> ${ic('receipt')} Gerar o recibo ao registrar</label>
     </div><div class="formerr" id="rec-err"></div></div>
     <div class="modal-f"><button type="button" class="btn" data-action="close">Cancelar</button><button type="submit" class="btn primary">${ic('check')} Registrar</button></div>
   </form>`);
-  applyRec();
+  applyRec();recQtd($('#form-rec'),false);
 }
 function refOptions(pid,sel){const l=pid?pendDe(pid):[];return l.map(x=>`<option value="${esc(x.key)}" ${x.key===sel?'selected':''}>${esc(x.desc)} · ${money(x.aberto)} em aberto</option>`).join('')+`<option value="outro" ${!l.length||sel==='outro'?'selected':''}>Outro (avaliação, atendimento avulso etc.)</option>`;}
-function applyRec(){const f=$('#form-rec');if(!f)return;f.querySelectorAll('[data-show="outro"]').forEach(el=>el.hidden=f.ref.value!=='outro');}
+function applyRec(){const f=$('#form-rec');if(!f)return;f.querySelectorAll('[data-show="outro"]').forEach(el=>el.hidden=f.ref.value!=='outro');
+  f.querySelectorAll('[data-show="qtd"]').forEach(el=>el.hidden=!(f.ref.value==='outro'||f.ref.value.startsWith('s:')));}
+/* Quantidade de sessões: quita várias sessões em aberto de uma vez, ou calcula um pagamento adiantado */
+function recPlano(f){
+  const pid=f.paciente.value,ref=f.ref.value,n=Math.max(1,Math.min(60,Math.round(+f.qtd.value||1)));
+  if(ref.startsWith('s:')){const ab=pendDe(pid).filter(x=>x.tipo==='sessao');const i0=ab.findIndex(x=>x.key===ref);if(i0<0)return null;
+    const ord=[ab[i0],...ab.filter((x,i)=>i!==i0)];const itens=ord.slice(0,n);return{modo:'sessoes',n:itens.length,pedido:n,max:ab.length,itens,total:r2(itens.reduce((a,x)=>a+x.aberto,0))};}
+  if(ref==='outro'){const p=S.pac.get(pid)||{};const unit=p.valorSessao!=null&&p.valorSessao!==''?+p.valorSessao:+CFG().valorPadrao||0;return{modo:'outro',n,unit,total:r2(n*unit)};}
+  return null;}
+const datasCurtas=ds=>{const a=ds.slice().sort();const f=a.map(d=>d.slice(8,10)+'/'+d.slice(5,7));return f.length>1?f.slice(0,-1).join(', ')+' e '+f[f.length-1]:f[0]||'';};
+function recQtd(f,setValor){if(!f||!f.qtd)return;const pl=recPlano(f);const info=$('#r-qtd-info');if(!pl){if(info)info.textContent='';return;}
+  if(pl.modo==='sessoes'){if(+f.qtd.value>pl.max)f.qtd.value=pl.max;
+    info.textContent=(pl.n===1?'Quita a sessão de ':'Quita as '+pl.n+' sessões de ')+datasCurtas(pl.itens.map(x=>S.ses.find(s=>s.id===x.refId)?.data||x.venc))+(pl.max>1?' · '+pl.max+' em aberto':'')+'.';}
+  else{info.textContent=pl.n+' × '+money(pl.unit)+' = '+money(pl.total)+' (pagamento adiantado ou sem sessão em aberto).';
+    const ds=f.desc.value.trim();if(!ds||/^\d+ sess(ão|ões) de fisioterapia$/.test(ds))f.desc.value=pl.n+(pl.n===1?' sessão':' sessões')+' de fisioterapia';}
+  if(setValor)f.valor.value=pl.total;}
 async function submitRec(f){
   const err=t=>{$('#rec-err').textContent=t;};
   const pid=f.paciente.value;if(!S.pac.get(pid))return err('Escolha o paciente.');
@@ -1300,12 +1318,18 @@ async function submitRec(f){
   const data=f.data.value;if(!data)return err('Informe a data.');if(data>today())return err('A data não pode ser futura.');
   let doc={pacienteId:pid,data,valor,forma:f.forma.value,obs:f.obs.value.trim(),...stamp()};
   if(f.ref.value==='outro'){const ds=f.desc.value.trim();if(!ds)return err('Descreva a que se refere o pagamento.');Object.assign(doc,{referencia:'outro',refId:'',competencia:'',desc:ds});}
+  else if(f.ref.value.startsWith('s:')){const pl=recPlano(f);if(!pl||!pl.itens.length)return err('Esta cobrança já foi quitada. Atualize a tela.');
+    if(valor>pl.total+0.004&&f.dataset.force!=='1'){f.dataset.force='1';return err(`O valor é maior que o total em aberto dessas sessões (${money(pl.total)}). Clique de novo para registrar assim mesmo.`);}
+    let resto=valor;const itens=pl.itens.map((x,i)=>{const v=i===pl.itens.length-1?r2(resto):r2(Math.min(resto,x.aberto));resto=r2(resto-v);return{refId:x.refId,valor:v};}).filter(x=>x.valor>0);
+    const datas=pl.itens.map(x=>(S.ses.find(s=>s.id===x.refId)||{}).data||x.venc);
+    Object.assign(doc,{referencia:'sessao',refId:pl.itens[0].refId,competencia:'',qtd:pl.n,itens,sessoesDatas:datas.slice().sort(),desc:pl.n===1?pl.itens[0].desc:pl.n+' sessões de fisioterapia ('+datasCurtas(datas)+')'});}
   else{const pe=derive().pend.find(x=>x.key===f.ref.value);if(!pe)return err('Esta cobrança já foi quitada. Atualize a tela.');
     if(valor>pe.aberto+0.004&&f.dataset.force!=='1'){f.dataset.force='1';return err(`O valor é maior que o saldo em aberto (${money(pe.aberto)}). Clique de novo para registrar assim mesmo.`);}
     Object.assign(doc,{referencia:pe.ref,refId:pe.refId,competencia:pe.comp,desc:pe.desc});}
-  const btn=f.querySelector('[type=submit]');btn.disabled=true;
-  const ok=await write(()=>col('recebimentos').add(doc));btn.disabled=false;
-  if(ok){closeModal();toast(money(valor)+' recebido de '+pacName(pid).split(' ')[0]+'.');}
+  if(f.ref.value==='outro'){const n=Math.round(+f.qtd.value||0);if(n>0)doc.qtd=n;}
+  const btn=f.querySelector('[type=submit]');btn.disabled=true;let novo=null;
+  const ok=await write(async()=>{novo=await col('recebimentos').add(doc);});btn.disabled=false;
+  if(ok){const quer=f.recibo&&f.recibo.checked;closeModal();toast(money(valor)+' recebido de '+pacName(pid).split(' ')[0]+'.');if(quer&&novo)reciboModal({id:novo.id,...doc});}
 }
 function convForm(nome){
   const arr=derive().conv.filter(s=>((S.pac.get(s.pacienteId)||{}).convenio||'Convênio não informado')===nome);
@@ -1341,11 +1365,13 @@ function logoSVG(){const c=CFG();const nome=c.nomeProfissional||'Thays Freitas';
   <text x="160" y="76" font-family="'Bricolage Grotesque','Trebuchet MS',Arial,sans-serif" font-size="50" font-weight="700" fill="#1D3B36">${esc(nome)}</text>
   <text x="163" y="108" font-family="Figtree,Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="7" fill="#1E9A78">FISIOTERAPIA</text>
   ${cr?`<text x="163" y="134" font-family="Figtree,Arial,sans-serif" font-size="14" fill="#5F7A75">${esc(cr)}</text>`:''}</svg>`;}
+function reciboNum(r){const arr=S.rec.filter(x=>x.referencia!=='convenio').slice().sort((a,b)=>String(a.criadoEm||a.data).localeCompare(String(b.criadoEm||b.data)));const i=arr.findIndex(x=>x.id===r.id);return pad(i<0?arr.length+1:i+1)+'/'+String(r.data||today()).slice(0,4);}
 function reciboHTML(r){
   const p=S.pac.get(r.pacienteId)||{};const c=CFG();const dt=r.data||today();
+  const ref=r.sessoesDatas&&r.sessoesDatas.length>1?r.qtd+' sessões de fisioterapia realizadas em '+datasCurtas(r.sessoesDatas)+'/'+r.sessoesDatas[r.sessoesDatas.length-1].slice(0,4):(r.desc||'atendimento');
   return `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Recibo ${esc(p.nome||'')}</title><style>body{font:15px/1.6 Georgia,serif;color:#111;max-width:680px;margin:40px auto;padding:0 24px}h1{font:700 26px/1 Arial,sans-serif;letter-spacing:.2em;text-align:center;margin:0 0 6px}.v{text-align:right;font:700 20px Arial,sans-serif;border:2px solid #111;display:inline-block;padding:6px 14px;float:right}.top{overflow:hidden;margin-bottom:28px}p{text-align:justify}.ass{margin-top:70px;text-align:center}.ass div{border-top:1px solid #111;width:320px;margin:0 auto;padding-top:6px}small{color:#555}@media print{body{margin:0 auto}.np{display:none}}.np{position:fixed;top:12px;right:12px;font:600 15px Arial;padding:10px 16px;border-radius:999px;border:0;background:#1E9A78;color:#fff;cursor:pointer}</style></head><body><button class="np" onclick="window.print()">Imprimir / salvar PDF</button>
-  <div class="top"><span class="v">${money(r.valor)}</span><div style="display:flex;gap:14px;align-items:center">${emblemSVG(58)}${c.simboloOficial&&/^data:image\//.test(c.simboloOficial)?`<img src="${esc(c.simboloOficial)}" alt="" style="height:54px">`:''}<div><h1 style="text-align:left;margin:0">RECIBO</h1><small>${esc(c.nomeProfissional||'Thays Freitas')} · Fisioterapia${c.crefito?' · CREFITO '+esc(c.crefito):''}</small></div></div></div>
-  <p>Recebi de <b>${esc(p.nome||'')}</b>${p.cpf?', CPF '+esc(p.cpf):''}, a importância de <b>${money(r.valor)}</b> (${extenso(+r.valor||0)}), referente a serviços de fisioterapia: ${esc(r.desc||'atendimento')}, pagos em ${fmtD(dt)} por ${esc(String(r.forma||'').toLowerCase())}.</p>
+  <div class="top"><span class="v">${money(r.valor)}</span><div style="display:flex;gap:14px;align-items:center">${emblemSVG(58)}${c.simboloOficial&&/^data:image\//.test(c.simboloOficial)?`<img src="${esc(c.simboloOficial)}" alt="" style="height:54px">`:''}<div><h1 style="text-align:left;margin:0">RECIBO <span style="font-size:15px;letter-spacing:0">nº ${esc(reciboNum(r))}</span></h1><small>${esc(c.nomeProfissional||'Thays Freitas')} · Fisioterapia${c.crefito?' · CREFITO '+esc(c.crefito):''}</small></div></div></div>
+  <p>Recebi de <b>${esc(p.nome||'')}</b>${p.cpf?', CPF '+esc(p.cpf):''}, a importância de <b>${money(r.valor)}</b> (${extenso(+r.valor||0)}), referente a serviços de fisioterapia: ${esc(ref)}, pagos em ${fmtD(dt)} por ${esc(String(r.forma||'').toLowerCase())}.</p>
   <p>Para clareza, firmo o presente.</p>
   <p style="text-align:right">${esc(c.cidade||'')}${c.cidade?', ':''}${+dt.slice(8,10)} de ${MES[+dt.slice(5,7)-1]} de ${dt.slice(0,4)}.</p>
   <div class="ass"><div>${esc(c.nomeProfissional||'Thays Freitas')}<br><small>${c.crefito?'CREFITO '+esc(c.crefito):''}${c.documento?' · CPF/CNPJ '+esc(c.documento):''}</small>${c.endereco?'<br><small>'+esc(c.endereco)+'</small>':''}${c.telefone?'<br><small>'+esc(c.telefone)+'</small>':''}</div></div>
@@ -1353,6 +1379,23 @@ function reciboHTML(r){
 }
 const MIME={csv:'text/csv;charset=utf-8',html:'text/html;charset=utf-8',svg:'image/svg+xml',json:'application/json'};
 async function saveFile(name,data){try{const ext=name.split('.').pop();const blob=new Blob([data],{type:MIME[ext]||'application/octet-stream'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);toast('Arquivo gerado: '+name);}catch(e){toast('Não foi possível gerar o arquivo agora.','err');}}
+function reciboModal(r){
+  const p=S.pac.get(r.pacienteId)||{};const c=CFG();const falta=[!c.nomeProfissional&&'nome',!c.crefito&&'CREFITO',!c.documento&&'CPF ou CNPJ',!c.cidade&&'cidade'].filter(Boolean);
+  const msg=`Olá, ${String(p.nome||'').split(' ')[0]}! Segue o recibo do pagamento de ${money(r.valor)} referente a ${r.qtd>1?r.qtd+' sessões de fisioterapia':'fisioterapia'}, pago em ${fmtD(r.data)}. Obrigada!\n${c.nomeProfissional||'Thays Freitas'} · Fisioterapia`;
+  const wl=waLink(p.telefone,msg);
+  openModal(`<div class="modal-h"><h2><span class="hb" style="background:var(--ok-bg);color:var(--ok)">${ic('receipt')}</span>Recibo nº ${esc(reciboNum(r))}</h2>${X}</div>
+  <div class="modal-b">
+    ${falta.length?`<div class="hint warn">${ic('alert')}<span class="grow">Faltam no recibo: <b>${falta.join(', ')}</b>. Preencha em <button class="linkbtn" data-action="ir-ajustes">Ajustes</button> para sair completo.</span></div>`:''}
+    <iframe id="recibo-frame" title="Recibo" style="width:100%;height:min(62vh,640px);border:1px solid var(--line);border-radius:10px;background:#fff"></iframe>
+    <div class="actions">
+      <button class="btn primary" data-action="recibo-print">${ic('download')} Imprimir ou salvar PDF</button>
+      ${wl?`<a class="btn ok" href="${esc(wl)}" target="_blank" rel="noopener">${ic('msg')} Avisar no WhatsApp</a>`:''}
+      <button class="btn" data-action="recibo-baixar" data-id="${esc(r.id)}">${ic('download')} Baixar arquivo</button>
+    </div>
+    <p class="muted mini" style="margin:0">${ic('info')} Para mandar o recibo pelo WhatsApp, toque em <b>Imprimir ou salvar PDF</b>, salve o PDF e anexe na conversa.</p>
+  </div>`,true);
+  S.reciboAberto=r;const fr=$('#recibo-frame');fr.srcdoc=reciboHTML(r).replace('<button class="np" onclick="window.print()">Imprimir / salvar PDF</button>','');
+}
 function abrirRecibo(r){const html=reciboHTML(r);const w=window.open('','_blank');if(w){w.document.open();w.document.write(html);w.document.close();}else saveFile('recibo_'+slug(pacName(r.pacienteId))+'_'+r.data+'.html',html);}
 const DL_LOCAL={save:async()=>({status:'saved'})};
 function contaCPF(){const e=(window.__sessao&&window.__sessao.user&&window.__sessao.user.email)||'';const d=e.split('@')[0].replace(/\D/g,'');return d.length===11?d.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4'):(e||'—');}
@@ -1399,7 +1442,10 @@ document.addEventListener('click',async e=>{
     case'del-pct':{if(!(await confirmBox('Excluir pacote','Excluir este pacote? Ele ainda não foi usado nem pago.','Excluir',true)))break;if(await write(()=>col('pacotes').doc(id).delete()))toast('Pacote excluído.');break;}
     case'end-pla':{if(!(await confirmBox('Encerrar mensalidade','A mensalidade deixa de gerar cobranças a partir do próximo mês. As cobranças em aberto continuam.','Encerrar')))break;if(await write(()=>col('planos').doc(id).update({ativo:false,fim:ym(today())})))toast('Mensalidade encerrada.');break;}
     case'del-rec':{const r=S.rec.find(x=>x.id===id);if(!r)break;if(!(await confirmBox('Excluir recebimento','Excluir o recebimento de '+money(r.valor)+' em '+fmtD(r.data)+'? A cobrança volta a ficar em aberto.','Excluir',true)))break;if(await write(()=>col('recebimentos').doc(id).delete()))toast('Recebimento excluído.');break;}
-    case'recibo':{const r=S.rec.find(x=>x.id===id);if(!r)break;abrirRecibo(r);break;}
+    case'recibo':{const r=S.rec.find(x=>x.id===id);if(!r)break;reciboModal(r);break;}
+    case'ir-ajustes':closeModal();location.hash='ajustes';break;
+    case'recibo-print':{const fr=$('#recibo-frame');try{fr.contentWindow.focus();fr.contentWindow.print();}catch(_){if(S.reciboAberto)abrirRecibo(S.reciboAberto);}break;}
+    case'recibo-baixar':{const r=S.reciboAberto;if(r)await saveFile('recibo_'+slug(pacName(r.pacienteId))+'_'+r.data+'.html',reciboHTML(r));break;}
     case'sair':if(await confirmBox('Sair','Você vai precisar do CPF e da senha para entrar de novo.','Sair'))Dados.sair();break;
     case'backup':{try{const b=await Dados.backup();await saveFile('backup_thays_fisio_'+today()+'.json',JSON.stringify({gerado:new Date().toISOString(),dados:b},null,1));}catch(e){toast('Não foi possível gerar o backup agora.','err');}break;}
     case'export-rec':{const rows=[['Data','Paciente/Convênio','CPF','Referente a','Forma','Valor']];for(const r of S.rec.filter(x=>ym(x.data||'')===S.fmes).sort((a,b)=>String(a.data).localeCompare(String(b.data)))){const p=S.pac.get(r.pacienteId)||{};rows.push([fmtD(r.data),r.referencia==='convenio'?r.convenio:p.nome||'',p.cpf||'',r.desc||'',r.forma||'',+r.valor||0]);}await saveFile('recebimentos_'+S.fmes+'.csv',csv(rows));break;}
@@ -1429,6 +1475,7 @@ document.addEventListener('input',e=>{
   if(t.id==='lg-cpf'){const d=t.value.replace(/\D/g,'').slice(0,11);t.value=d.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})\.(\d{3})(\d)/,'$1.$2.$3').replace(/(\d{3})\.(\d{3})\.(\d{3})(\d)/,'$1.$2.$3-$4');}
   if(t.id==='p-q'){S.pq=t.value;renderBody();}
   else if(t.id==='lem-msg')updLemLink();
+  else if(t.id==='r-qtd'){recQtd(t.form,true);}
   else if(t.id==='s-busca'){const f=$('#form-ses');const sel=f.paciente.value;f.paciente.innerHTML=pacOptions(pacList().filter(x=>x.ativo!==false),sel,t.value);if(!f.paciente.value&&f.paciente.options.length>1){f.paciente.selectedIndex=1;onSesPac(f);}applySes();}
 });
 function onSesPac(f){const p=S.pac.get(f.paciente.value);if(!p)return;const cb=p.cobrancaPadrao||'avulsa';const r=f.querySelector(`input[name=cobranca][value="${cb}"]`);if(r)r.checked=true;f.valor.value=defaultValor(p,cb)??'';if(!f.endereco.value)f.endereco.value=p.endereco||'';}
@@ -1444,7 +1491,8 @@ document.addEventListener('change',e=>{
   else if(f&&f.id==='form-pac'&&t.name==='cobrancaPadrao')applyPacCob();
   else if(f&&f.id==='form-ses'){if(t.id==='s-pac')onSesPac(f);if(t.name==='cobranca'){const p=S.pac.get(f.paciente.value);f.valor.value=defaultValor(p,t.value)??'';}if(t.name==='local'&&t.value==='domicilio'&&!f.endereco.value){const p=S.pac.get(f.paciente.value);if(p)f.endereco.value=p.endereco||'';}if(t.name==='data'&&f.repetir){const d=wd(t.value);f.querySelectorAll('input[name=dias]').forEach(x=>{if(+x.value===d)x.checked=true;});}delete f.dataset.force;applySes();}
   else if(f&&f.id==='form-pct'&&t.name==='pagoAgora')applyPct();
-  else if(f&&f.id==='form-rec'){if(t.id==='r-pac'){f.ref.innerHTML=refOptions(t.value,'');}const pe=derive().pend.find(x=>x.key===f.ref.value);if(pe&&(t.id==='r-ref'||t.id==='r-pac'))f.valor.value=pe.aberto;delete f.dataset.force;applyRec();}
+  else if(f&&f.id==='form-rec'&&(t.id==='r-pac'||t.id==='r-ref')){f.qtd.value=1;}
+  if(f&&f.id==='form-rec'){if(t.id==='r-pac'){f.ref.innerHTML=refOptions(t.value,'');}const pe=derive().pend.find(x=>x.key===f.ref.value);if(pe&&(t.id==='r-ref'||t.id==='r-pac'))f.valor.value=pe.aberto;delete f.dataset.force;applyRec();if(t.id==='r-pac'||t.id==='r-ref'||t.id==='r-qtd')recQtd(f,t.id==='r-qtd'||f.ref.value==='outro');}
 });
 document.addEventListener('submit',async e=>{
   e.preventDefault();const f=e.target;
