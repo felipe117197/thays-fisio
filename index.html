@@ -588,6 +588,40 @@ body.locked .shell,body.locked .bnav{display:none}
   @media (max-width:767px){.modal{animation:up .2s ease-out}@keyframes up{from{transform:translateY(40px)}to{transform:none}}}
 }
 @media print{.side,.top,.bnav,#banner{display:none}.shell{display:block}}
+/* Relatórios */
+.rbar select{min-width:170px}
+.rnote{font-size:12.5px;color:var(--muted);margin:8px 0 0;line-height:1.5}.rnote .ic{width:14px;height:14px;vertical-align:-2px;margin-right:5px}
+.inv .delta.up{background:var(--crit-bg);color:var(--crit)}.inv .delta.down{background:var(--ok-bg);color:var(--ok)}
+.rbar .rdates{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+.rgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px;align-items:start}
+.rgrid .wide{grid-column:1/-1}
+.rh3{font-size:12.5px;color:var(--muted);font-weight:600;margin:16px 0 10px}
+.rsub{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:1px}
+.rsum{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;font-size:13px;color:var(--muted)}
+.rsum b{color:var(--ink);font-weight:650;margin-left:4px}
+.rmini{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.rmini>div{background:var(--surface-2);border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;display:grid;gap:2px}
+.rmini span{font-size:12px;color:var(--muted);font-weight:550}.rmini b{font:700 20px/1.2 var(--f-display)}.rmini small{font-size:12px;color:var(--muted)}
+table.t.tight td,table.t.tight th{padding:8px 10px}
+.t tr[data-action]{cursor:pointer}.t tr[data-action]:hover td{background:var(--surface-2)}
+.t th.r,.t td.r{text-align:right}
+.rk{display:inline-grid;place-items:center;min-width:22px;height:22px;border-radius:6px;background:var(--surface-3);color:var(--muted);font-size:11.5px;font-weight:650;margin-right:8px}
+table.heat{border-collapse:separate;border-spacing:3px;width:100%;font-size:12px;min-width:520px}
+.heat th{font-weight:600;color:var(--muted);font-size:11px;padding:2px 4px;text-align:center}
+.heat tbody th{text-align:left;text-transform:capitalize;padding-right:8px}
+.heat td{height:30px;text-align:center;border-radius:6px;background:var(--surface-2);font-weight:650;color:var(--ink-2)}
+.heat .tot{background:none;color:var(--ink);font-weight:700}
+.print-h{display:none}
+.nfo{display:grid;gap:10px}
+.chk.nf{align-items:flex-start;gap:10px}.chk.nf input{margin-top:3px}.chk.nf span{display:grid;gap:2px}.chk.nf small{color:var(--muted);font-size:12.5px}.chk.nf select{padding:2px 6px;font-size:12.5px}
+@media (max-width:1180px){.rgrid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.hide-s{display:none}.rbar select{min-width:0;flex:1 1 150px}.rbar>label{display:none}.rbar .btn{flex:1 1 auto;justify-content:center}.rk{display:none}}
+@media print{
+  body{background:#fff}.np,.toolbar,.toast,#toasts{display:none!important}.print-h{display:flex;justify-content:space-between;gap:12px;border-bottom:2px solid #13866A;padding-bottom:8px;margin-bottom:14px;font-size:13px}
+  .panel,.kpi{box-shadow:none;break-inside:avoid}.rgrid{grid-template-columns:1fr 1fr}.kgrid{grid-template-columns:repeat(4,1fr)}main#main{padding:0}
+  .work{margin:0}body.privado .money{filter:none}
+}
+
 @supports(padding:max(0px)){.top-in{padding-top:max(10px,env(safe-area-inset-top))}}
 </style>
 </head>
@@ -669,6 +703,7 @@ body.locked .shell,body.locked .bnav{display:none}
   <symbol id="i-arrowdown" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
   <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><rect x="6" y="14" width="12" height="8" rx="1"/></symbol>
   <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="12" width="3.2" height="6" rx="1" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><rect x="12.2" y="8" width="3.2" height="10" rx="1" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><rect x="17.4" y="5" width="3.2" height="13" rx="1" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
   <symbol id="i-table" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/></symbol>
   <linearGradient id="lg-em" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3CCB9F"/><stop offset="1" stop-color="#168465"/></linearGradient>
   <symbol id="logo-emblem" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="url(#lg-em)"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/><circle cx="28" cy="14.5" r="4.8" fill="#fff"/><path d="M15.5 25 Q30 20.5 47.5 24.5" fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round"/><path d="M27 23.5 V50" fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round"/><path d="M27 36.5 H39.5" fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round"/><path d="M45.3 31.5 A18.5 18.5 0 0 1 36.3 52.5" fill="none" stroke="#FFE3A3" stroke-width="2.8" stroke-linecap="round" stroke-dasharray="0.1 5.2"/></symbol>
@@ -686,6 +721,7 @@ body.locked .shell,body.locked .bnav{display:none}
     <a href="#agenda" data-tab="agenda" title="Agenda"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg><span class="lbl">Agenda</span><span class="badge soft" data-badge="agenda" hidden></span></a>
     <a href="#pacientes" data-tab="pacientes" title="Pacientes"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg><span class="lbl">Pacientes</span></a>
     <a href="#financeiro" data-tab="financeiro" title="Financeiro"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg><span class="lbl">Financeiro</span><span class="badge" data-badge="financeiro" hidden></span></a>
+    <a href="#relatorios" data-tab="relatorios" title="Relatórios"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg><span class="lbl">Relatórios</span></a>
     <div class="nav-t">Sistema</div>
     <a href="#ajustes" data-tab="ajustes" title="Ajustes"><svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg><span class="lbl">Ajustes</span></a>
   </nav>
@@ -800,7 +836,7 @@ const emptyBox=(n,t)=>`<div class="emptybox">${ic(n,'xl')}<span>${t}</span></div
 
 const S={pac:new Map(),ses:[],pct:new Map(),pla:new Map(),rec:[],cfg:{},ready:{},live:{},timedOut:false,dbErr:null,noAccess:false,
   tab:'inicio',view:'dia',day:today(),showCanc:false,pq:'',pst:'ativos',fmes:ym(today()),open:null,
-  dmes:ym(today()),ffil:'todas',fq:'',flim:30,psort:'nome',pview:(()=>{try{return localStorage.getItem('tf-pview')||'cards';}catch(_){return'cards';}})()};
+  dmes:ym(today()),rp:'mes',rIni:'',rFim:'',rsort:'real',rall:false,ffil:'todas',fq:'',flim:30,psort:'nome',pview:(()=>{try{return localStorage.getItem('tf-pview')||'cards';}catch(_){return'cards';}})()};
 const COLLS={pacientes:'pac',sessoes:'ses',pacotes:'pct',planos:'pla',recebimentos:'rec'};
 let db=null,U=null,DL=null,myId=null,writable=true,loadTimer=null,D=null;
 const CFG=()=>Object.assign({nomeProfissional:'',crefito:'',documento:'',telefone:'',endereco:'',cidade:'',pix:'',valorPadrao:120,duracaoPadrao:50,inicioDia:'07:00',fimDia:'19:00',prazoPagamento:90,msgWhats:DEFAULT_MSG},S.cfg);
@@ -859,7 +895,7 @@ function renderBanner(){
 function route(){
   if($('#modal-root').innerHTML)closeModal();
   const h=(location.hash||'').replace('#','');
-  S.tab=['inicio','agenda','pacientes','financeiro','ajustes'].includes(h)?h:'inicio';
+  S.tab=['inicio','agenda','pacientes','financeiro','relatorios','ajustes'].includes(h)?h:'inicio';
   document.querySelectorAll('a[data-tab]').forEach(a=>{if(a.dataset.tab===S.tab)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
   renderTab();window.scrollTo(0,0);
 }
@@ -895,6 +931,15 @@ function renderTab(){
       <button class="btn ghost" data-action="export-rec" data-needs-dl>${ic('download')} Exportar</button>
       <button class="btn primary" data-action="new-rec" data-needs-write>${ic('plus')} Registrar recebimento</button>
     </div><div id="body"></div>`;
+  } else if(S.tab==='relatorios'){
+    const P=relPeriodo();
+    m.innerHTML=`<div class="toolbar rbar">
+      <label class="mini muted" for="r-per">${ic('cal')} Período</label><select id="r-per">${RPER.map(([v,l])=>`<option value="${v}" ${S.rp===v?'selected':''}>${l}</option>`).join('')}</select>
+      <span class="rdates" ${S.rp==='custom'?'':'hidden'}><input type="date" id="r-ini" value="${P.ini}" aria-label="De"><span class="muted">até</span><input type="date" id="r-fim" value="${P.fim}" aria-label="Até"></span>
+      <span class="grow"></span>
+      <button class="btn ghost" data-action="rel-imprimir">${ic('printer')} Imprimir ou PDF</button>
+      <button class="btn ghost" data-action="rel-csv" data-r="tudo" data-needs-dl>${ic('download')} Planilha completa</button>
+    </div><div id="body"></div>`;
   } else {
     m.innerHTML='<div id="body"></div>';
   }
@@ -908,11 +953,12 @@ function renderBody(){
   else if(S.tab==='agenda')b.innerHTML=agendaHTML();
   else if(S.tab==='pacientes')b.innerHTML=pacientesHTML();
   else if(S.tab==='financeiro')b.innerHTML=finHTML();
+  else if(S.tab==='relatorios')b.innerHTML=relatoriosHTML();
   else b.innerHTML=ajustesHTML();
 }
 
 /* ================= Painel executivo (Início) ================= */
-const TITLES={inicio:['Início',()=>fmtDL(today())],agenda:['Agenda',()=>'Sessões, horários fixos e lembretes'],pacientes:['Pacientes',()=>{const n=pacList().filter(p=>p.ativo!==false).length;return n+(n===1?' paciente ativo':' pacientes ativos');}],financeiro:['Financeiro',()=>'Recebimentos, cobranças e convênios'],ajustes:['Ajustes',()=>'Consultório, agenda e conta']};
+const TITLES={inicio:['Início',()=>fmtDL(today())],agenda:['Agenda',()=>'Sessões, horários fixos e lembretes'],pacientes:['Pacientes',()=>{const n=pacList().filter(p=>p.ativo!==false).length;return n+(n===1?' paciente ativo':' pacientes ativos');}],financeiro:['Financeiro',()=>'Recebimentos, cobranças e convênios'],relatorios:['Relatórios',()=>relPeriodo().lbl],ajustes:['Ajustes',()=>'Consultório, agenda, notificações e conta']};
 const prevYM=k=>{let y=+k.slice(0,4),m=+k.slice(5,7)-1;if(m<1){m=12;y--;}return y+'-'+pad(m);};
 const nextYM=k=>{let y=+k.slice(0,4),m=+k.slice(5,7)+1;if(m>12){m=1;y++;}return y+'-'+pad(m);};
 const moneyK=v=>v>=1000?'R$ '+(v/1000).toFixed(v>=10000?0:1).replace('.',',').replace(',0','')+' mil':'R$ '+Math.round(v);
@@ -1024,7 +1070,7 @@ function inicioHTML(){
   const mixRows=[...st.mix.entries()].sort((a,b)=>b[1]-a[1]).map(([x,v])=>({l:(COB[x]||COB.avulsa).l,i:(COB[x]||COB.avulsa).i,v}));
   const fRows=[...st.formas.entries()].sort((a,b)=>b[1]-a[1]).map(([x,v])=>({l:x,i:FORMA_IC[x]||'wallet',v}));
   return `<div class="dash-h"><div><h2>${h<12?'Bom dia':h<18?'Boa tarde':'Boa noite'}, ${esc(nm)}</h2><p>${hoje.length?hoje.length+(hoje.length===1?' sessão hoje':' sessões hoje'):'Sem sessões hoje'}${pd.nFin?' · '+pd.nFin+' para finalizar':''}${pd.nLem?' · '+pd.nLem+(pd.nLem===1?' lembrete':' lembretes')+' para enviar':''}</p></div>
-    <div class="actions"><div class="mswitch"><button data-action="dash-nav" data-n="-1" aria-label="Mês anterior">${ic('chevl')}</button><b>${fmtYM(k).replace(/^./,x=>x.toUpperCase())}</b><button data-action="dash-nav" data-n="1" aria-label="Próximo mês" ${isCur?'disabled style="opacity:.35"':''}>${ic('chevr')}</button></div><button class="btn" data-action="relatorio" data-m="${k}" aria-label="Relatório do mês">${ic('printer')}<span class="lbl"> Relatório do mês</span></button></div></div>
+    <div class="actions"><div class="mswitch"><button data-action="dash-nav" data-n="-1" aria-label="Mês anterior">${ic('chevl')}</button><b>${fmtYM(k).replace(/^./,x=>x.toUpperCase())}</b><button data-action="dash-nav" data-n="1" aria-label="Próximo mês" ${isCur?'disabled style="opacity:.35"':''}>${ic('chevr')}</button></div><button class="btn" data-action="relatorio" data-m="${k}" aria-label="Relatório do mês">${ic('printer')}<span class="lbl"> Relatório do mês</span></button><a class="btn" href="#relatorios" aria-label="Relatórios">${ic('chart')}<span class="lbl"> Relatórios</span></a></div></div>
   <section class="kgrid">${kpis}</section>
   <div class="dgrid">
     <div class="dcol">
@@ -1095,7 +1141,8 @@ const PAL_ACTS=[
   ['Ir para Agenda','cal','2',{action:'go-tab',t:'agenda'},'sessoes'],
   ['Ir para Pacientes','users','3',{action:'go-tab',t:'pacientes'},'lista'],
   ['Ir para Financeiro','wallet','4',{action:'go-tab',t:'financeiro'},'cobrancas recebimentos convenios'],
-  ['Ir para Ajustes','sliders','5',{action:'go-tab',t:'ajustes'},'configuracoes senha conta crefito'],
+  ['Ir para Relatórios','chart','5',{action:'go-tab',t:'relatorios'},'relatorios indicadores ranking inadimplencia ocupacao exportar planilha csv excel'],
+  ['Ir para Ajustes','sliders','6',{action:'go-tab',t:'ajustes'},'configuracoes senha conta crefito'],
   ['Agenda de hoje','sun','T',{action:'goto-day',d:'@hoje'},'hoje'],
   ['Agenda de amanhã','cal','',{action:'goto-day',d:'@amanha'},'amanha'],
   ['Cobranças atrasadas','alert','',{action:'fin-filtro',f:'atrasadas'},'devendo vencidas inadimplentes'],
@@ -1126,7 +1173,7 @@ function openPalette(){if($('#pal-q')){closeModal();return;}if($('#modal-root').
   renderPal();const i0=$('#pal-q');if(i0)i0.focus();setTimeout(()=>{const i=$('#pal-q');if(i&&document.activeElement!==i)i.focus();},20);}
 function palGo(n){const x=(S.palItems||[])[n];if(!x)return;lastFocus=null;closeModal();if(document.activeElement)document.activeElement.blur();setTimeout(()=>runAction(x.ds),0);}
 function atalhosModal(){const k=(a,b)=>`<div><span>${b}</span><span>${a.split('+').map(x=>`<kbd>${x}</kbd>`).join('')}</span></div>`;
-  openModal(`<div class="modal-h"><h2><span class="hb">${ic('zap')}</span>Atalhos do teclado</h2>${X}</div><div class="modal-b"><div class="keys">${[['Ctrl+K','Busca global'],['/','Busca global'],['N','Agendar sessão'],['P','Novo paciente'],['R','Registrar recebimento'],['1','Início'],['2','Agenda'],['3','Pacientes'],['4','Financeiro'],['5','Ajustes'],['T','Agenda de hoje'],['←+→','Dia ou semana anterior / próxima (na agenda)'],['D','Ver agenda por dia'],['S','Ver agenda por semana'],['H','Ocultar / mostrar valores'],['Esc','Fechar janela']].map(([a,b])=>k(a,b)).join('')}</div></div>`);}
+  openModal(`<div class="modal-h"><h2><span class="hb">${ic('zap')}</span>Atalhos do teclado</h2>${X}</div><div class="modal-b"><div class="keys">${[['Ctrl+K','Busca global'],['/','Busca global'],['N','Agendar sessão'],['P','Novo paciente'],['R','Registrar recebimento'],['1','Início'],['2','Agenda'],['3','Pacientes'],['4','Financeiro'],['5','Relatórios'],['6','Ajustes'],['T','Agenda de hoje'],['←+→','Dia ou semana anterior / próxima (na agenda)'],['D','Ver agenda por dia'],['S','Ver agenda por semana'],['H','Ocultar / mostrar valores'],['Esc','Fechar janela']].map(([a,b])=>k(a,b)).join('')}</div></div>`);}
 function quickModal(){if(!writable||!db)return;openModal(`<div class="modal-h"><h2><span class="hb">${ic('plus')}</span>Criar</h2>${X}</div><div class="modal-b"><div class="quick" style="grid-template-columns:1fr">
   <button class="qa" data-action="new-ses"><span class="qi">${ic('calplus')}</span><span>Agendar sessão<small>Sessão avulsa</small></span></button>
   <button class="qa" data-action="new-ses" data-rec="1"><span class="qi lilac">${ic('repeat')}</span><span>Horário fixo<small>Toda semana</small></span></button>
@@ -1342,11 +1389,220 @@ function ajustesHTML(){
       <div class="actions full"><button type="submit" class="btn">${ic('save')} Trocar senha</button><button type="button" class="btn" data-action="backup">${ic('download')} Baixar backup</button><button type="button" class="btn danger" data-action="sair">${ic('xcircle')} Sair</button></div>
     </form>
   </section>
+  ${notifPanel()}
   <section class="panel"><h2>${ic('lock')}Privacidade dos dados</h2>
     <p class="muted" style="margin:0 0 8px">Os dados ficam no banco Supabase do consultório. Só entra quem tem CPF e senha cadastrados e está na lista de membros. Baixe o backup toda semana: o plano gratuito do Supabase não guarda cópias automáticas.</p>
     <p class="muted" style="margin:0">Avaliações, sinais vitais e evoluções são dados de saúde (dados sensíveis pela LGPD). Use senhas fortes, não compartilhe o acesso e baixe o backup com frequência. Pelas normas do COFFITO, o prontuário deve ser guardado por pelo menos 5 anos.</p>
   </section>`;
 }
+
+/* ================= Relatórios gerenciais ================= */
+const RPER=[['mes','Este mês'],['mesant','Mês passado'],['tri','Últimos 3 meses'],['12m','Últimos 12 meses'],['ano','Este ano'],['anoant','Ano passado'],['custom','Personalizado']];
+const sumBy=(arr,f)=>r2(arr.reduce((a,x)=>a+(+f(x)||0),0));
+const diasEntre=(a,b)=>Math.round((dOf(b)-dOf(a))/864e5);
+const shiftM=(iso,n)=>{let y=+iso.slice(0,4),m=+iso.slice(5,7)-1+n;y+=Math.floor(m/12);m=((m%12)+12)%12;const k=y+'-'+pad(m+1);return k+'-'+pad(Math.min(+iso.slice(8,10),dim(k)));};
+function relPeriodo(){
+  const t=today(),k=ym(t),y=+t.slice(0,4);const fimM=x=>x+'-'+pad(dim(x));let ini,fim,sh=0,lbl;
+  switch(S.rp){
+    case'mesant':{const p=prevYM(k);ini=p+'-01';fim=fimM(p);sh=1;lbl=fmtYM(p);break;}
+    case'tri':{const p=prevYM(prevYM(k));ini=p+'-01';fim=fimM(k);sh=3;break;}
+    case'12m':{let p=k;for(let i=0;i<11;i++)p=prevYM(p);ini=p+'-01';fim=fimM(k);sh=12;break;}
+    case'ano':ini=y+'-01-01';fim=y+'-12-31';sh=12;lbl='Ano de '+y;break;
+    case'anoant':ini=(y-1)+'-01-01';fim=(y-1)+'-12-31';sh=12;lbl='Ano de '+(y-1);break;
+    case'custom':ini=S.rIni||k+'-01';fim=S.rFim||t;if(fim<ini)[ini,fim]=[fim,ini];break;
+    default:ini=k+'-01';fim=fimM(k);sh=1;lbl=fmtYM(k);
+  }
+  const ate=fim<t?fim:t;const n=diasEntre(ini,fim)+1;
+  // Período anterior equivalente (mesmos dias já decorridos, para comparar de forma justa)
+  let pIni,pFim;if(ate<ini){pIni=pFim=null;}else if(sh){pIni=shiftM(ini,-sh);pFim=shiftM(ate,-sh);}else{pIni=addD(ini,-n);pFim=addD(ate,-n);}
+  return{ini,fim,ate,n,pIni,pFim,lbl:(lbl?lbl.replace(/^./,x=>x.toUpperCase())+' · ':'')+fmtD(ini)+' a '+fmtD(fim)};
+}
+function statsRange(ini,fim){
+  const inR=x=>!!x&&x>=ini&&x<=fim;
+  const recR=S.rec.filter(r=>inR(r.data||''));const recebido=sumBy(recR,r=>r.valor);
+  const ses=S.ses.filter(s=>inR(s.data));const cnt={agendado:0,confirmado:0,realizado:0,falta:0,cancelado:0,remarcado:0};for(const s of ses)cnt[s.status]=(cnt[s.status]||0)+1;
+  const atend=new Set(ses.filter(s=>s.status==='realizado').map(s=>s.pacienteId)).size;
+  const novos=pacList().filter(p=>inR(String(p.criadoEm||'').slice(0,10))).length;
+  const formas=new Map();for(const r of recR){const f=r.forma||'Outro';formas.set(f,r2((formas.get(f)||0)+(+r.valor||0)));}
+  const mix=new Map();for(const s of ses)if(s.status==='realizado')mix.set(s.cobranca||'avulsa',(mix.get(s.cobranca||'avulsa')||0)+1);
+  const real=cnt.realizado;
+  return{recR,recebido,ses,cnt,real,falta:cnt.falta,canc:cnt.cancelado+cnt.remarcado,pres:pct(real,real+cnt.falta),atend,novos,ticket:real?r2(recebido/real):null,formas,mix};
+}
+function relBuckets(P){
+  const out=[];
+  if(P.n<=35){let s=P.ini;while(s<=P.fim){let e=addD(s,6-((wd(s)+6)%7));if(e>P.fim)e=P.fim;out.push({ini:s,fim:e,l:s.slice(8,10)+'/'+s.slice(5,7),ll:'Semana de '+fmtD(s)+' a '+fmtD(e)});s=addD(e,1);}}
+  else{const multi=P.ini.slice(0,4)!==P.fim.slice(0,4);let k=P.ini.slice(0,7);while(k<=P.fim.slice(0,7)){const a=k+'-01',b=k+'-'+pad(dim(k));out.push({ini:a<P.ini?P.ini:a,fim:b>P.fim?P.fim:b,l:MES[+k.slice(5,7)-1].slice(0,3)+(multi?'/'+k.slice(2,4):''),ll:fmtYM(k)});k=nextYM(k);}}
+  for(const b of out){const st=statsRange(b.ini,b.fim);b.v=st.recebido;b.n=st.real;b.f=st.falta;}
+  return out;
+}
+function barSVG(rows,aria){
+  const N=rows.length;if(!N)return'';const mx=Math.max(...rows.map(x=>x.v))||1000;const e10=Math.pow(10,Math.floor(Math.log10(mx)));const fr=mx/e10;const top=(fr<=1?1:fr<=2?2:fr<=2.5?2.5:fr<=5?5:10)*e10;
+  const sm=window.innerWidth<640;const W=sm?360:640,H=sm?220:230,L=58,B=26,T=16,bw=(W-L-8)/N;const y=v=>T+(H-T-B)*(1-v/top);const every=sm?(N>12?3:N>6?2:1):(N>16?3:N>12?2:1);const iMax=rows.findIndex(x=>x.v===mx&&x.v>0);
+  let g='';for(let i=0;i<=4;i++){const v=top*i/4;g+=`<line class="gl" x1="${L}" x2="${W}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}"/><text class="ax" x="${L-8}" y="${(y(v)+4).toFixed(1)}" text-anchor="end">${v?moneyK(v):'0'}</text>`;}
+  const bars=rows.map((x,i)=>{const bx=L+4+i*bw+bw*.18,w=bw*.64,yy=y(x.v),h=Math.max(0,H-B-yy);const r=Math.min(4,w/2,h);
+    const path=h>0?`M${bx.toFixed(1)} ${(H-B).toFixed(1)} V${(yy+r).toFixed(1)} Q${bx.toFixed(1)} ${yy.toFixed(1)} ${(bx+r).toFixed(1)} ${yy.toFixed(1)} H${(bx+w-r).toFixed(1)} Q${(bx+w).toFixed(1)} ${yy.toFixed(1)} ${(bx+w).toFixed(1)} ${(yy+r).toFixed(1)} V${(H-B).toFixed(1)} Z`:'';
+    const tip=esc(x.ll)+'|'+esc(money(x.v))+'|'+x.n+(x.n===1?' sessão realizada':' sessões realizadas')+(x.f?' · '+x.f+(x.f===1?' falta':' faltas'):'');
+    return`<g data-tip="${tip}" tabindex="0" aria-label="${esc(x.ll)}: ${esc(money(x.v))}"><rect class="hit" x="${(L+4+i*bw).toFixed(1)}" y="${T}" width="${bw.toFixed(1)}" height="${H-T}"/>${path?`<path class="bar${i===iMax?' sel':''}" d="${path}"/>`:''}${i===iMax?`<text class="lbl" x="${(bx+w/2).toFixed(1)}" y="${(yy-6).toFixed(1)}" text-anchor="middle">${moneyK(x.v)}</text>`:''}${i%every===0?`<text class="ax" x="${(bx+w/2).toFixed(1)}" y="${H-8}" text-anchor="middle">${esc(x.l)}</text>`:''}</g>`;}).join('');
+  return`<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(aria)}">${g}${bars}</svg></div>`;
+}
+const AGE=[['Até 30 dias',0,30,'var(--info)'],['31 a 60 dias',31,60,'var(--warn)'],['61 a 90 dias',61,90,'color-mix(in srgb,var(--crit) 70%,var(--warn))'],['Mais de 90 dias',91,1e9,'var(--crit)']];
+function relAberto(){
+  const d=derive(),t=today();
+  const items=d.pend.map(p=>{const base=sesDataDe(p);return{...p,base,dias:Math.max(0,diasEntre(base,t))};});
+  const bk=AGE.map(([l,a,b,c])=>{const xs=items.filter(i=>i.dias>=a&&i.dias<=b);return{l,c,n:xs.length,v:sumBy(xs,x=>x.aberto)};});
+  const by=new Map();for(const i of items){const g=by.get(i.pacienteId)||{id:i.pacienteId,v:0,n:0,base:i.base,atr:0};g.v=r2(g.v+i.aberto);g.n++;if(i.base<g.base)g.base=i.base;if(i.vencido)g.atr=r2(g.atr+i.aberto);by.set(i.pacienteId,g);}
+  const top=[...by.values()].sort((a,b)=>b.v-a.v);
+  return{items,bk,top,total:sumBy(items,x=>x.aberto),atr:sumBy(items.filter(x=>x.vencido),x=>x.aberto),conv:sumBy(d.conv,s=>s.valor),nConv:d.conv.length};
+}
+function relRanking(P){
+  const inR=x=>!!x&&x>=P.ini&&x<=P.fim;const m=new Map();const g=id=>{if(!m.has(id))m.set(id,{id,nome:pacName(id),real:0,falta:0,canc:0,rec:0,aberto:0,ult:''});return m.get(id);};
+  for(const s of S.ses){if(!inR(s.data)||!s.pacienteId)continue;const x=g(s.pacienteId);if(s.status==='realizado'){x.real++;if(s.data>x.ult)x.ult=s.data;}else if(s.status==='falta')x.falta++;else if(s.status==='cancelado'||s.status==='remarcado')x.canc++;}
+  for(const r of S.rec){if(!inR(r.data||'')||!r.pacienteId||r.referencia==='convenio')continue;const x=g(r.pacienteId);x.rec=r2(x.rec+(+r.valor||0));}
+  for(const p of derive().pend){if(m.has(p.pacienteId)){const x=m.get(p.pacienteId);x.aberto=r2(x.aberto+p.aberto);}}
+  const l=[...m.values()].map(x=>({...x,pres:pct(x.real,x.real+x.falta)}));
+  const so=S.rsort||'real';const cmp={real:(a,b)=>b.real-a.real||b.rec-a.rec,rec:(a,b)=>b.rec-a.rec||b.real-a.real,aberto:(a,b)=>b.aberto-a.aberto,falta:(a,b)=>b.falta-a.falta||(a.pres??101)-(b.pres??101),nome:(a,b)=>String(a.nome).localeCompare(String(b.nome),'pt-BR')}[so]||((a,b)=>b.real-a.real);
+  return l.sort((a,b)=>cmp(a,b)||String(a.nome).localeCompare(String(b.nome),'pt-BR'));
+}
+function relOcupacao(P){
+  const c=CFG();let h0=Math.floor(toMin(c.inicioDia||'07:00')/60),h1=Math.max(h0,Math.ceil(toMin(c.fimDia||'19:00')/60)-1);
+  const ses=S.ses.filter(s=>s.data>=P.ini&&s.data<=P.fim&&ACTIVE(s)&&s.hora);
+  const grid={};let mx=0;const tw=[0,0,0,0,0,0,0],th={};
+  for(const s of ses){const w=wd(s.data),h=Math.floor(toMin(s.hora)/60);h0=Math.min(h0,h);h1=Math.max(h1,h);const k=w+':'+h;grid[k]=(grid[k]||0)+1;mx=Math.max(mx,grid[k]);tw[w]++;th[h]=(th[h]||0)+1;}
+  const dias=[1,2,3,4,5,6].concat(tw[0]?[0]:[]);if(!tw[6]&&!ses.some(s=>wd(s.data)===6))dias.splice(dias.indexOf(6),1);
+  const hs=[];for(let h=h0;h<=h1;h++)hs.push(h);
+  const topW=tw.indexOf(Math.max(...tw));let topH=null;for(const h of hs)if(th[h]&&(topH==null||th[h]>th[topH]))topH=h;
+  const vazio=hs.filter(h=>!th[h]);
+  return{grid,mx,dias,hs,tw,th,total:ses.length,topW,topH,vazio};
+}
+function relConvenios(P){
+  const d=derive();const inR=x=>!!x&&x>=P.ini&&x<=P.fim;const m=new Map();const g=k=>{if(!m.has(k))m.set(k,{nome:k,n:0,v:0,pago:0,ab:0,rec:0});return m.get(k);};
+  for(const s of S.ses){if(s.cobranca!=='convenio'||s.status!=='realizado'||!inR(s.data))continue;const x=g((S.pac.get(s.pacienteId)||{}).convenio||'Convênio não informado');x.n++;x.v=r2(x.v+(+s.valor||0));if(d.convPaid.has(s.id))x.pago=r2(x.pago+(+s.valor||0));else x.ab=r2(x.ab+(+s.valor||0));}
+  for(const r of S.rec){if(r.referencia!=='convenio'||!inR(r.data||''))continue;const x=g(r.convenio||'Convênio não informado');x.rec=r2(x.rec+(+r.valor||0));}
+  return[...m.values()].sort((a,b)=>b.v-a.v||b.rec-a.rec);
+}
+function relPacotes(P){
+  const t=today(),d=derive();const inR=x=>!!x&&x>=P.ini&&x<=P.fim;
+  const vend=[...S.pct.entries()].filter(([,p])=>inR(p.dataCompra));
+  const usadasP=S.ses.filter(s=>s.cobranca==='pacote'&&s.status==='realizado'&&inR(s.data)).length;
+  const ativos=[...S.pct.entries()].map(([id,p])=>{const sd=saldoPacote(id);const pe=d.pend.find(x=>x.key==='p:'+id);return{id,...p,usadas:(+p.qtd||0)-sd,saldo:sd,aberto:pe?pe.aberto:0,vencido:!!(p.validade&&p.validade<t)};})
+    .filter(p=>p.saldo>0&&!p.vencido&&(S.pac.get(p.pacienteId)||{}).ativo!==false).sort((a,b)=>a.saldo-b.saldo||String(pacName(a.pacienteId)).localeCompare(pacName(b.pacienteId),'pt-BR'));
+  const mens=[...S.pla.entries()].filter(([,p])=>p.ativo!==false).map(([id,p])=>({id,...p})).sort((a,b)=>String(pacName(a.pacienteId)).localeCompare(pacName(b.pacienteId),'pt-BR'));
+  const recPct=sumBy(S.rec.filter(r=>r.referencia==='pacote'&&inR(r.data||'')),r=>r.valor),recMen=sumBy(S.rec.filter(r=>r.referencia==='mensalidade'&&inR(r.data||'')),r=>r.valor);
+  return{nVend:vend.length,valVend:sumBy(vend,([,p])=>p.valor),sesVend:vend.reduce((a,[,p])=>a+(+p.qtd||0),0),usadasP,ativos,saldoTot:ativos.reduce((a,p)=>a+p.saldo,0),mens,mrr:sumBy(mens,p=>p.valor),recPct,recMen};
+}
+/* Linhas de cada relatório para exportar (CSV abre no Excel e no Google Planilhas) */
+function relCSV(key){
+  const P=relPeriodo(),per=['Período',fmtD(P.ini)+' a '+fmtD(P.fim)];const pn=v=>v==null?'':v;
+  const sec={
+    resumo:()=>{const st=statsRange(P.ini,P.fim);return[['Resumo do período'],per,['Indicador','Valor'],['Recebido (R$)',st.recebido],['Sessões realizadas',st.real],['Faltas',st.falta],['Canceladas ou remarcadas',st.canc],['Taxa de presença (%)',pn(st.pres)],['Recebido por sessão realizada (R$)',pn(st.ticket)],['Pacientes atendidos',st.atend],['Pacientes novos',st.novos]];},
+    receita:()=>[['Receita recebida'],per,['Período','Recebido (R$)','Sessões realizadas','Faltas'],...relBuckets(P).map(b=>[b.ll,b.v,b.n,b.f])],
+    aberto:()=>{const a=relAberto();return[['Valores em aberto (situação de hoje, '+fmtD(today())+')'],['Paciente','Referente a','Desde','Dias em aberto','Situação','Em aberto (R$)'],...a.items.slice().sort((x,y)=>y.dias-x.dias).map(i=>[pacName(i.pacienteId),i.desc,fmtD(i.base),i.dias,i.vencido?'Atrasado':'A receber',i.aberto])];},
+    ranking:()=>[['Pacientes no período'],per,['Paciente','Realizadas','Faltas','Canceladas/remarcadas','Presença (%)','Recebido no período (R$)','Em aberto hoje (R$)','Última sessão'],...relRanking(P).map(x=>[x.nome,x.real,x.falta,x.canc,pn(x.pres),x.rec,x.aberto,x.ult?fmtD(x.ult):''])],
+    ocupacao:()=>{const o=relOcupacao(P);return[['Sessões por dia da semana e horário'],per,['Dia',...o.hs.map(h=>pad(h)+'h'),'Total'],...o.dias.map(w=>[DOWL[w],...o.hs.map(h=>o.grid[w+':'+h]||0),o.tw[w]])];},
+    convenios:()=>[['Convênios'],per,['Convênio','Sessões realizadas','Valor (R$)','Já pago (R$)','Aguardando (R$)','Recebido no período (R$)'],...relConvenios(P).map(x=>[x.nome,x.n,x.v,x.pago,x.ab,x.rec])],
+    pacotes:()=>{const k=relPacotes(P);return[['Pacotes com saldo (hoje)'],['Paciente','Sessões do pacote','Usadas','Saldo','Comprado em','Validade','Em aberto (R$)'],...k.ativos.map(p=>[pacName(p.pacienteId),+p.qtd||0,p.usadas,p.saldo,p.dataCompra?fmtD(p.dataCompra):'',p.validade?fmtD(p.validade):'',p.aberto]),[],['Mensalidades ativas'],['Paciente','Valor mensal (R$)','Dia do vencimento','Desde'],...k.mens.map(p=>[pacName(p.pacienteId),+p.valor||0,+p.dia||10,p.inicio?fmtYM(p.inicio):''])];},
+    formas:()=>{const st=statsRange(P.ini,P.fim);return[['Formas de pagamento'],per,['Forma','Recebido (R$)'],...[...st.formas.entries()].sort((a,b)=>b[1]-a[1]),[],['Sessões realizadas por tipo de cobrança'],['Tipo','Sessões'],...[...st.mix.entries()].map(([k,v])=>[(COB[k]||COB.avulsa).l,v])];}
+  };
+  if(key==='tudo')return Object.keys(sec).flatMap((k,i)=>(i?[[]]:[]).concat(sec[k]()));
+  return(sec[key]||sec.resumo)();
+}
+const relTbl=(head,rows,cls)=>`<div class="table-wrap"><table class="t ${cls||''}"><thead><tr>${head.map(h=>`<th class="${h[1]||''}">${h[0]}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
+const csvBtn=k=>`<button class="btn sm ghost np" data-action="rel-csv" data-r="${k}" data-needs-dl aria-label="Baixar planilha (CSV)">${ic('download')} CSV</button>`;
+function relatoriosHTML(){
+  const P=relPeriodo(),st=statsRange(P.ini,P.fim),pv=P.pIni?statsRange(P.pIni,P.pFim):null,cur=P.pIni?statsRange(P.ini,P.ate):st;
+  const dl=(a,b,pp)=>pv?deltaHTML(a,b,pp):'';const cmp=pv?`<span class="xs">vs. ${fmtD(P.pIni)} a ${fmtD(P.pFim)}</span>`:'';
+  const kp=(o)=>`<div class="kpi ${o.cls||''}"><span class="k">${ic(o.i)}${o.k}</span><span class="v ${o.m?'money':''}">${o.v}</span><span class="s">${o.s||''}</span></div>`;
+  const kpis=[
+    kp({i:'wallet',k:'Recebido',v:money(st.recebido),m:1,s:dl(cur.recebido,pv&&pv.recebido)+cmp}),
+    kp({i:'okcircle',k:'Sessões realizadas',v:String(st.real),s:dl(cur.real,pv&&pv.real)+`<span>${st.cnt.agendado+st.cnt.confirmado?(st.cnt.agendado+st.cnt.confirmado)+' ainda agendadas':''}</span>`}),
+    kp({i:'percent',k:'Taxa de presença',v:st.pres==null?'—':st.pres+'%',s:dl(cur.pres,pv&&pv.pres,1)+`<span>${st.falta} ${st.falta===1?'falta':'faltas'}</span>`}),
+    kp({i:'coins',k:'Recebido por sessão',v:st.ticket==null?'—':money(st.ticket),m:1,s:'<span class="xs">recebido ÷ sessões realizadas</span>'}),
+    kp({i:'users',k:'Pacientes atendidos',v:String(st.atend),s:dl(cur.atend,pv&&pv.atend)}),
+    kp({i:'userplus',k:'Pacientes novos',v:String(st.novos),s:dl(cur.novos,pv&&pv.novos)}),
+    kp({i:'userx',k:'Faltas',v:String(st.falta),cls:st.falta?'warn':'',s:`<span class="inv">${dl(cur.falta,pv&&pv.falta)}</span>`}),
+    kp({i:'xcircle',k:'Canceladas ou remarcadas',v:String(st.canc),s:'<span class="xs">não entram na presença</span>'})
+  ].join('');
+  // Receita
+  const bk=relBuckets(P);const recTot=sumBy(bk,b=>b.v);const melhor=bk.reduce((a,b)=>b.v>(a?a.v:-1)?b:a,null);
+  const recH=recTot?barSVG(bk,'Receita recebida no período')+`<p class="rnote">${ic('info')}Média de <b class="money">${money(r2(recTot/bk.length))}</b> por ${P.n<=35?'semana':'mês'}${melhor&&melhor.v?' · melhor: '+esc(melhor.ll)+' (<span class="money">'+money(melhor.v)+'</span>)':''}</p>`:emptyBox('inbox','Nenhum recebimento neste período.');
+  // Em aberto
+  const ab=relAberto();
+  const abH=ab.total||ab.nConv?`${hbars(ab.bk.filter(b=>b.n).map(b=>({l:b.l+' · '+b.n,v:b.v,c:b.c})),ab.total,v=>`<span class="money">${money(v)}</span>`)}
+    <div class="rsum"><span>Total em aberto <b class="money">${money(ab.total)}</b></span><span>Atrasado <b class="money" style="color:var(--crit)">${money(ab.atr)}</b></span>${ab.nConv?`<span>Convênios a receber <b class="money">${money(ab.conv)}</b></span>`:''}</div>
+    ${ab.top.length?`<h3 class="rh3">Maiores valores em aberto</h3>${relTbl([['Paciente'],['Desde'],['Em aberto','r']],ab.top.slice(0,6).map(x=>`<tr data-action="open-pac" data-id="${esc(x.id)}" tabindex="0"><td><b>${esc(pacName(x.id))}</b><div class="rsub">${x.n} ${x.n===1?'cobrança':'cobranças'}${x.atr?' · <span style="color:var(--crit)">atrasado</span>':''}</div></td><td>${fmtD(x.base)}<div class="rsub">${diasEntre(x.base,today())} dias</div></td><td class="r"><b class="money">${money(x.v)}</b></td></tr>`),'tight')}`:''}
+    <p class="rnote">${ic('info')}Situação de hoje. Os dias contam a partir da data da sessão, da compra do pacote ou do vencimento da mensalidade.</p>`:emptyBox('okcircle','Nenhum valor em aberto. Tudo recebido.');
+  // Formas e tipos
+  const fRows=[...st.formas.entries()].sort((a,b)=>b[1]-a[1]).map(([x,v])=>({l:x,i:FORMA_IC[x]||'wallet',v}));
+  const mixRows=[...st.mix.entries()].sort((a,b)=>b[1]-a[1]).map(([x,v])=>({l:(COB[x]||COB.avulsa).l,i:(COB[x]||COB.avulsa).i,v}));
+  const fH=(fRows.length?hbars(fRows,st.recebido,v=>`<span class="money">${money(v)}</span>`):emptyBox('inbox','Nenhum recebimento neste período.'))+(mixRows.length?`<h3 class="rh3">Sessões realizadas por tipo de cobrança</h3>${hbars(mixRows,st.real,v=>String(v))}`:'');
+  // Ranking
+  const rk=relRanking(P);const lim=S.rall?rk.length:12;
+  const rkH=rk.length?relTbl([['Paciente'],['Sessões','r'],['Faltas','r hide-s'],['Presença','r hide-s'],['Recebido','r'],['Em aberto','r hide-s']],rk.slice(0,lim).map((x,i)=>`<tr data-action="open-pac" data-id="${esc(x.id)}" tabindex="0"><td><span class="rk">${i+1}</span><b>${esc(x.nome)}</b>${x.ult?`<div class="rsub">última em ${fmtD(x.ult).slice(0,5)}</div>`:''}</td><td class="r"><b>${x.real}</b></td><td class="r hide-s">${x.falta?`<span style="color:var(--warn)">${x.falta}</span>`:'0'}</td><td class="r hide-s">${x.pres==null?'—':x.pres+'%'}</td><td class="r money">${money(x.rec)}</td><td class="r hide-s money">${x.aberto?`<span style="color:var(--crit)">${money(x.aberto)}</span>`:'—'}</td></tr>`))+(rk.length>12?`<div class="seemore np"><button class="btn sm ghost" data-action="rel-all">${S.rall?'Mostrar só os 12 primeiros':'Ver todos os '+rk.length+' pacientes'} ${ic(S.rall?'chevl':'chevr')}</button></div>`:''):emptyBox('users','Nenhum atendimento neste período.');
+  // Ocupação
+  const oc=relOcupacao(P);
+  const ocH=oc.total?`<div class="table-wrap"><table class="heat" aria-label="Sessões por dia da semana e horário"><thead><tr><th></th>${oc.hs.map(h=>`<th>${h}h</th>`).join('')}<th class="tot">Total</th></tr></thead><tbody>${oc.dias.map(w=>`<tr><th>${DOW[w]}</th>${oc.hs.map(h=>{const v=oc.grid[w+':'+h]||0;const a=v?Math.round(14+76*v/oc.mx):0;return`<td title="${DOWL[w]} às ${h}h: ${v} ${v===1?'sessão':'sessões'}" style="${v?`background:color-mix(in srgb,var(--primary) ${a}%,var(--surface));${a>52?'color:var(--on-primary)':''}`:''}">${v||''}</td>`;}).join('')}<td class="tot">${oc.tw[w]}</td></tr>`).join('')}</tbody></table></div>
+    <div class="rsum"><span>Dia mais cheio <b>${DOWL[oc.topW]}</b></span>${oc.topH!=null?`<span>Horário mais procurado <b>${oc.topH}h</b></span>`:''}${oc.vazio.length?`<span>Horários sem nenhuma sessão <b>${oc.vazio.map(h=>h+'h').join(', ')}</b></span>`:''}</div>`:emptyBox('cal','Nenhuma sessão neste período.');
+  // Convênios
+  const cv=relConvenios(P);
+  const cvH=cv.length?relTbl([['Convênio'],['Sessões','r'],['Valor','r hide-s'],['Aguardando','r']],cv.map(x=>`<tr><td><b>${esc(x.nome)}</b>${x.rec?`<div class="rsub">recebido no período <span class="money">${money(x.rec)}</span></div>`:''}</td><td class="r">${x.n}</td><td class="r money hide-s">${money(x.v)}</td><td class="r money">${x.ab?`<span style="color:var(--warn)">${money(x.ab)}</span>`:'—'}</td></tr>`)):emptyBox('shield','Nenhuma sessão de convênio neste período.');
+  // Pacotes e mensalidades
+  const pk=relPacotes(P);
+  const pkH=`<div class="rmini"><div><span>Pacotes vendidos</span><b>${pk.nVend}</b><small class="money">${money(pk.valVend)}</small></div><div><span>Sessões de pacote feitas</span><b>${pk.usadasP}</b><small>no período</small></div><div><span>Saldo a atender</span><b>${pk.saldoTot}</b><small>${pk.ativos.length} ${pk.ativos.length===1?'pacote ativo':'pacotes ativos'}</small></div><div><span>Mensalidades ativas</span><b>${pk.mens.length}</b><small class="money">${money(pk.mrr)}/mês</small></div></div>
+    ${pk.ativos.length?`<h3 class="rh3">Pacotes com saldo</h3>${relTbl([['Paciente'],['Saldo','r'],['Validade','r hide-s']],pk.ativos.slice(0,8).map(p=>`<tr data-action="open-pac" data-id="${esc(p.pacienteId)}" tabindex="0"><td><b>${esc(pacName(p.pacienteId))}</b><div class="rsub">${p.usadas} de ${+p.qtd||0} usadas${p.aberto?' · <span class="money">'+money(p.aberto)+'</span> em aberto':''}</div></td><td class="r"><b style="${p.saldo<=2?'color:var(--warn)':''}">${p.saldo}</b></td><td class="r hide-s">${p.validade?fmtD(p.validade):'—'}</td></tr>`),'tight')}${pk.ativos.length>8?`<p class="rnote">E mais ${pk.ativos.length-8}. A planilha (CSV) traz todos.</p>`:''}`:''}`;
+  return `<div class="print-h"><b>${esc(CFG().nomeProfissional||'Thays Freitas')} · Relatório gerencial</b><span>${esc(P.lbl)} · gerado em ${fmtD(today())}</span></div>
+  <section class="kgrid">${kpis}</section>
+  <div class="rgrid">
+    <section class="panel wide"><div class="panel-h"><h2>${ic('trend')}Receita recebida ${P.n<=35?'por semana':'por mês'}</h2><div class="actions"><span class="sub">Total <b class="money">${money(recTot)}</b></span>${csvBtn('receita')}</div></div>${recH}</section>
+    <section class="panel"><div class="panel-h"><h2>${ic('alert')}Valores em aberto</h2>${csvBtn('aberto')}</div>${abH}</section>
+    <section class="panel"><div class="panel-h"><h2>${ic('card')}Formas de pagamento</h2>${csvBtn('formas')}</div>${fH}</section>
+    <section class="panel wide"><div class="panel-h"><h2>${ic('users')}Pacientes no período</h2><div class="actions"><select id="r-sort" class="np" aria-label="Ordenar">${[['real','Mais sessões'],['rec','Maior valor recebido'],['aberto','Maior valor em aberto'],['falta','Mais faltas'],['nome','Nome']].map(([v,l])=>`<option value="${v}" ${(S.rsort||'real')===v?'selected':''}>${l}</option>`).join('')}</select>${csvBtn('ranking')}</div></div>${rkH}</section>
+    <section class="panel wide"><div class="panel-h"><h2>${ic('grid')}Ocupação por dia e horário</h2><div class="actions"><span class="sub">${oc.total} ${oc.total===1?'sessão':'sessões'} (sem canceladas)</span>${csvBtn('ocupacao')}</div></div>${ocH}</section>
+    <section class="panel"><div class="panel-h"><h2>${ic('shield')}Convênios</h2>${csvBtn('convenios')}</div>${cvH}</section>
+    <section class="panel"><div class="panel-h"><h2>${ic('box')}Pacotes e mensalidades</h2>${csvBtn('pacotes')}</div>${pkH}</section>
+  </div>`;
+}
+
+/* ================= Notificações neste aparelho ================= */
+const NOTIF_OK='Notification' in window;
+const lsG=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:v;}catch(_){return d;}};
+const lsS=(k,v)=>{try{localStorage.setItem(k,v);}catch(_){}};
+const notifOn=()=>NOTIF_OK&&Notification.permission==='granted'&&lsG('tf-notif','0')==='1';
+const notifMin=()=>+lsG('tf-notif-min','15')||15;
+const notifOpt=k=>lsG('tf-notif-'+k,'1')==='1';
+async function notify(title,body,tag,hash){
+  const opt={body,tag,icon:'icons/icon-192.png',badge:'icons/icon-192.png',data:{url:'./'+(hash||'#inicio')}};
+  try{if('serviceWorker' in navigator){const reg=await navigator.serviceWorker.getRegistration();if(reg&&reg.active&&reg.showNotification){await reg.showNotification(title,opt);return true;}}}catch(_){}
+  try{const n=new Notification(title,opt);n.onclick=()=>{try{window.focus();}catch(_){}location.hash=(hash||'#inicio').replace('#','');n.close();};return true;}catch(_){return false;}
+}
+function notifReg(){const t=today();let o;try{o=JSON.parse(localStorage.getItem('tf-notif-env')||'{}');}catch(_){o={};}if(!o||o.d!==t||!Array.isArray(o.k))o={d:t,k:[]};return o;}
+function notifTick(){
+  if(!notifOn()||!allReady()||S.dbErr)return;
+  const t=today(),nm=nowMin(),o=notifReg(),sent=new Set(o.k),out=[];const nome=id=>pacName(id).split(' ').slice(0,2).join(' ');
+  const hoje=S.ses.filter(s=>s.data===t&&(s.status==='agendado'||s.status==='confirmado')).sort((a,b)=>String(a.hora).localeCompare(String(b.hora)));
+  if(notifOpt('resumo')&&nm>=7*60&&nm<20*60&&!sent.has('resumo')){
+    const tot=S.ses.filter(s=>s.data===t&&ACTIVE(s)&&s.status!=='falta').length;const pd=pendencias();const prox=hoje.find(s=>toMin(s.hora)>=nm);
+    const b=[tot?(tot===1?'1 sessão':tot+' sessões')+(prox?' · próxima às '+prox.hora:''):'Nenhuma sessão agendada hoje'];
+    if(pd.nFin)b.push(pd.nFin+' para finalizar');if(pd.nLem)b.push(pd.nLem+(pd.nLem===1?' lembrete':' lembretes')+' para amanhã');if(pd.nAtr)b.push(pd.nAtr+(pd.nAtr===1?' cobrança atrasada':' cobranças atrasadas'));
+    out.push(['resumo',nm<12*60?'Bom dia! Seu dia no consultório':'Resumo do seu dia',b.join(' · '),'#inicio']);
+  }
+  if(notifOpt('antes')){const mn=notifMin();for(const s of hoje){const st=toMin(s.hora);if(nm>=st-mn&&nm<st&&!sent.has('a:'+s.id))out.push(['a:'+s.id,'Sessão às '+s.hora+' · em '+(st-nm)+' min',nome(s.pacienteId)+(s.local==='domicilio'?' · domicílio'+(s.endereco?': '+s.endereco:''):'')+(s.status==='confirmado'?' · confirmada':''),'#agenda']);}}
+  if(notifOpt('fin')){for(const s of hoje){const fimS=toMin(s.hora)+(+s.duracao||50);if(nm>=fimS+5&&nm<=fimS+180&&!sent.has('f:'+s.id))out.push(['f:'+s.id,'Finalizar atendimento',nome(s.pacienteId)+' ('+s.hora+') · registre a evolução e os sinais vitais','#inicio']);}}
+  if(!out.length)return;
+  for(const x of out)o.k.push(x[0]);lsS('tf-notif-env',JSON.stringify(o));
+  out.slice(0,4).forEach(([k,ti,b,h])=>notify(ti,b,'tf-'+k,h));
+}
+function notifPanel(){
+  const h=`<div class="panel-h"><h2>${ic('bell')}Notificações neste aparelho</h2>`;
+  if(!NOTIF_OK)return`<section class="panel" id="notif-p">${h}</div><p class="muted" style="margin:0">Este navegador não oferece notificações. No iPhone, adicione o app à Tela de Início (botão Compartilhar, depois Adicionar à Tela de Início), abra o app por lá e volte aqui.</p></section>`;
+  const perm=Notification.permission,on=notifOn();const chk=(k,l,s)=>`<label class="chk nf"><input type="checkbox" id="nf-${k}" ${notifOpt(k)?'checked':''}><span><b>${l}</b><small>${s}</small></span></label>`;
+  const body=on?`<div class="nfo">${chk('antes','Antes de cada sessão',`Aviso <select id="nf-min" aria-label="Minutos antes">${[5,10,15,30,60].map(m=>`<option value="${m}" ${notifMin()===m?'selected':''}>${m} min</option>`).join('')}</select> antes, com o nome do paciente e o local.`)}${chk('resumo','Resumo do dia','A partir das 7h: sessões do dia, atendimentos para finalizar, lembretes e cobranças atrasadas.')}${chk('fin','Lembrar de finalizar','Logo depois do horário de término, se a sessão ainda não foi finalizada.')}</div>
+      <div class="actions" style="margin-top:12px"><button class="btn sm" data-action="notif-test">${ic('bell')} Enviar um teste</button><button class="btn sm ghost" data-action="notif-off">${ic('xcircle')} Desativar neste aparelho</button></div>`
+    :perm==='denied'?`<div class="hint warn">${ic('alert')}<span>As notificações foram bloqueadas no navegador. Para liberar, toque no cadeado ao lado do endereço do site, permita Notificações e recarregue a página.</span></div>`
+    :`<p class="muted" style="margin:0 0 12px">Receba avisos antes de cada sessão, um resumo do dia e um lembrete para finalizar o atendimento. Vale só para este aparelho: ative também no celular e no computador que você usar.</p><button class="btn primary" data-action="notif-on">${ic('bell')} Ativar notificações</button>`;
+  return`<section class="panel" id="notif-p">${h}${on?`<span class="pill ok">${ic('check')}Ativadas</span>`:perm==='denied'?`<span class="pill falta">${ic('xcircle')}Bloqueadas</span>`:''}</div>${body}
+    <p class="rnote" style="margin-top:12px">${ic('info')}Os avisos chegam com o app aberto ou minimizado. Com o app totalmente fechado (principalmente no iPhone), o sistema pode não entregar. Por privacidade, aparecem só o primeiro e o segundo nome do paciente.</p></section>`;
+}
+function renderNotif(){const el=$('#notif-p');if(el)el.outerHTML=notifPanel();}
 
 /* ================= Modal, confirmação, aviso ================= */
 let lastFocus=null;
@@ -1992,6 +2248,12 @@ document.addEventListener('click',async e=>{
     case'dash-mes':S.dmes=a.dataset.m;renderBody();break;
     case'relatorio':relatorioModal(a.dataset.m||S.dmes);break;
     case'rel-print':{const fr=$('#rel-frame');try{fr.contentWindow.focus();fr.contentWindow.print();}catch(_){toast('Use o botão Baixar arquivo e imprima pelo navegador.','err');}break;}
+    case'rel-imprimir':window.print();break;
+    case'rel-all':S.rall=!S.rall;renderBody();break;
+    case'rel-csv':{const P=relPeriodo();await saveFile('relatorio_'+(a.dataset.r||'resumo')+'_'+P.ini+'_a_'+P.fim+'.csv',csv(relCSV(a.dataset.r)));break;}
+    case'notif-on':{if(!NOTIF_OK)break;let pr='denied';try{pr=await Notification.requestPermission();}catch(_){}if(pr==='granted'){lsS('tf-notif','1');renderNotif();notify('Notificações ativadas','Você vai receber os avisos das sessões neste aparelho.','tf-teste','#ajustes');toast('Notificações ativadas neste aparelho.');setTimeout(notifTick,500);}else{renderNotif();toast('O navegador não deu permissão para notificações.','err');}break;}
+    case'notif-off':lsS('tf-notif','0');renderNotif();toast('Notificações desativadas neste aparelho.');break;
+    case'notif-test':notify('Teste do Thays Fisio','Assim chegam os avisos das sessões.','tf-teste','#ajustes');break;
     case'rel-baixar':await saveFile('relatorio_'+a.dataset.m+'.html',relatorioHTML(a.dataset.m));break;
     case'fin-filtro':S.ffil=a.dataset.f;S.fq='';S.flim=30;if(S.tab!=='financeiro')location.hash='financeiro';else renderBody();setTimeout(()=>{const el=$('#cob-panel');if(el)el.scrollIntoView({block:'start',behavior:'smooth'});},60);break;
     case'pac-filtro':S.pst=a.dataset.f;S.pq='';if(S.tab!=='pacientes')location.hash='pacientes';else renderTab();break;
@@ -2068,14 +2330,14 @@ document.addEventListener('keydown',e=>{
     if(k==='/')openPalette();else if(k==='?')atalhosModal();
     else if(k==='n'||k==='N')runAction({action:'new-ses'});else if(k==='p'||k==='P')runAction({action:'new-pac'});else if(k==='r'||k==='R')runAction({action:'new-rec'});
     else if(k==='h'||k==='H')setPriv(!document.body.classList.contains('privado'));
-    else if(k>='1'&&k<='5')go(['inicio','agenda','pacientes','financeiro','ajustes'][+k-1]);
+    else if(k>='1'&&k<='6')go(['inicio','agenda','pacientes','financeiro','relatorios','ajustes'][+k-1]);
     else if(k==='t'||k==='T'){S.day=today();S.view='dia';if(S.tab!=='agenda')go('agenda');else renderTab();}
     else if(S.tab==='agenda'&&(k==='ArrowLeft'||k==='ArrowRight')){S.day=addD(S.day,(S.view==='dia'?1:7)*(k==='ArrowLeft'?-1:1));renderTab();}
     else if(S.tab==='agenda'&&(k==='d'||k==='D'||k==='s'||k==='S')){S.view=(k==='d'||k==='D')?'dia':'semana';renderTab();}
     else ok=false;
     if(ok){e.preventDefault();return;}
   }
-  if((e.key==='Enter'||e.key===' ')&&e.target.matches('.tr2,tr[data-action="open-pac"],g[data-action]')){e.preventDefault();e.target.click();}
+  if((e.key==='Enter'||e.key===' ')&&e.target.matches('.tr2,tr[data-action],g[data-action]')){e.preventDefault();e.target.click();}
   if((e.key==='Enter'||e.key===' ')&&e.target.matches('.pcard')){e.preventDefault();pacDrawer(e.target.dataset.id);}
   if((e.key==='Enter'||e.key===' ')&&e.target.matches('.ses')){e.preventDefault();sesDrawer(e.target.dataset.id);}
 });
@@ -2104,6 +2366,11 @@ document.addEventListener('change',e=>{
   else if(t.id==='p-sort'){S.psort=t.value;renderBody();}
   else if(t.id==='cfg-lock'){try{localStorage.setItem('tf-lock-min',t.value);}catch(_){}marcaAtividade(true);toast(+t.value?'O app vai bloquear após '+t.options[t.selectedIndex].text+' parado.':'Bloqueio automático desligado.');}
   else if(t.id==='f-mes'&&t.value){S.fmes=t.value;renderBody();}
+  else if(t.id==='r-per'){if(t.value==='custom'&&S.rp!=='custom'){const P=relPeriodo();S.rIni=P.ini;S.rFim=P.fim>today()?today():P.fim;}S.rp=t.value;S.rall=false;renderTab();}
+  else if((t.id==='r-ini'||t.id==='r-fim')&&t.value){S[t.id==='r-ini'?'rIni':'rFim']=t.value;renderBody();updateChrome();}
+  else if(t.id==='r-sort'){S.rsort=t.value;renderBody();}
+  else if(t.id==='nf-min'){lsS('tf-notif-min',t.value);}
+  else if(t.id==='nf-antes'||t.id==='nf-resumo'||t.id==='nf-fin'){lsS('tf-notif-'+t.id.slice(3),t.checked?'1':'0');}
   else if(f&&f.id==='form-pac'&&t.name==='cobrancaPadrao')applyPacCob();
   else if(f&&f.id==='form-ses'){if(t.id==='s-pac')onSesPac(f);if(t.name==='cobranca'){const p=S.pac.get(f.paciente.value);f.valor.value=defaultValor(p,t.value)??'';}if(t.name==='local'&&t.value==='domicilio'&&!f.endereco.value){const p=S.pac.get(f.paciente.value);if(p)f.endereco.value=p.endereco||'';}if(t.name==='hora'){delete f.dataset.autoHora;const sg=$('#s-sug');if(sg)sg.textContent='';}if((t.name==='data'||t.name==='duracao')&&f.dataset.autoHora==='1')sugHora(f);if(t.name==='data'&&f.repetir){const d=wd(t.value);f.querySelectorAll('input[name=dias]').forEach(x=>{if(+x.value===d)x.checked=true;});}delete f.dataset.force;applySes();}
   else if(f&&f.id==='form-pct'&&t.name==='pagoAgora')applyPct();
@@ -2168,6 +2435,7 @@ async function desbloquear(f){const e1=$('#lock-err');const senha=$('#lk-senha')
 ['pointerdown','keydown','touchstart','wheel'].forEach(ev=>document.addEventListener(ev,()=>{if(!document.body.classList.contains('locked2'))marcaAtividade();},{passive:true,capture:true}));
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')checaBloqueio();});
 setInterval(checaBloqueio,20000);
+setInterval(notifTick,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(notifTick,1500);});
 function mostrarLogin(){document.body.classList.add('locked');$('#login').hidden=false;setTimeout(()=>{const i=$('#lg-cpf');if(i)i.focus();},50);}
 let iniciado=false;
 async function iniciar(sessao){
@@ -2175,7 +2443,7 @@ async function iniciar(sessao){
   {let fl=false,last=0;try{fl=localStorage.getItem('tf-locked')==='1';last=+localStorage.getItem('tf-last')||0;}catch(_){}const m=lockMin();
    if(m&&(fl||(last&&Date.now()-last>m*60000)))setTimeout(bloquear,0);else if(!fl)marcaAtividade(true);}
   if(iniciado){refresh();return;}iniciado=true;
-  db=Dados.db;DL=DL_LOCAL;myId=sessao.user.id;applyDl();
+  db=Dados.db;DL=DL_LOCAL;myId=sessao.user.id;applyDl();setTimeout(notifTick,5000);
   try{if(!(await Dados.souMembro())){writable=false;S.noAccess=true;}}catch(_){}
   loadTimer=setTimeout(()=>{S.timedOut=true;renderBanner();},12000);
   const onErr=e=>{clearTimeout(loadTimer);const perm=(e&&e.code)==='invalid_argument';S.dbErr=perm?null:'nodb';if(perm){S.noAccess=true;writable=false;}Object.keys(COLLS).forEach(k=>S.ready[k]=true);S.ready.cfg=true;refresh();};
