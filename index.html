@@ -512,7 +512,7 @@ const S={pac:new Map(),ses:[],pct:new Map(),pla:new Map(),rec:[],cfg:{},ready:{}
   tab:'agenda',view:'dia',day:today(),showCanc:false,pq:'',pst:'ativos',fmes:ym(today()),open:null};
 const COLLS={pacientes:'pac',sessoes:'ses',pacotes:'pct',planos:'pla',recebimentos:'rec'};
 let db=null,U=null,DL=null,myId=null,writable=true,loadTimer=null,D=null;
-const CFG=()=>Object.assign({nomeProfissional:'',crefito:'',documento:'',telefone:'',endereco:'',cidade:'',pix:'',valorPadrao:120,duracaoPadrao:50,inicioDia:'07:00',fimDia:'19:00',prazoPagamento:0,msgWhats:DEFAULT_MSG},S.cfg);
+const CFG=()=>Object.assign({nomeProfissional:'',crefito:'',documento:'',telefone:'',endereco:'',cidade:'',pix:'',valorPadrao:120,duracaoPadrao:50,inicioDia:'07:00',fimDia:'19:00',prazoPagamento:90,msgWhats:DEFAULT_MSG},S.cfg);
 const pacList=()=>[...S.pac.entries()].map(([id,d])=>({id,...d})).sort((a,b)=>String(a.nome).localeCompare(String(b.nome),'pt-BR'));
 const pacName=id=>(S.pac.get(id)||{}).nome||'Paciente removido';
 
@@ -660,7 +660,7 @@ function agTiles(){
   const hoje=S.ses.filter(s=>s.data===t&&ACTIVE(s));
   const conf=hoje.filter(s=>s.status==='confirmado'||s.status==='realizado').length;
   const ws=monday(t),we=addD(ws,6);const sem=S.ses.filter(s=>s.data>=ws&&s.data<=we&&ACTIVE(s)).length;
-  const venc=d.pend.filter(p=>p.vencido);const tv=venc.reduce((a,p)=>a+p.aberto,0);
+  const aRec=r2(d.pend.reduce((a,p)=>a+p.aberto,0)+d.conv.reduce((a,x)=>a+(+x.valor||0),0));const nRec=d.pend.length+d.conv.length;
   const cm=ym(t);const rec=S.rec.filter(r=>ym(r.data||'')===cm).reduce((a,r)=>a+(+r.valor||0),0);
   const mm=t.slice(5,7);const aniv=pacList().filter(p=>p.ativo!==false&&p.nascimento&&p.nascimento.slice(5,7)===mm);
   return `<section class="quick">
@@ -672,7 +672,7 @@ function agTiles(){
   <section class="tiles">
     <div class="tile"><span class="ti">${ic('sun','lg')}</span><div class="k">Sessões hoje</div><div class="v">${hoje.length}</div><div class="s">${conf} confirmadas ou realizadas</div></div>
     <div class="tile"><span class="ti blue">${ic('cal','lg')}</span><div class="k">Nesta semana</div><div class="v">${sem}</div><div class="s">sessões agendadas</div></div>
-    <div class="tile ${venc.length?'warn':''}"><span class="ti">${ic('alert','lg')}</span><div class="k">Pagamentos em atraso</div><div class="v">${money(tv)}</div><div class="s">${venc.length} cobranças vencidas</div></div>
+    <div class="tile"><span class="ti blue">${ic('coins','lg')}</span><div class="k">A receber</div><div class="v">${money(aRec)}</div><div class="s">${nRec} ${nRec===1?'cobrança em aberto':'cobranças em aberto'}</div></div>
     <div class="tile ok"><span class="ti">${ic('wallet','lg')}</span><div class="k">Recebido no mês</div><div class="v">${money(rec)}</div><div class="s">${MES[+cm.slice(5,7)-1]}</div></div>
     <div class="tile"><span class="ti lilac">${ic('gift','lg')}</span><div class="k">Aniversariantes</div><div class="v">${aniv.length}</div><div class="s">${aniv.length?esc(aniv.slice(0,2).map(p=>p.nome.split(' ')[0]+' '+p.nascimento.slice(8,10)+'/'+mm).join(' · '))+(aniv.length>2?' …':''):'neste mês'}</div></div>
   </section>`;
@@ -754,7 +754,7 @@ function finHTML(){
     <div class="tile"><span class="ti blue">${ic('coins','lg')}</span><div class="k">A receber</div><div class="v">${money(totPac+convTot)}</div><div class="s">${aVencer.length} de pacientes${d.conv.length?' · '+d.conv.length+' de convênio':''}</div></div>
     <div class="tile ${vencidas.length?'crit':''}"><span class="ti">${ic('alert','lg')}</span><div class="k">Atrasados</div><div class="v">${money(totAtr)}</div><div class="s">${vencidas.length} ${vencidas.length===1?'cobrança vencida':'cobranças vencidas'}</div></div>
   </section>
-  <div class="hint">${ic('info')}<span>Ao <b>finalizar</b> um atendimento, o valor entra em <b>A receber</b>. Ele só passa para <b>Recebido</b> quando você tocar em <b>Receber</b> e confirmar o pagamento.${(+CFG().prazoPagamento||0)>0?' Sessões avulsas ficam atrasadas '+Math.round(+CFG().prazoPagamento)+' dias depois do atendimento.':' Sessões avulsas não pagas ficam atrasadas a partir do dia seguinte ao atendimento (o prazo pode ser mudado em Ajustes).'}</span></div>
+  <div class="hint">${ic('info')}<span>Ao <b>finalizar</b> um atendimento, o valor entra em <b>A receber</b>. Ele só passa para <b>Recebido</b> quando você tocar em <b>Receber</b> e confirmar o pagamento.${(()=>{const pz=Math.round(+CFG().prazoPagamento||0);return pz>0?' Uma sessão não paga só vai para <b>Atrasados</b> '+pz+' dias depois de realizada (o prazo pode ser mudado em Ajustes).':' Sessões não pagas ficam atrasadas a partir do dia seguinte ao atendimento (o prazo pode ser mudado em Ajustes).';})()}</span></div>
   ${d.semPac.length?`<div class="note warn">${ic('box')}<span class="grow"><b>${d.semPac.length} ${d.semPac.length===1?'sessão realizada':'sessões realizadas'} de pacote sem pacote com saldo.</b> Cadastre um novo pacote para o paciente e ela será descontada automaticamente quando marcada de novo, ou mude a cobrança da sessão.</span></div>`:''}
   <section class="panel"><div class="panel-h"><h2>${ic('coins')}Cobranças em aberto</h2><span class="muted">${money(aberto)}</span></div>
       ${d.pend.length?`<div class="rows">${d.pend.slice(0,30).map(p=>`<div class="row ${p.vencido?'crit':p.venc<=addD(t,5)?'warn':''}"><span class="ri">${ic(p.tipo==='pacote'?'box':p.tipo==='mensalidade'?'repeat':'coins')}</span><span class="rt"><b>${esc(pacName(p.pacienteId))}</b><span>${esc(p.desc)} · ${p.vencido?'<b style="color:var(--crit)">atrasado</b> desde '+fmtD(addD(p.venc,1)):'vence '+fmtD(p.venc)}${p.pago?' · pago '+money(p.pago):''}</span></span><span class="rv">${money(p.aberto)}${writable?`<button class="btn sm ok" data-action="receber" data-key="${esc(p.key)}">${ic('check')} Receber</button>`:''}</span></div>`).join('')}${d.pend.length>30?`<div class="muted">+ ${d.pend.length-30} cobranças</div>`:''}</div>`:emptyBox('okcircle','Nenhuma cobrança em aberto.')}
@@ -798,7 +798,7 @@ function ajustesHTML(){
       <label class="field"><span>${ic('clock')}Duração padrão (min)</span><input name="duracaoPadrao" type="number" min="10" max="240" step="5" value="${v('duracaoPadrao')}"></label>
       <label class="field"><span>${ic('sun')}Início do expediente</span><input name="inicioDia" type="time" value="${v('inicioDia')}"></label>
       <label class="field"><span>${ic('clock')}Fim do expediente</span><input name="fimDia" type="time" value="${v('fimDia')}"></label>
-      <label class="field"><span>${ic('alert')}Prazo para pagar sessão avulsa (dias)</span><input name="prazoPagamento" type="number" min="0" max="60" step="1" value="${v('prazoPagamento')}"><small>0 = deve ser paga no dia do atendimento. Depois do prazo, a cobrança aparece em Atrasados.</small></label>
+      <label class="field"><span>${ic('alert')}Dias até a sessão ir para Atrasados</span><input name="prazoPagamento" type="number" min="0" max="365" step="1" value="${v('prazoPagamento')}"><small>Padrão: 90 dias depois de realizada. Antes disso, ela fica em A receber.</small></label>
       <label class="field full"><span>${ic('msg')}Mensagem de confirmação no WhatsApp</span><textarea name="msgWhats" maxlength="500">${v('msgWhats')}</textarea><small>Use {nome}, {dia}, {hora} e {local}. Exemplo: ${esc(whatsMsg({pacienteId:'',data:addD(today(),1),hora:'08:00',local:'consultorio'}).replace(/^Olá, !/,'Olá, Maria!'))}</small></label>
     </div>
     <div class="formerr" id="cfg-err"></div>
@@ -1517,7 +1517,7 @@ document.addEventListener('submit',async e=>{
     const g=n=>f.elements[n];const vp=g('valorPadrao').valueAsNumber,dp=g('duracaoPadrao').valueAsNumber;
     if(toMin(g('fimDia').value)<=toMin(g('inicioDia').value)){$('#cfg-err').textContent='O fim do expediente deve ser depois do início.';return;}
     const data={nomeProfissional:g('nomeProfissional').value.trim(),crefito:g('crefito').value.trim(),documento:g('documento').value.trim(),telefone:g('telefone').value.trim(),endereco:g('endereco').value.trim(),cidade:g('cidade').value.trim(),pix:g('pix').value.trim(),
-      valorPadrao:vp>=0?r2(vp):120,duracaoPadrao:dp>=10?Math.round(dp):50,inicioDia:g('inicioDia').value||'07:00',fimDia:g('fimDia').value||'19:00',prazoPagamento:Math.max(0,Math.min(60,Math.round(g('prazoPagamento').valueAsNumber||0))),msgWhats:g('msgWhats').value.trim()||DEFAULT_MSG,simboloOficial:S.cfg.simboloOficial||''};
+      valorPadrao:vp>=0?r2(vp):120,duracaoPadrao:dp>=10?Math.round(dp):50,inicioDia:g('inicioDia').value||'07:00',fimDia:g('fimDia').value||'19:00',prazoPagamento:Math.max(0,Math.min(365,Math.round(Number.isFinite(g('prazoPagamento').valueAsNumber)?g('prazoPagamento').valueAsNumber:90))),msgWhats:g('msgWhats').value.trim()||DEFAULT_MSG,simboloOficial:S.cfg.simboloOficial||''};
     const btn=f.querySelector('[type=submit]');btn.disabled=true;const ok=await write(()=>db.doc('config/geral').set(data));btn.disabled=false;if(ok){$('#cfg-err').textContent='';toast('Ajustes salvos.');}
   }
 });
