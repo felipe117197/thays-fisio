@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Thays Jesus Fisioterapia</title>
+<title>Thays Freitas Fisioterapia</title>
 <meta name="theme-color" content="#1E9A78">
-<meta name="description" content="Agenda, pacientes e financeiro do consultório Thays Jesus Fisioterapia">
+<meta name="description" content="Agenda, pacientes e financeiro do consultório Thays Freitas Fisioterapia">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* Plano: consultório claro e acolhedor. Verde-esmeralda (cor associada à fisioterapia) como principal, menta clara de fundo,
-   âmbar suave só para destaque. Cabeçalho branco com a logomarca Thays Jesus; agenda do dia como linha do tempo. Tema único claro. */
+   âmbar suave só para destaque. Cabeçalho branco com a logomarca Thays Freitas; agenda do dia como linha do tempo. Tema único claro. */
 :root{
   --header:#FFFFFF; --header-ink:#173B35; --primary:#1E9A78; --primary-2:#16805F; --on-primary:#FFFFFF; --accent:#F2B84B; --accent-bg:#FFF4DC;
   --bg:#F3FAF8; --surface:#FFFFFF; --surface-2:#F7FCFB; --ink:#1D3B36; --muted:#5F7A75; --line:#DCEDE8; --chip:#E7F5F1; --mint:#D9F2EA;
@@ -38,6 +38,8 @@ a{color:var(--info)}
 [hidden]{display:none !important}
 .ic{width:1.15em;height:1.15em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.2em;display:inline-block}
 .ic.lg{width:22px;height:22px}
+.tabs a[aria-current="page"],.qa,.ti,.pill,.ri{--duo:.3}
+.btn.primary{--duo:.35}
 .ic.xl{width:40px;height:40px;stroke-width:1.6}
 
 /* Cabeçalho */
@@ -213,7 +215,8 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}
 .modal-h h2{font-size:22px;display:flex;align-items:center;gap:10px}
 .hb{width:38px;height:38px;border-radius:12px;background:var(--chip);color:var(--primary);display:grid;place-items:center;flex:none}
 .hb .ic{width:20px;height:20px}
-.modal-b{padding:6px 20px 20px;display:grid;gap:14px}
+.modal-b{padding:6px 20px 20px;display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+.modal-b .grid2 > *,.modal-b .sec{min-width:0}
 .modal-f{display:flex;justify-content:flex-end;gap:8px;padding:14px 20px;border-top:1px solid var(--line);background:var(--surface-2);border-radius:0 0 16px 16px;flex-wrap:wrap}
 .x{background:none;border:0;cursor:pointer;color:var(--muted);padding:4px;border-radius:8px}
 .x:hover{background:var(--chip)}
@@ -238,6 +241,15 @@ table.t{width:100%;border-collapse:collapse;font-size:14px}
 .hint.warn{background:var(--warn-bg);border-color:transparent}
 .hint.crit{background:var(--crit-bg);border-color:transparent}
 .formerr{color:var(--crit);font-weight:600}
+.ftabs{margin-bottom:14px}
+.fsub{grid-column:1 / -1;margin:6px 0 0;font:700 14px/1.2 var(--f-body);color:var(--primary-2);display:flex;align-items:center;gap:6px}
+.aval{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px}
+@media (max-width:560px){.aval{grid-template-columns:1fr}}
+.aval > div{min-width:0}.aval .full{grid-column:1 / -1}
+.aval b{display:block;font-size:12.5px;color:var(--muted);font-weight:600}
+.aval p{margin:2px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.vit{display:flex;flex-wrap:wrap;gap:6px}
+.evol{white-space:pre-wrap;overflow-wrap:anywhere;margin:6px 0 0}
 .formerr:empty{display:none}
 .meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--muted)}
 .meta span{display:inline-flex;align-items:center;gap:6px}
@@ -320,84 +332,88 @@ body.locked .top,body.locked main,body.locked #banner{display:none}
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></symbol>
-  <symbol id="i-cal" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
-  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
-  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
-  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
-  <symbol id="i-userx" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 8 5 5"/><path d="m22 8-5 5"/></symbol>
-  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
-  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></symbol>
-  <symbol id="i-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
-  <symbol id="i-building" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M3 10h18"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-userx" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="m17 8 5 5"/><path d="m22 8-5 5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></symbol>
   <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
-  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></symbol>
   <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
-  <symbol id="i-box" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
-  <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></symbol>
-  <symbol id="i-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></symbol>
-  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v8"/><path d="M8 12h8"/></symbol>
-  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M12 8v8"/><path d="M8 12h8"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><circle cx="7" cy="7" r="3" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
-  <symbol id="i-okcircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
-  <symbol id="i-xcircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol>
-  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
-  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+  <symbol id="i-okcircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-xcircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
-  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
-  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol>
-  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="m15 5 4 4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol>
   <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
-  <symbol id="i-note" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></symbol>
   <symbol id="i-trend" viewBox="0 0 24 24"><path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/></symbol>
   <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol>
   <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></symbol>
   <symbol id="i-chevl" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
   <symbol id="i-chevr" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
-  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
   <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/></symbol>
-  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol>
-  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
-  <symbol id="i-cake" viewBox="0 0 24 24"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/></symbol>
-  <symbol id="i-idcard" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M13 10h5"/><path d="M13 14h4"/></symbol>
-  <symbol id="i-percent" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><rect x="14" y="3" width="7" height="5" rx="1" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><rect x="14" y="12" width="7" height="9" rx="1" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><rect x="3" y="16" width="7" height="5" rx="1" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-cake" viewBox="0 0 24 24"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/></symbol>
+  <symbol id="i-idcard" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><circle cx="8" cy="12" r="2"/><path d="M13 10h5"/><path d="M13 14h4"/></symbol>
+  <symbol id="i-percent" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><circle cx="17.5" cy="17.5" r="2.5" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
   <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol>
-  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol>
-  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v6.5L4.5 19a1.5 1.5 0 0 0 1.3 2.2h12.4a1.5 1.5 0 0 0 1.3-2.2L14 9.5V3"/><path d="M7 15h10"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v6.5L4.5 19a1.5 1.5 0 0 0 1.3 2.2h12.4a1.5 1.5 0 0 0 1.3-2.2L14 9.5V3" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M7 15h10"/></symbol>
   <symbol id="i-wifioff" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 4.17-2.65"/><path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76"/><path d="M16.85 11.25a10 10 0 0 1 2.22 1.68"/><path d="M5 13a10 10 0 0 1 5.24-2.76"/><path d="m2 2 20 20"/></symbol>
-  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
-  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
-  <symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol>
   <symbol id="i-arrowright" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
   <symbol id="i-hash" viewBox="0 0 24 24"><path d="M4 9h16"/><path d="M4 15h16"/><path d="M10 3 8 21"/><path d="M16 3l-2 18"/></symbol>
-  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
-  <symbol id="i-steth" viewBox="0 0 24 24"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></symbol>
-  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
-  <symbol id="i-banknote" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></symbol>
-  <symbol id="i-bank" viewBox="0 0 24 24"><path d="M10 18v-7"/><path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-steth" viewBox="0 0 24 24"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
+  <symbol id="i-banknote" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24"><path d="M10 18v-7"/><path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></symbol>
   <symbol id="i-barcode" viewBox="0 0 24 24"><path d="M3 5v14"/><path d="M7 5v14"/><path d="M11 5v14"/><path d="M14 5v14"/><path d="M18 5v14"/><path d="M21 5v14"/></symbol>
-  <symbol id="i-userplus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/></symbol>
+  <symbol id="i-userplus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M19 8v6"/><path d="M22 11h-6"/></symbol>
   <symbol id="i-calplus" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><path d="M3 10h18"/><path d="M16 19h6"/><path d="M19 16v6"/></symbol>
-  <symbol id="i-bone" viewBox="0 0 24 24"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></symbol>
+  <symbol id="i-bone" viewBox="0 0 24 24"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
   <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></symbol>
   <symbol id="i-handheart" viewBox="0 0 24 24"><path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16"/><path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 15 6 6"/><path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z"/></symbol>
-  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></symbol>
-  <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol>
   <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></symbol>
-  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M12 8C10 4 7 3 6.5 5S9 8 12 8"/><path d="M12 8c2-4 5-5 5.5-3S15 8 12 8"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M12 8C10 4 7 3 6.5 5S9 8 12 8"/><path d="M12 8c2-4 5-5 5.5-3S15 8 12 8"/></symbol>
   <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol>
-  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></symbol>
+  <symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" style="fill:currentColor;fill-opacity:var(--duo,.2)"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" style="fill:currentColor;fill-opacity:var(--duo,.2)"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></symbol>
   <linearGradient id="lg-em" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3CCB9F"/><stop offset="1" stop-color="#168465"/></linearGradient>
-  <symbol id="logo-emblem" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="url(#lg-em)"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/><circle cx="32" cy="15.5" r="4.6" fill="#fff"/><path d="M17 25.5 Q32 20 47 25.5" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/><path d="M32 23.5 V39 Q32 49.5 22.5 49.5" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/><path d="M44.5 33.5 A14 14 0 0 1 37.5 47" fill="none" stroke="#FFE3A3" stroke-width="2.6" stroke-linecap="round"/><circle cx="46" cy="29.6" r="1.7" fill="#FFE3A3"/></symbol>
+  <symbol id="logo-emblem" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="url(#lg-em)"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/><circle cx="28" cy="14.5" r="4.8" fill="#fff"/><path d="M15.5 25 Q30 20.5 47.5 24.5" fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round"/><path d="M27 23.5 V50" fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round"/><path d="M27 36.5 H39.5" fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round"/><path d="M45.3 31.5 A18.5 18.5 0 0 1 36.3 52.5" fill="none" stroke="#FFE3A3" stroke-width="2.8" stroke-linecap="round" stroke-dasharray="0.1 5.2"/></symbol>
 </svg>
 
 <header class="top">
   <div class="top-in">
     <div class="brand">
-      <svg class="logo" viewBox="0 0 64 64" role="img" aria-label="Logomarca Thays Jesus"><use href="#logo-emblem"/></svg>
+      <svg class="logo" viewBox="0 0 64 64" role="img" aria-label="Logomarca Thays Freitas"><use href="#logo-emblem"/></svg>
       <div style="min-width:0">
-        <div class="wordmark"><b id="brand-name">Thays Jesus</b><span>Fisioterapia</span></div>
+        <div class="wordmark"><b id="brand-name">Thays Freitas</b><span>Fisioterapia</span></div>
         <p id="brand-sub">Agenda · Pacientes · Financeiro</p>
       </div>
       <img id="brand-oficial" alt="Símbolo oficial da Fisioterapia" hidden style="height:40px;width:auto;margin-left:6px">
@@ -414,7 +430,7 @@ body.locked .top,body.locked main,body.locked #banner{display:none}
 <section id="login" hidden>
   <div class="login-card">
     <svg class="login-logo" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo-emblem"/></svg>
-    <h1>Thays Jesus</h1><p class="login-sub">FISIOTERAPIA</p>
+    <h1>Thays Freitas</h1><p class="login-sub">FISIOTERAPIA</p>
     <form id="form-login" novalidate>
       <label class="field"><span>CPF</span><input name="cpf" id="lg-cpf" inputmode="numeric" autocomplete="username" maxlength="14" placeholder="000.000.000-00"></label>
       <label class="field"><span>Senha</span><input name="senha" id="lg-senha" type="password" autocomplete="current-password"></label>
@@ -496,7 +512,7 @@ const S={pac:new Map(),ses:[],pct:new Map(),pla:new Map(),rec:[],cfg:{},ready:{}
   tab:'agenda',view:'dia',day:today(),showCanc:false,pq:'',pst:'ativos',fmes:ym(today()),open:null};
 const COLLS={pacientes:'pac',sessoes:'ses',pacotes:'pct',planos:'pla',recebimentos:'rec'};
 let db=null,U=null,DL=null,myId=null,writable=true,loadTimer=null,D=null;
-const CFG=()=>Object.assign({nomeProfissional:'',crefito:'',documento:'',telefone:'',endereco:'',cidade:'',pix:'',valorPadrao:120,duracaoPadrao:50,inicioDia:'07:00',fimDia:'19:00',msgWhats:DEFAULT_MSG},S.cfg);
+const CFG=()=>Object.assign({nomeProfissional:'',crefito:'',documento:'',telefone:'',endereco:'',cidade:'',pix:'',valorPadrao:120,duracaoPadrao:50,inicioDia:'07:00',fimDia:'19:00',prazoPagamento:0,msgWhats:DEFAULT_MSG},S.cfg);
 const pacList=()=>[...S.pac.entries()].map(([id,d])=>({id,...d})).sort((a,b)=>String(a.nome).localeCompare(String(b.nome),'pt-BR'));
 const pacName=id=>(S.pac.get(id)||{}).nome||'Paciente removido';
 
@@ -509,9 +525,9 @@ function derive(){
   }
   const uso=new Map();
   for(const s of S.ses){if(!s.pacoteId)continue;const p=S.pct.get(s.pacoteId);if(!p)continue;if(s.status==='realizado'||(s.status==='falta'&&p.faltaConsome))uso.set(s.pacoteId,(uso.get(s.pacoteId)||0)+1);}
-  const t=today(),curM=ym(t);const pend=[],semPac=[],conv=[];
+  const t=today(),curM=ym(t);const prazo=Math.max(0,Math.round(+CFG().prazoPagamento||0));const pend=[],semPac=[],conv=[];
   for(const s of S.ses){
-    if(s.cobranca==='avulsa'&&s.status==='realizado'&&+s.valor>0){const pg=paid.get('sessao:'+s.id+':')||0;const ab=r2(+s.valor-pg);if(ab>0.004)pend.push({key:'s:'+s.id,tipo:'sessao',pacienteId:s.pacienteId,venc:s.data,desc:'Sessão de '+fmtD(s.data),valor:+s.valor,pago:pg,aberto:ab,ref:'sessao',refId:s.id,comp:'',vencido:s.data<t});}
+    if(s.cobranca==='avulsa'&&s.status==='realizado'&&+s.valor>0){const pg=paid.get('sessao:'+s.id+':')||0;const ab=r2(+s.valor-pg);if(ab>0.004){const venc=addD(s.data,prazo);pend.push({key:'s:'+s.id,tipo:'sessao',pacienteId:s.pacienteId,venc,desc:'Sessão de '+fmtD(s.data),valor:+s.valor,pago:pg,aberto:ab,ref:'sessao',refId:s.id,comp:'',vencido:venc<t});}}
     if(s.cobranca==='pacote'&&!s.pacoteId&&s.status==='realizado')semPac.push(s);
     if(s.cobranca==='convenio'&&s.status==='realizado'&&!convPaid.has(s.id))conv.push(s);
   }
@@ -546,7 +562,7 @@ function renderBanner(){
   else if(writable&&!S.dbErr&&S.ready.cfg&&!CFG().nomeProfissional&&S.tab!=='ajustes')parts.push(`<div class="note info">${ic('info')}<span class="grow">Preencha seu nome e CREFITO em Ajustes para que apareçam nos recibos.</span><a class="btn sm" href="#ajustes">${ic('sliders')} Ir para Ajustes</a></div>`);
   $('#banner').innerHTML=parts.join('');
   document.querySelectorAll('[data-needs-write]').forEach(el=>el.hidden=!writable||!!S.dbErr);
-  const c=CFG();$('#brand-name').textContent=c.nomeProfissional||'Thays Jesus';$('#brand-sub').textContent=c.crefito?'CREFITO '+c.crefito+' · Agenda e financeiro':'Agenda · Pacientes · Financeiro';const bo=$('#brand-oficial');if(c.simboloOficial&&/^data:image\//.test(c.simboloOficial)){bo.src=c.simboloOficial;bo.hidden=false;}else bo.hidden=true;
+  const c=CFG();$('#brand-name').textContent=c.nomeProfissional||'Thays Freitas';$('#brand-sub').textContent=c.crefito?'CREFITO '+c.crefito+' · Agenda e financeiro':'Agenda · Pacientes · Financeiro';const bo=$('#brand-oficial');if(c.simboloOficial&&/^data:image\//.test(c.simboloOficial)){bo.src=c.simboloOficial;bo.hidden=false;}else bo.hidden=true;
 }
 function route(){
   if($('#modal-root').innerHTML)closeModal();
@@ -619,7 +635,7 @@ function lembreteMsg(s){
   const nome=String(p.nome||'').split(' ')[0];
   const dia=s.data===today()?'hoje':s.data===addD(today(),1)?'amanhã':DOWL[wd(s.data)]+', '+fmtD(s.data).slice(0,5);
   const local=s.local==='domicilio'?' em domicílio'+(s.endereco?' ('+s.endereco+')':''):(c.endereco?' no consultório ('+c.endereco+')':' no consultório');
-  return `Olá, ${nome}! Passando para lembrar do seu atendimento de fisioterapia ${dia} às ${s.hora}${local}. Qualquer imprevisto, me avise com antecedência para reagendarmos.\n\n`+(c.nomeProfissional||'Thays Jesus')+' · Fisioterapia';
+  return `Olá, ${nome}! Passando para lembrar do seu atendimento de fisioterapia ${dia} às ${s.hora}${local}. Qualquer imprevisto, me avise com antecedência para reagendarmos.\n\n`+(c.nomeProfissional||'Thays Freitas')+' · Fisioterapia';
 }
 function lembreteForm(id){
   const s=S.ses.find(x=>x.id===id);if(!s)return;const p=S.pac.get(s.pacienteId)||{};
@@ -728,30 +744,20 @@ function finHTML(){
   const d=derive(),m=S.fmes,t=today();
   const recM=S.rec.filter(r=>ym(r.data||'')===m).sort((a,b)=>String(b.data).localeCompare(String(a.data)));
   const totM=recM.reduce((a,r)=>a+(+r.valor||0),0);
-  const aberto=d.pend.reduce((a,p)=>a+p.aberto,0),vencidas=d.pend.filter(p=>p.vencido);
+  const aberto=d.pend.reduce((a,p)=>a+p.aberto,0),vencidas=d.pend.filter(p=>p.vencido),aVencer=d.pend.filter(p=>!p.vencido);
+  const totAtr=vencidas.reduce((a,p)=>a+p.aberto,0),totPac=aVencer.reduce((a,p)=>a+p.aberto,0);
   const convTot=d.conv.reduce((a,s)=>a+(+s.valor||0),0);
-  const sesM=S.ses.filter(s=>ym(s.data)===m);const real=sesM.filter(s=>s.status==='realizado').length,falt=sesM.filter(s=>s.status==='falta').length;
-  const taxa=real+falt?Math.round(falt/(real+falt)*100):0;
-  const porForma=new Map();for(const r of recM)porForma.set(r.forma||'—',(porForma.get(r.forma||'—')||0)+(+r.valor||0));
-  const formas=[...porForma.entries()].sort((a,b)=>b[1]-a[1]);const maxF=formas.length?formas[0][1]:1;
-  const porTipo={avulsa:0,pacote:0,mensalidade:0,convenio:0,outro:0};for(const r of recM){const k=r.referencia==='sessao'?'avulsa':porTipo[r.referencia]!==undefined?r.referencia:'outro';porTipo[k]+=+r.valor||0;}
   const convG=new Map();for(const s of d.conv){const p=S.pac.get(s.pacienteId)||{};const k=p.convenio||'Convênio não informado';if(!convG.has(k))convG.set(k,[]);convG.get(k).push(s);}
   return `<section class="tiles">
-    <div class="tile ok"><span class="ti">${ic('wallet','lg')}</span><div class="k">Recebido em ${MES[+m.slice(5,7)-1]}</div><div class="v">${money(totM)}</div><div class="s">${recM.length} recebimentos</div></div>
-    <div class="tile ${vencidas.length?'warn':''}"><span class="ti">${ic('coins','lg')}</span><div class="k">A receber de pacientes</div><div class="v">${money(aberto)}</div><div class="s">${vencidas.length} vencidas · ${d.pend.length-vencidas.length} a vencer</div></div>
-    <div class="tile"><span class="ti">${ic('shield','lg')}</span><div class="k">Convênios a receber</div><div class="v">${money(convTot)}</div><div class="s">${d.conv.length} sessões realizadas</div></div>
-    <div class="tile ${taxa>=15?'crit':taxa>=8?'warn':''}"><span class="ti">${ic('percent','lg')}</span><div class="k">Faltas no mês</div><div class="v">${taxa}%</div><div class="s">${falt} faltas · ${real} realizadas</div></div>
+    <div class="tile ok"><span class="ti">${ic('wallet','lg')}</span><div class="k">Recebido em ${MES[+m.slice(5,7)-1]}</div><div class="v">${money(totM)}</div><div class="s">${recM.length} ${recM.length===1?'recebimento confirmado':'recebimentos confirmados'}</div></div>
+    <div class="tile"><span class="ti blue">${ic('coins','lg')}</span><div class="k">A receber</div><div class="v">${money(totPac+convTot)}</div><div class="s">${aVencer.length} de pacientes${d.conv.length?' · '+d.conv.length+' de convênio':''}</div></div>
+    <div class="tile ${vencidas.length?'crit':''}"><span class="ti">${ic('alert','lg')}</span><div class="k">Atrasados</div><div class="v">${money(totAtr)}</div><div class="s">${vencidas.length} ${vencidas.length===1?'cobrança vencida':'cobranças vencidas'}</div></div>
   </section>
+  <div class="hint">${ic('info')}<span>Ao <b>finalizar</b> um atendimento, o valor entra em <b>A receber</b>. Ele só passa para <b>Recebido</b> quando você tocar em <b>Receber</b> e confirmar o pagamento.${(+CFG().prazoPagamento||0)>0?' Sessões avulsas ficam atrasadas '+Math.round(+CFG().prazoPagamento)+' dias depois do atendimento.':' Sessões avulsas não pagas ficam atrasadas a partir do dia seguinte ao atendimento (o prazo pode ser mudado em Ajustes).'}</span></div>
   ${d.semPac.length?`<div class="note warn">${ic('box')}<span class="grow"><b>${d.semPac.length} ${d.semPac.length===1?'sessão realizada':'sessões realizadas'} de pacote sem pacote com saldo.</b> Cadastre um novo pacote para o paciente e ela será descontada automaticamente quando marcada de novo, ou mude a cobrança da sessão.</span></div>`:''}
-  <div class="grid2">
-    <section class="panel"><div class="panel-h"><h2>${ic('coins')}Cobranças em aberto</h2><span class="muted">${money(aberto)}</span></div>
-      ${d.pend.length?`<div class="rows">${d.pend.slice(0,30).map(p=>`<div class="row ${p.vencido?'crit':p.venc<=addD(t,5)?'warn':''}"><span class="ri">${ic(p.tipo==='pacote'?'box':p.tipo==='mensalidade'?'repeat':'coins')}</span><span class="rt"><b>${esc(pacName(p.pacienteId))}</b><span>${esc(p.desc)} · ${p.vencido?'venceu':'vence'} ${fmtD(p.venc)}${p.pago?' · pago '+money(p.pago):''}</span></span><span class="rv">${money(p.aberto)}${writable?`<button class="btn sm ok" data-action="receber" data-key="${esc(p.key)}">${ic('check')} Receber</button>`:''}</span></div>`).join('')}${d.pend.length>30?`<div class="muted">+ ${d.pend.length-30} cobranças</div>`:''}</div>`:emptyBox('okcircle','Nenhuma cobrança em aberto.')}
+  <section class="panel"><div class="panel-h"><h2>${ic('coins')}Cobranças em aberto</h2><span class="muted">${money(aberto)}</span></div>
+      ${d.pend.length?`<div class="rows">${d.pend.slice(0,30).map(p=>`<div class="row ${p.vencido?'crit':p.venc<=addD(t,5)?'warn':''}"><span class="ri">${ic(p.tipo==='pacote'?'box':p.tipo==='mensalidade'?'repeat':'coins')}</span><span class="rt"><b>${esc(pacName(p.pacienteId))}</b><span>${esc(p.desc)} · ${p.vencido?'<b style="color:var(--crit)">atrasado</b> desde '+fmtD(addD(p.venc,1)):'vence '+fmtD(p.venc)}${p.pago?' · pago '+money(p.pago):''}</span></span><span class="rv">${money(p.aberto)}${writable?`<button class="btn sm ok" data-action="receber" data-key="${esc(p.key)}">${ic('check')} Receber</button>`:''}</span></div>`).join('')}${d.pend.length>30?`<div class="muted">+ ${d.pend.length-30} cobranças</div>`:''}</div>`:emptyBox('okcircle','Nenhuma cobrança em aberto.')}
     </section>
-    <section class="panel"><h2>${ic('card')}Recebido por forma</h2>
-      ${formas.length?`<div class="bars">${formas.map(([f,v])=>`<div class="bar"><span class="mini">${fIc(f)}${esc(f)}</span><span class="muted">${money(v)}</span><div class="track"><div class="fill" style="width:${Math.max(4,v/maxF*100).toFixed(1)}%"></div></div></div>`).join('')}</div>
-      <div class="kpis" style="margin-top:14px">${Object.entries({avulsa:['coins','Avulsas'],pacote:['box','Pacotes'],mensalidade:['repeat','Mensalidades'],convenio:['shield','Convênios']}).map(([k,[i,l]])=>`<div><div class="k">${ic(i)}${l}</div><div class="v" style="font-size:17px">${money(porTipo[k])}</div></div>`).join('')}</div>`:emptyBox('card','Nenhum recebimento neste mês.')}
-    </section>
-  </div>
   <section class="panel"><div class="panel-h"><h2>${ic('shield')}Convênios a receber</h2></div>
     ${convG.size?[...convG.entries()].map(([k,arr])=>`<div class="sec" style="margin-bottom:14px"><div class="panel-h" style="margin-bottom:6px"><h3>${ic('shield')}${esc(k)} <span class="muted" style="font-weight:500">· ${arr.length} sessões · ${money(arr.reduce((a,s)=>a+(+s.valor||0),0))}</span></h3>${writable?`<button class="btn sm ok" data-action="conv-pay" data-conv="${esc(k)}">${ic('check')} Registrar pagamento</button>`:''}</div>
       <div class="table-wrap"><table class="t"><thead><tr><th>${ic('cal')}Data</th><th>${ic('user')}Paciente</th><th>${ic('hash')}Guia</th><th class="r">${ic('coins')}Valor</th></tr></thead><tbody>${arr.map(s=>`<tr><td>${fmtD(s.data)}</td><td>${esc(pacName(s.pacienteId))}</td><td>${esc(s.guia||'—')}</td><td class="r">${money(s.valor)}</td></tr>`).join('')}</tbody></table></div></div>`).join(''):emptyBox('shield','Nenhuma sessão de convênio pendente de pagamento.')}
@@ -767,7 +773,7 @@ function ajustesHTML(){
   const of=c.simboloOficial&&/^data:image\//.test(c.simboloOficial)?c.simboloOficial:'';
   return `<section class="panel"><div class="panel-h"><h2>${ic('sparkle')}Logomarca</h2>${DL?`<div class="actions"><button class="btn sm" data-action="dl-logo">${ic('download')} Baixar logomarca</button><button class="btn sm" data-action="dl-emblem">${ic('image')} Baixar símbolo</button></div>`:''}</div>
     <div class="logo-prev">${logoSVG()}</div>
-    <p class="muted" style="margin:10px 0 0;font-size:13.5px">${ic('handheart')} Símbolo próprio: a figura forma as letras T e J em movimento, com o arco âmbar da amplitude articular. Arquivo em SVG, que abre no navegador, no Canva e no Word.</p>
+    <p class="muted" style="margin:10px 0 0;font-size:13.5px">${ic('handheart')} Símbolo próprio: a figura forma as letras T e F em movimento, com o arco pontilhado da amplitude articular. Arquivo em SVG, que abre no navegador, no Canva e no Word.</p>
   </section>
   <section class="panel"><h2>${ic('shield')}Símbolo oficial da Fisioterapia</h2>
     <p class="muted" style="margin:0 0 12px">O símbolo oficial (duas serpentes entrelaçadas no raio) segue a Resolução COFFITO nº 232/2002, que proíbe alterar forma, cores e proporções. Por isso ele não foi redesenhado aqui. Envie o arquivo oficial (PNG ou SVG, até 150 KB) e ele aparece no topo do app e nos recibos.</p>
@@ -777,7 +783,7 @@ function ajustesHTML(){
   <form id="form-cfg" class="panel" novalidate>
     <h2>${ic('steth')}Dados da profissional</h2>
     <div class="fields">
-      <label class="field"><span>${ic('user')}Nome profissional</span><input name="nomeProfissional" value="${v('nomeProfissional')}" maxlength="80" placeholder="Ex.: Thays Jesus"></label>
+      <label class="field"><span>${ic('user')}Nome profissional</span><input name="nomeProfissional" value="${v('nomeProfissional')}" maxlength="80" placeholder="Ex.: Thays Freitas"></label>
       <label class="field"><span>${ic('idcard')}CREFITO</span><input name="crefito" value="${v('crefito')}" maxlength="30" placeholder="Ex.: 4/123456-F"></label>
       <label class="field"><span>${ic('hash')}CPF ou CNPJ (para recibos)</span><input name="documento" value="${v('documento')}" maxlength="20"></label>
       <label class="field"><span>${ic('phone')}Telefone</span><input name="telefone" value="${v('telefone')}" maxlength="20" inputmode="tel"></label>
@@ -791,6 +797,7 @@ function ajustesHTML(){
       <label class="field"><span>${ic('clock')}Duração padrão (min)</span><input name="duracaoPadrao" type="number" min="10" max="240" step="5" value="${v('duracaoPadrao')}"></label>
       <label class="field"><span>${ic('sun')}Início do expediente</span><input name="inicioDia" type="time" value="${v('inicioDia')}"></label>
       <label class="field"><span>${ic('clock')}Fim do expediente</span><input name="fimDia" type="time" value="${v('fimDia')}"></label>
+      <label class="field"><span>${ic('alert')}Prazo para pagar sessão avulsa (dias)</span><input name="prazoPagamento" type="number" min="0" max="60" step="1" value="${v('prazoPagamento')}"><small>0 = deve ser paga no dia do atendimento. Depois do prazo, a cobrança aparece em Atrasados.</small></label>
       <label class="field full"><span>${ic('msg')}Mensagem de confirmação no WhatsApp</span><textarea name="msgWhats" maxlength="500">${v('msgWhats')}</textarea><small>Use {nome}, {dia}, {hora} e {local}. Exemplo: ${esc(whatsMsg({pacienteId:'',data:addD(today(),1),hora:'08:00',local:'consultorio'}).replace(/^Olá, !/,'Olá, Maria!'))}</small></label>
     </div>
     <div class="formerr" id="cfg-err"></div>
@@ -807,7 +814,7 @@ function ajustesHTML(){
   </section>
   <section class="panel"><h2>${ic('lock')}Privacidade dos dados</h2>
     <p class="muted" style="margin:0 0 8px">Os dados ficam no banco Supabase do consultório. Só entra quem tem CPF e senha cadastrados e está na lista de membros. Baixe o backup toda semana: o plano gratuito do Supabase não guarda cópias automáticas.</p>
-    <p class="muted" style="margin:0">Guarde aqui só o necessário para agenda e cobrança. A evolução clínica (prontuário) deve ficar no sistema ou nas fichas próprias para isso.</p>
+    <p class="muted" style="margin:0">Avaliações, sinais vitais e evoluções são dados de saúde (dados sensíveis pela LGPD). Use senhas fortes, não compartilhe o acesso e baixe o backup com frequência. Pelas normas do COFFITO, o prontuário deve ser guardado por pelo menos 5 anos.</p>
   </section>`;
 }
 
@@ -851,20 +858,57 @@ async function write(fn,quiet){
 const col=n=>db.collection(n);
 const stamp=()=>({criadoEm:new Date().toISOString(),por:myId||null});
 
+const AVAL=[
+  ['dataAvaliacao','cal','Data da avaliação','date'],
+  ['diagnosticoClinico','steth','Diagnóstico clínico / médico','text'],
+  ['medico','user','Médico responsável / encaminhamento','text'],
+  ['queixaPrincipal','note','Queixa principal','area'],
+  ['hda','history','História da doença atual','area'],
+  ['antecedentes','note','Antecedentes (doenças, cirurgias, lesões)','area'],
+  ['medicamentos','flask','Medicamentos em uso','text'],
+  ['exames','note','Exames complementares','area'],
+  ['_vit','pulse','Sinais vitais','vit'],
+  ['dorEva','alert','Dor (escala EVA 0 a 10)','eva'],
+  ['dorLocal','pin','Local e características da dor','text'],
+  ['inspecao','eye','Inspeção e palpação','area'],
+  ['adm','rotate','Amplitude de movimento (ADM)','area'],
+  ['forca','dumbbell','Força muscular','area'],
+  ['testes','check','Testes específicos','area'],
+  ['funcional','handheart','Avaliação funcional e AVDs','area'],
+  ['diagnosticoFisio','clipboard','Diagnóstico fisioterapêutico (cinético-funcional)','area'],
+  ['objetivos','trend','Objetivos do tratamento','area'],
+  ['conduta','list','Plano de tratamento / conduta','area']
+];
+function avalFields(av){av=av||{};const val=k=>av[k]!=null?esc(av[k]):'';
+  return AVAL.map(([k,i,l,t])=>t==='vit'?`<div class="fsub">${ic(i)}${l}</div>${vitFields(av.sinais,'av_')}`:
+    t==='area'?`<label class="field full"><span>${ic(i)}${l}</span><textarea name="av_${k}" maxlength="3000">${val(k)}</textarea></label>`:
+    t==='eva'?`<label class="field"><span>${ic(i)}${l}</span><input name="av_${k}" type="number" min="0" max="10" step="1" value="${val(k)}"></label>`:
+    t==='date'?`<label class="field"><span>${ic(i)}${l}</span><input name="av_${k}" type="date" value="${av[k]?esc(av[k]):''}"></label>`:
+    `<label class="field ${k==='dorLocal'?'':'full'}"><span>${ic(i)}${l}</span><input name="av_${k}" value="${val(k)}" maxlength="200"></label>`).join('\n');}
+function avalTemDados(av){return !!av&&AVAL.some(([k])=>k!=='_vit'&&k!=='dataAvaliacao'&&av[k]!=null&&av[k]!=='')||!!(av&&av.sinais&&(av.sinais.pa||av.sinais.fc!=null||av.sinais.spo2!=null));}
+function avalView(av,id){
+  if(!avalTemDados(av))return `${emptyBox('clipboard','Nenhuma avaliação fisioterapêutica registrada.')}${writable?`<div class="actions" style="justify-content:center"><button class="btn primary" data-action="edit-pac" data-id="${esc(id)}" data-t="aval">${ic('plus')} Fazer avaliação</button></div>`:''}`;
+  const items=AVAL.filter(([k,,,t])=>t!=='vit'&&k!=='dataAvaliacao'&&av[k]!=null&&av[k]!=='').map(([k,,l,t])=>`<div class="${t==='area'?'full':''}"><b>${l}</b><p>${esc(k==='dorEva'?av[k]+' / 10':av[k])}</p></div>`).join('');
+  const v=vitHTML(av.sinais);
+  return `${av.dataAvaliacao?`<p class="muted" style="margin:0 0 8px">${ic('cal')} Avaliado em ${fmtD(av.dataAvaliacao)}</p>`:''}${v?`<div style="margin-bottom:10px">${v}</div>`:''}<div class="aval">${items}</div>`;}
+function pacTab(f,t){f.querySelectorAll('[data-pane]').forEach(el=>el.hidden=el.dataset.pane!==t);f.querySelectorAll('.ftabs button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===t)));}
+
 /* ================= Paciente: formulário ================= */
-function pacForm(id){
+function pacForm(id,tab){
   const p=id?S.pac.get(id):null;const v=k=>esc(p?p[k]??'':'');const c=CFG();
   const cob=p?p.cobrancaPadrao||'avulsa':'avulsa';
   openModal(`<form id="form-pac" data-id="${esc(id||'')}" novalidate>
     <div class="modal-h"><h2><span class="hb">${ic(p?'pencil':'user')}</span>${p?'Editar paciente':'Novo paciente'}</h2>${X}</div>
-    <div class="modal-b"><div class="fields">
+    <div class="modal-b">
+    <div class="seg2 ftabs" role="group" aria-label="Partes do cadastro"><button type="button" data-action="pac-tab" data-t="cad" aria-pressed="true">${ic('user')}Cadastro</button><button type="button" data-action="pac-tab" data-t="aval" aria-pressed="false">${ic('clipboard')}Avaliação fisioterapêutica</button></div>
+    <div class="fields" data-pane="cad">
       <label class="field full"><span class="req">${ic('user')}Nome completo</span><input name="nome" value="${v('nome')}" maxlength="100" autocomplete="off"></label>
       <label class="field"><span class="req">${ic('phone')}Telefone / WhatsApp</span><input name="telefone" value="${v('telefone')}" maxlength="20" inputmode="tel" placeholder="(31) 99999-0000"></label>
       <label class="field"><span>${ic('cake')}Data de nascimento</span><input name="nascimento" type="date" value="${v('nascimento')}"></label>
       <label class="field"><span>${ic('hash')}CPF (para recibo)</span><input name="cpf" value="${v('cpf')}" maxlength="14" inputmode="numeric"></label>
       <label class="field"><span>${ic('mail')}E-mail</span><input name="email" type="email" value="${v('email')}" maxlength="100"></label>
       <label class="field full"><span>${ic('home')}Endereço (atendimento domiciliar)</span><input name="endereco" value="${v('endereco')}" maxlength="160" placeholder="Rua, número, bairro"></label>
-      <label class="field full"><span>${ic('note')}Motivo do atendimento</span><input name="queixa" value="${v('queixa')}" maxlength="140" placeholder="Ex.: reabilitação pós-cirúrgica de joelho"><small>Só o essencial para a agenda. A evolução clínica fica no prontuário.</small></label>
+      <label class="field full"><span>${ic('note')}Motivo do atendimento</span><input name="queixa" value="${v('queixa')}" maxlength="140" placeholder="Ex.: reabilitação pós-cirúrgica de joelho"><small>Resumo curto que aparece na agenda. Os detalhes vão na aba Avaliação fisioterapêutica.</small></label>
       <div class="field full"><span>${ic('wallet')}Forma de cobrança padrão</span><div class="opts">${Object.entries(COB).map(([k,x])=>`<label class="opt"><input type="radio" name="cobrancaPadrao" value="${k}" ${k===cob?'checked':''}><span>${ic(x.i)}${x.l}</span></label>`).join('')}</div></div>
       <label class="field" data-c="avulsa"><span>${ic('coins')}Valor da sessão (R$)</span><input name="valorSessao" type="number" min="0" step="0.01" value="${p&&p.valorSessao!=null?esc(p.valorSessao):esc(c.valorPadrao)}"></label>
       <label class="field" data-c="convenio"><span>${ic('shield')}Convênio</span><input name="convenio" value="${v('convenio')}" maxlength="60" list="dl-conv"></label>
@@ -872,11 +916,15 @@ function pacForm(id){
       <label class="field" data-c="convenio"><span>${ic('coins')}Valor pago pelo convênio por sessão (R$)</span><input name="valorConvenio" type="number" min="0" step="0.01" value="${v('valorConvenio')}"></label>
       <label class="field full"><span>${ic('note')}Observações</span><textarea name="obs" maxlength="400">${v('obs')}</textarea></label>
     </div>
+    <div class="fields" data-pane="aval" hidden>
+      ${avalFields(p&&p.avaliacao?p.avaliacao:{dataAvaliacao:today()})}
+    </div>
     <datalist id="dl-conv">${[...new Set(pacList().map(x=>x.convenio).filter(Boolean))].map(x=>`<option value="${esc(x)}">`).join('')}</datalist>
     <div class="formerr" id="pac-err"></div></div>
     <div class="modal-f">${p?`<button type="button" class="btn ghost" data-action="toggle-pac" data-id="${esc(id)}">${p.ativo===false?ic('eye')+' Reativar':ic('eyeoff')+' Inativar'}</button><span style="flex:1"></span>`:''}<button type="button" class="btn" data-action="close">Cancelar</button><button type="submit" class="btn primary">${ic('save')} Salvar</button></div>
   </form>`);
   applyPacCob();
+  if(tab==='aval')pacTab($('#form-pac'),'aval');
 }
 function applyPacCob(){const f=$('#form-pac');if(!f)return;const c=f.cobrancaPadrao.value;f.querySelectorAll('[data-c]').forEach(el=>el.hidden=el.dataset.c!==c&&!(el.dataset.c==='avulsa'&&c!=='convenio'));}
 async function submitPac(f){
@@ -888,6 +936,9 @@ async function submitPac(f){
   const data={nome,telefone:tel,nascimento:f.nascimento.value,cpf:cpf?cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4'):'',email:f.email.value.trim(),endereco:f.endereco.value.trim(),queixa:f.queixa.value.trim(),
     cobrancaPadrao:f.cobrancaPadrao.value,valorSessao:num(f.valorSessao),convenio:f.convenio.value.trim(),carteirinha:f.carteirinha.value.trim(),valorConvenio:num(f.valorConvenio),obs:f.obs.value.trim(),atualizadoEm:new Date().toISOString()};
   if(data.cobrancaPadrao==='convenio'&&!data.convenio)return err('Informe o nome do convênio.');
+  {const rv=lerVitais(f,'av_');if(rv.erro){pacTab(f,'aval');return err('Avaliação: '+rv.erro);}
+   const av={sinais:rv.v};for(const[k,,,t]of AVAL){if(t==='vit')continue;const el=f.elements['av_'+k];if(!el)continue;const x=el.value.trim();av[k]=t==='eva'?(x===''?null:Math.max(0,Math.min(10,Math.round(+x)))):x;}
+   if(avalTemDados(av)){if(!av.dataAvaliacao)av.dataAvaliacao=today();data.avaliacao=av;}else if(id&&S.pac.get(id)&&S.pac.get(id).avaliacao)data.avaliacao=av;}
   const btn=f.querySelector('[type=submit]');btn.disabled=true;
   const ok=id?await write(()=>col('pacientes').doc(id).update(data)):await write(()=>col('pacientes').add({...data,ativo:true,...stamp()}));
   btn.disabled=false;if(ok){closeModal();toast(id?'Cadastro atualizado.':'Paciente cadastrado.');}
@@ -952,6 +1003,8 @@ function pacDrawerHTML(id,p){
       ${recPac.length?`<h3 style="margin-top:14px">${ic('receipt')}Últimos pagamentos</h3><div class="rows">${recPac.slice(0,5).map(r=>`<div class="row"><span class="ri">${ic('check')}</span><span class="rt"><b>${money(r.valor)} · ${esc(r.forma||'')}</b><span>${fmtD(r.data)} · ${esc(r.desc||'')}</span></span><span class="rv">${DL?`<button class="btn sm" data-action="recibo" data-id="${esc(r.id)}">${ic('receipt')}</button>`:''}</span></div>`).join('')}</div>`:''}
       </div>
     </div>
+    <div class="sec"><div class="panel-h" style="margin-bottom:6px"><h3>${ic('clipboard')}Avaliação fisioterapêutica</h3>${writable&&avalTemDados(p.avaliacao)?`<button class="btn sm ghost" data-action="edit-pac" data-id="${esc(id)}" data-t="aval">${ic('pencil')} Editar avaliação</button>`:''}</div>${avalView(p.avaliacao,id)}</div>
+    ${(()=>{const ev=all.filter(s=>s.status==='realizado'&&(s.evolucao||s.sinais)).sort((a,b)=>(b.data+b.hora).localeCompare(a.data+a.hora));return ev.length?`<div class="sec"><h3>${ic('note')}Evoluções</h3><div class="rows">${ev.slice(0,20).map(s=>`<button class="row" style="border:0;cursor:pointer;text-align:left;width:100%;align-items:flex-start" data-action="open-ses" data-id="${esc(s.id)}"><span class="ri">${ic('clipboard')}</span><span class="rt"><b>${fmtD(s.data)} às ${esc(s.hora)}</b>${vitHTML(s.sinais)}<span class="evol">${esc(s.evolucao||'')}</span></span></button>`).join('')}${ev.length>20?`<span class="muted">+ ${ev.length-20} evoluções</span>`:''}</div></div>`:'';})()}
     <div class="sec"><h3>${ic('history')}Histórico de sessões</h3>${hist.length?`<div class="table-wrap"><table class="t"><thead><tr><th>${ic('cal')}Data</th><th>${ic('clock')}Hora</th><th>${ic('okcircle')}Situação</th><th>${ic('wallet')}Cobrança</th><th>${ic('pin')}Local</th></tr></thead><tbody>${hist.slice(0,30).map(s=>`<tr style="cursor:pointer" data-action="open-ses" data-id="${esc(s.id)}"><td>${fmtD(s.data)}</td><td>${esc(s.hora)}</td><td>${stPill(s.status)}</td><td>${cobPill(s.cobranca)}</td><td>${s.local==='domicilio'?ic('home')+' Domicílio':ic('building')+' Consultório'}</td></tr>`).join('')}</tbody></table></div>`:emptyBox('history','Nenhuma sessão realizada ainda.')}</div>
   </div>
   ${writable&&!all.length&&!pk.length&&!S.rec.some(r=>r.pacienteId===id)?`<div class="modal-f"><button class="btn danger" data-action="del-pac" data-id="${esc(id)}">${ic('trash')} Excluir paciente</button></div>`:''}`;
@@ -1074,7 +1127,7 @@ function sesDrawerHTML(s){
   const acts=[];
   if(can){
     if(st==='agendado')acts.push(btn('st-confirmado','check','Confirmado'));
-    if(st==='agendado'||st==='confirmado'){acts.push(btn('st-realizado','okcircle','Realizada','primary'));acts.push(btn('st-falta','userx','Falta','danger'));acts.push(btn('remarcar','rotate','Remarcar'));acts.push(btn('st-cancelado','xcircle','Cancelar'));}
+    if(st==='agendado'||st==='confirmado'){acts.push(btn('finalizar','okcircle','Finalizar atendimento','primary'));acts.push(btn('st-falta','userx','Falta','danger'));acts.push(btn('remarcar','rotate','Remarcar'));acts.push(btn('st-cancelado','xcircle','Cancelar'));}
     if(st==='realizado'||st==='falta'||st==='cancelado')acts.push(btn('st-agendado','history','Voltar para agendada','ghost'));
     if(st==='falta')acts.push(btn('remarcar','rotate','Agendar reposição'));
     if(pendS)acts.push(`<button class="btn ok" data-action="receber" data-key="${esc(pendS.key)}">${ic('wallet')} Receber ${money(pendS.aberto)}</button>`);
@@ -1091,6 +1144,7 @@ function sesDrawerHTML(s){
     <div class="hint">${ic('wallet')}<span>${fin}</span></div>
     ${s.remarcadaPara?(()=>{const n=S.ses.find(x=>x.id===s.remarcadaPara);return n?`<div class="hint warn">${ic('rotate')}<span>Remarcada para ${fmtDS(n.data)} às ${esc(n.hora)}. <button class="linkbtn" data-action="open-ses" data-id="${esc(n.id)}">Abrir ${ic('arrowright')}</button></span></div>`:'';})():''}
     ${s.obs?`<p class="muted mini" style="margin:0">${ic('note')}${esc(s.obs)}</p>`:''}
+    ${st==='realizado'?evolHTML(s,can):''}
     ${acts.length?`<div class="actions">${acts.join('')}</div>`:''}
     <div class="actions">
       ${p.telefone&&(st==='agendado'||st==='confirmado')?`<button class="btn ok" data-action="lembrete" data-id="${esc(s.id)}">${ic('msg')} ${s.lembreteEm?'Lembrete enviado · reenviar':'Lembrete no WhatsApp'}</button>`:''}
@@ -1100,16 +1154,66 @@ function sesDrawerHTML(s){
     </div>
   </div>`;
 }
-async function setStatus(id,st){
-  const s=S.ses.find(x=>x.id===id);if(!s)return;
-  const data={status:st,atualizadoEm:new Date().toISOString()};
+async function setStatus(id,st,extra){
+  const s=S.ses.find(x=>x.id===id);if(!s)return false;
+  const data={status:st,atualizadoEm:new Date().toISOString(),...(extra||{})};
   if(s.cobranca==='pacote'){
     if((st==='realizado'||st==='falta')&&!s.pacoteId){const pk=pickPacote(s.pacienteId,st==='falta');if(pk)data.pacoteId=pk.id;else if(st==='realizado')toast('Paciente sem pacote com saldo. Cadastre um novo pacote.','err');}
     if(st!=='realizado'&&st!=='falta'&&s.pacoteId)data.pacoteId=null;
     if(st==='falta'&&s.pacoteId){const p=S.pct.get(s.pacoteId);if(p&&!p.faltaConsome)data.pacoteId=null;}
   }
   const ok=await write(()=>col('sessoes').doc(id).update(data));
+  if(ok&&extra){toast('Atendimento finalizado.');return true;}
   if(ok){toast(st==='realizado'?'Sessão marcada como realizada.':st==='falta'?'Falta registrada.':st==='confirmado'?'Presença confirmada.':st==='cancelado'?'Sessão cancelada.':'Sessão voltou para agendada.');}
+  return ok;
+}
+
+/* ================= Finalizar atendimento: sinais vitais e evolução ================= */
+function vitHTML(v){v=v||{};const it=[];
+  if(v.pa)it.push(`<span class="pill">${ic('gauge')}PA ${esc(v.pa)} mmHg</span>`);
+  if(v.fc!=null&&v.fc!=='')it.push(`<span class="pill">${ic('heart')}FC ${esc(v.fc)} bpm</span>`);
+  if(v.spo2!=null&&v.spo2!=='')it.push(`<span class="pill">${ic('droplet')}SpO₂ ${esc(v.spo2)}%</span>`);
+  return it.length?`<div class="vit">${it.join('')}</div>`:'';}
+function evolHTML(s,can){
+  const v=vitHTML(s.sinais);
+  if(!s.evolucao&&!v)return can?`<div class="hint warn">${ic('note')}<span class="grow">Atendimento sem evolução registrada. <button class="linkbtn" data-action="finalizar" data-id="${esc(s.id)}">Registrar evolução ${ic('arrowright')}</button></span></div>`:'';
+  return `<div class="sec"><div class="panel-h" style="margin-bottom:6px"><h3>${ic('clipboard')}Evolução do atendimento</h3>${can?`<button class="btn sm ghost" data-action="finalizar" data-id="${esc(s.id)}">${ic('pencil')} Editar</button>`:''}</div>${v}${s.evolucao?`<p class="evol">${esc(s.evolucao)}</p>`:''}</div>`;}
+function vitFields(v,pre){v=v||{};const val=x=>v[x]!=null?esc(v[x]):'';
+  return `<label class="field"><span>${ic('gauge')}Pressão arterial (mmHg)</span><input name="${pre}pa" value="${val('pa')}" maxlength="9" inputmode="numeric" placeholder="120/80"></label>
+      <label class="field"><span>${ic('heart')}Frequência cardíaca (bpm)</span><input name="${pre}fc" type="number" min="20" max="250" step="1" value="${val('fc')}" placeholder="75"></label>
+      <label class="field"><span>${ic('droplet')}Saturação SpO₂ (%)</span><input name="${pre}spo2" type="number" min="50" max="100" step="1" value="${val('spo2')}" placeholder="98"></label>`;}
+function lerVitais(f,pre){
+  const pa0=f.elements[pre+'pa'].value.trim(),fc0=f.elements[pre+'fc'].value.trim(),sp0=f.elements[pre+'spo2'].value.trim();
+  let pa='';if(pa0){const m=pa0.match(/^(\d{2,3})\s*[\/xX×]\s*(\d{2,3})$/);if(!m)return{erro:'Pressão arterial: use o formato 120/80.'};const a=+m[1],b=+m[2];if(a<50||a>260||b<30||b>160||b>=a)return{erro:'Confira a pressão arterial: '+pa0+' não parece um valor válido.'};pa=a+'/'+b;}
+  let fc=null;if(fc0){fc=Math.round(+fc0);if(!(fc>=20&&fc<=250))return{erro:'Frequência cardíaca deve ficar entre 20 e 250 bpm.'};}
+  let spo2=null;if(sp0){spo2=Math.round(+sp0);if(!(spo2>=50&&spo2<=100))return{erro:'Saturação deve ficar entre 50% e 100%.'};}
+  return{v:{pa,fc,spo2}};}
+function finForm(id){
+  const s=S.ses.find(x=>x.id===id);if(!s)return;const p=S.pac.get(s.pacienteId)||{};const ja=s.status==='realizado';
+  openModal(`<form id="form-fin" data-id="${esc(id)}" novalidate>
+    <div class="modal-h"><h2><span class="hb">${ic('clipboard')}</span>${ja?'Evolução do atendimento':'Finalizar atendimento'}</h2>${X}</div>
+    <div class="modal-b">
+      <p class="muted" style="margin:0 0 12px">${esc(p.nome||'Paciente')} · ${fmtDS(s.data)} às ${esc(s.hora)}</p>
+      <div class="fields">
+        <div class="fsub">${ic('pulse')}Sinais vitais</div>
+        ${vitFields(s.sinais,'')}
+        <label class="field full"><span class="req">${ic('note')}Evolução</span><textarea name="evolucao" maxlength="4000" rows="6" placeholder="Condutas realizadas, resposta do paciente, queixas, orientações e plano para a próxima sessão.">${esc(s.evolucao||'')}</textarea><small>Obrigatória para finalizar o atendimento.</small></label>
+      </div>
+      <div class="formerr" id="fin-err"></div>
+    </div>
+    <div class="modal-f"><button type="button" class="btn" data-action="${ja?'open-ses':'close'}" data-id="${esc(id)}">Cancelar</button><button type="submit" class="btn primary">${ic(ja?'save':'okcircle')} ${ja?'Salvar evolução':'Finalizar atendimento'}</button></div>
+  </form>`);
+  setTimeout(()=>{const f=$('#form-fin');if(f)(f.pa.value?f.evolucao:f.pa).focus();},30);
+}
+async function submitFin(f){
+  const err=t=>{$('#fin-err').textContent=t;};const id=f.dataset.id;const s=S.ses.find(x=>x.id===id);if(!s)return closeModal();
+  const r=lerVitais(f,'');if(r.erro)return err(r.erro);
+  const evolucao=f.evolucao.value.trim();if(evolucao.length<5){f.evolucao.focus();return err('Escreva a evolução do atendimento. Sem ela não é possível finalizar.');}
+  const extra={sinais:r.v,evolucao,evolucaoPor:myId||null,evolucaoEm:new Date().toISOString()};
+  const btn=f.querySelector('[type=submit]');btn.disabled=true;let ok;
+  if(s.status==='realizado'){ok=await write(()=>col('sessoes').doc(id).update({...extra,atualizadoEm:new Date().toISOString()}));if(ok)toast('Evolução salva.');}
+  else{extra.finalizadoEm=new Date().toISOString();ok=await setStatus(id,'realizado',extra);}
+  btn.disabled=false;if(ok)sesDrawer(id);
 }
 
 /* ================= Pacote e mensalidade ================= */
@@ -1230,21 +1334,21 @@ async function submitConv(f){
 }
 
 /* ================= Recibo e exportação ================= */
-function emblemSVG(size){return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3CCB9F"/><stop offset="1" stop-color="#168465"/></linearGradient></defs><circle cx="32" cy="32" r="31" fill="url(#g)"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/><circle cx="32" cy="15.5" r="4.6" fill="#fff"/><path d="M17 25.5 Q32 20 47 25.5" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/><path d="M32 23.5 V39 Q32 49.5 22.5 49.5" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/><path d="M44.5 33.5 A14 14 0 0 1 37.5 47" fill="none" stroke="#FFE3A3" stroke-width="2.6" stroke-linecap="round"/><circle cx="46" cy="29.6" r="1.7" fill="#FFE3A3"/></svg>`;}
-function logoSVG(){const c=CFG();const nome=c.nomeProfissional||'Thays Jesus';const cr=c.crefito?'CREFITO '+c.crefito:'';
+function emblemSVG(size){return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3CCB9F"/><stop offset="1" stop-color="#168465"/></linearGradient></defs><circle cx="32" cy="32" r="31" fill="url(#g)"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/><circle cx="28" cy="14.5" r="4.8" fill="#fff"/><path d="M15.5 25 Q30 20.5 47.5 24.5" fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round"/><path d="M27 23.5 V50" fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round"/><path d="M27 36.5 H39.5" fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round"/><path d="M45.3 31.5 A18.5 18.5 0 0 1 36.3 52.5" fill="none" stroke="#FFE3A3" stroke-width="2.8" stroke-linecap="round" stroke-dasharray="0.1 5.2"/></svg>`;}
+function logoSVG(){const c=CFG();const nome=c.nomeProfissional||'Thays Freitas';const cr=c.crefito?'CREFITO '+c.crefito:'';
   return `<svg xmlns="http://www.w3.org/2000/svg" width="560" height="150" viewBox="0 0 560 150"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3CCB9F"/><stop offset="1" stop-color="#168465"/></linearGradient></defs>
-  <g transform="translate(8 11) scale(2)"><circle cx="32" cy="32" r="31" fill="url(#g)"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/><circle cx="32" cy="15.5" r="4.6" fill="#fff"/><path d="M17 25.5 Q32 20 47 25.5" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/><path d="M32 23.5 V39 Q32 49.5 22.5 49.5" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/><path d="M44.5 33.5 A14 14 0 0 1 37.5 47" fill="none" stroke="#FFE3A3" stroke-width="2.6" stroke-linecap="round"/><circle cx="46" cy="29.6" r="1.7" fill="#FFE3A3"/></g>
+  <g transform="translate(8 11) scale(2)"><circle cx="32" cy="32" r="31" fill="url(#g)"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/><circle cx="28" cy="14.5" r="4.8" fill="#fff"/><path d="M15.5 25 Q30 20.5 47.5 24.5" fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round"/><path d="M27 23.5 V50" fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round"/><path d="M27 36.5 H39.5" fill="none" stroke="#fff" stroke-width="4.8" stroke-linecap="round"/><path d="M45.3 31.5 A18.5 18.5 0 0 1 36.3 52.5" fill="none" stroke="#FFE3A3" stroke-width="2.8" stroke-linecap="round" stroke-dasharray="0.1 5.2"/></g>
   <text x="160" y="76" font-family="'Bricolage Grotesque','Trebuchet MS',Arial,sans-serif" font-size="50" font-weight="700" fill="#1D3B36">${esc(nome)}</text>
   <text x="163" y="108" font-family="Figtree,Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="7" fill="#1E9A78">FISIOTERAPIA</text>
   ${cr?`<text x="163" y="134" font-family="Figtree,Arial,sans-serif" font-size="14" fill="#5F7A75">${esc(cr)}</text>`:''}</svg>`;}
 function reciboHTML(r){
   const p=S.pac.get(r.pacienteId)||{};const c=CFG();const dt=r.data||today();
   return `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Recibo ${esc(p.nome||'')}</title><style>body{font:15px/1.6 Georgia,serif;color:#111;max-width:680px;margin:40px auto;padding:0 24px}h1{font:700 26px/1 Arial,sans-serif;letter-spacing:.2em;text-align:center;margin:0 0 6px}.v{text-align:right;font:700 20px Arial,sans-serif;border:2px solid #111;display:inline-block;padding:6px 14px;float:right}.top{overflow:hidden;margin-bottom:28px}p{text-align:justify}.ass{margin-top:70px;text-align:center}.ass div{border-top:1px solid #111;width:320px;margin:0 auto;padding-top:6px}small{color:#555}@media print{body{margin:0 auto}.np{display:none}}.np{position:fixed;top:12px;right:12px;font:600 15px Arial;padding:10px 16px;border-radius:999px;border:0;background:#1E9A78;color:#fff;cursor:pointer}</style></head><body><button class="np" onclick="window.print()">Imprimir / salvar PDF</button>
-  <div class="top"><span class="v">${money(r.valor)}</span><div style="display:flex;gap:14px;align-items:center">${emblemSVG(58)}${c.simboloOficial&&/^data:image\//.test(c.simboloOficial)?`<img src="${esc(c.simboloOficial)}" alt="" style="height:54px">`:''}<div><h1 style="text-align:left;margin:0">RECIBO</h1><small>${esc(c.nomeProfissional||'Thays Jesus')} · Fisioterapia${c.crefito?' · CREFITO '+esc(c.crefito):''}</small></div></div></div>
+  <div class="top"><span class="v">${money(r.valor)}</span><div style="display:flex;gap:14px;align-items:center">${emblemSVG(58)}${c.simboloOficial&&/^data:image\//.test(c.simboloOficial)?`<img src="${esc(c.simboloOficial)}" alt="" style="height:54px">`:''}<div><h1 style="text-align:left;margin:0">RECIBO</h1><small>${esc(c.nomeProfissional||'Thays Freitas')} · Fisioterapia${c.crefito?' · CREFITO '+esc(c.crefito):''}</small></div></div></div>
   <p>Recebi de <b>${esc(p.nome||'')}</b>${p.cpf?', CPF '+esc(p.cpf):''}, a importância de <b>${money(r.valor)}</b> (${extenso(+r.valor||0)}), referente a serviços de fisioterapia: ${esc(r.desc||'atendimento')}, pagos em ${fmtD(dt)} por ${esc(String(r.forma||'').toLowerCase())}.</p>
   <p>Para clareza, firmo o presente.</p>
   <p style="text-align:right">${esc(c.cidade||'')}${c.cidade?', ':''}${+dt.slice(8,10)} de ${MES[+dt.slice(5,7)-1]} de ${dt.slice(0,4)}.</p>
-  <div class="ass"><div>${esc(c.nomeProfissional||'Thays Jesus')}<br><small>${c.crefito?'CREFITO '+esc(c.crefito):''}${c.documento?' · CPF/CNPJ '+esc(c.documento):''}</small>${c.endereco?'<br><small>'+esc(c.endereco)+'</small>':''}${c.telefone?'<br><small>'+esc(c.telefone)+'</small>':''}</div></div>
+  <div class="ass"><div>${esc(c.nomeProfissional||'Thays Freitas')}<br><small>${c.crefito?'CREFITO '+esc(c.crefito):''}${c.documento?' · CPF/CNPJ '+esc(c.documento):''}</small>${c.endereco?'<br><small>'+esc(c.endereco)+'</small>':''}${c.telefone?'<br><small>'+esc(c.telefone)+'</small>':''}</div></div>
   </body></html>`;
 }
 const MIME={csv:'text/csv;charset=utf-8',html:'text/html;charset=utf-8',svg:'image/svg+xml',json:'application/json'};
@@ -1275,13 +1379,16 @@ document.addEventListener('click',async e=>{
     case'copy-lem':{const f=$('#form-lem');try{await navigator.clipboard.writeText(f.msg.value);toast('Mensagem copiada.');}catch(_){f.msg.select();toast('Selecione e copie o texto (Ctrl+C).','err');}break;}
     case'open-pac':pacDrawer(id);break;
     case'new-pac':if(writable&&db)pacForm(null);break;
-    case'edit-pac':pacForm(id);break;
+    case'edit-pac':pacForm(id,a.dataset.t);break;
     case'new-pct':pctForm(a.dataset.pac);break;
     case'new-pla':plaForm(a.dataset.pac);break;
     case'new-rec':if(writable&&db)recForm({pac:a.dataset.pac});break;
     case'receber':recForm({key:a.dataset.key});break;
     case'conv-pay':convForm(a.dataset.conv);break;
-    case'st-confirmado':case'st-realizado':case'st-falta':case'st-agendado':await setStatus(id,a.dataset.action.slice(3));break;
+    case'finalizar':finForm(id);break;
+    case'pac-tab':{const f=a.closest('form');if(f)pacTab(f,a.dataset.t);break;}
+    case'st-realizado':finForm(id);break;
+    case'st-confirmado':case'st-falta':case'st-agendado':await setStatus(id,a.dataset.action.slice(3));break;
     case'st-cancelado':if(await confirmBox('Cancelar sessão','A sessão fica no histórico como cancelada e o horário é liberado.','Cancelar sessão'))await setStatus(id,'cancelado');break;
     case'del-ses':{const s=S.ses.find(x=>x.id===id);if(!s)break;if(!(await confirmBox('Excluir sessão','Excluir a sessão de '+fmtDS(s.data)+' às '+s.hora+'? Use "Cancelar" se quiser manter no histórico. Esta ação não pode ser desfeita.','Excluir',true)))break;if(await write(()=>col('sessoes').doc(id).delete())){closeModal();toast('Sessão excluída.');}break;}
     case'cancel-rec':{const rid=a.dataset.rid;const t=today();const arr=S.ses.filter(s=>s.recorrenciaId===rid&&s.data>=t&&(s.status==='agendado'||s.status==='confirmado'));if(!arr.length)break;
@@ -1297,8 +1404,8 @@ document.addEventListener('click',async e=>{
     case'backup':{try{const b=await Dados.backup();await saveFile('backup_thays_fisio_'+today()+'.json',JSON.stringify({gerado:new Date().toISOString(),dados:b},null,1));}catch(e){toast('Não foi possível gerar o backup agora.','err');}break;}
     case'export-rec':{const rows=[['Data','Paciente/Convênio','CPF','Referente a','Forma','Valor']];for(const r of S.rec.filter(x=>ym(x.data||'')===S.fmes).sort((a,b)=>String(a.data).localeCompare(String(b.data)))){const p=S.pac.get(r.pacienteId)||{};rows.push([fmtD(r.data),r.referencia==='convenio'?r.convenio:p.nome||'',p.cpf||'',r.desc||'',r.forma||'',+r.valor||0]);}await saveFile('recebimentos_'+S.fmes+'.csv',csv(rows));break;}
     case'export-pac':{const rows=[['Nome','Telefone','Nascimento','CPF','E-mail','Endereço','Cobrança','Convênio','Carteirinha','Situação']];for(const p of filteredPac())rows.push([p.nome,p.telefone||'',p.nascimento?fmtD(p.nascimento):'',p.cpf||'',p.email||'',p.endereco||'',(COB[p.cobrancaPadrao]||COB.avulsa).l,p.convenio||'',p.carteirinha||'',p.ativo===false?'Inativo':'Ativo']);await saveFile('pacientes_'+today()+'.csv',csv(rows));break;}
-    case'dl-logo':await saveFile('logomarca_'+slug(CFG().nomeProfissional||'thays_jesus')+'.svg',logoSVG());break;
-    case'dl-emblem':await saveFile('simbolo_'+slug(CFG().nomeProfissional||'thays_jesus')+'.svg',emblemSVG(512));break;
+    case'dl-logo':await saveFile('logomarca_'+slug(CFG().nomeProfissional||'thays_freitas')+'.svg',logoSVG());break;
+    case'dl-emblem':await saveFile('simbolo_'+slug(CFG().nomeProfissional||'thays_freitas')+'.svg',emblemSVG(512));break;
     case'rm-oficial':if(await confirmBox('Remover símbolo oficial','O arquivo enviado deixa de aparecer no app e nos recibos.','Remover',true)){if(await write(()=>db.doc('config/geral').set({...S.cfg,simboloOficial:''}))){toast('Símbolo removido.');renderBody();}}break;
     case'clear-examples':{
       if(!(await confirmBox('Remover dados de exemplo','Todos os pacientes, sessões, pacotes, mensalidades e recebimentos de exemplo serão apagados. O que você cadastrou permanece.','Remover',true)))break;
@@ -1342,7 +1449,7 @@ document.addEventListener('change',e=>{
 document.addEventListener('submit',async e=>{
   e.preventDefault();const f=e.target;
   if(f.id==='form-ses')submitSes(f);else if(f.id==='form-pac')submitPac(f);else if(f.id==='form-pct')submitPct(f);
-  else if(f.id==='form-pla')submitPla(f);else if(f.id==='form-rec')submitRec(f);else if(f.id==='form-conv')submitConv(f);
+  else if(f.id==='form-pla')submitPla(f);else if(f.id==='form-rec')submitRec(f);else if(f.id==='form-conv')submitConv(f);else if(f.id==='form-fin')submitFin(f);
   else if(f.id==='form-senha'){
     const e1=$('#senha-err');const a1=f.s1.value,a2=f.s2.value;
     if(a1.length<8){e1.textContent='A senha deve ter pelo menos 8 caracteres.';return;}
@@ -1362,7 +1469,7 @@ document.addEventListener('submit',async e=>{
     const g=n=>f.elements[n];const vp=g('valorPadrao').valueAsNumber,dp=g('duracaoPadrao').valueAsNumber;
     if(toMin(g('fimDia').value)<=toMin(g('inicioDia').value)){$('#cfg-err').textContent='O fim do expediente deve ser depois do início.';return;}
     const data={nomeProfissional:g('nomeProfissional').value.trim(),crefito:g('crefito').value.trim(),documento:g('documento').value.trim(),telefone:g('telefone').value.trim(),endereco:g('endereco').value.trim(),cidade:g('cidade').value.trim(),pix:g('pix').value.trim(),
-      valorPadrao:vp>=0?r2(vp):120,duracaoPadrao:dp>=10?Math.round(dp):50,inicioDia:g('inicioDia').value||'07:00',fimDia:g('fimDia').value||'19:00',msgWhats:g('msgWhats').value.trim()||DEFAULT_MSG,simboloOficial:S.cfg.simboloOficial||''};
+      valorPadrao:vp>=0?r2(vp):120,duracaoPadrao:dp>=10?Math.round(dp):50,inicioDia:g('inicioDia').value||'07:00',fimDia:g('fimDia').value||'19:00',prazoPagamento:Math.max(0,Math.min(60,Math.round(g('prazoPagamento').valueAsNumber||0))),msgWhats:g('msgWhats').value.trim()||DEFAULT_MSG,simboloOficial:S.cfg.simboloOficial||''};
     const btn=f.querySelector('[type=submit]');btn.disabled=true;const ok=await write(()=>db.doc('config/geral').set(data));btn.disabled=false;if(ok){$('#cfg-err').textContent='';toast('Ajustes salvos.');}
   }
 });

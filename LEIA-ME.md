@@ -1,4 +1,4 @@
-# Thays Jesus Fisioterapia — como colocar no ar
+# Thays Freitas Fisioterapia — como colocar no ar
 
 O app tem duas partes:
 
@@ -52,7 +52,7 @@ No **SQL Editor**, rode (trocando pelos CPFs, só números):
 
 ```sql
 insert into public.membros (user_id, nome)
-select id, 'Thays Jesus' from auth.users where email = 'CPF_DA_THAYS@thaysjesus.app'
+select id, 'Thays Freitas' from auth.users where email = 'CPF_DA_THAYS@thaysjesus.app'
 on conflict (user_id) do nothing;
 
 insert into public.membros (user_id, nome)
